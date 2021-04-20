@@ -12,7 +12,7 @@ repository = "https://github.com/vesoft-inc/nebula-rust"
 homepage = "https://github.com/vesoft-inc/nebula-rust"
 documentation = "https://github.com/vesoft-inc/nebula-rust"
 readme = "README.md"
-license = "Apache 2.0 + Common Clause 1.0"
+license = "Apache-2.0"
 edition = "2018"
 
 [dependencies]
