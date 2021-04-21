@@ -7,6 +7,8 @@ under Linux
 ```
 wget https://raw.githubusercontent.com/vesoft-inc/nebula-common/master/third-party/install-third-party.sh
 wget https://raw.githubusercontent.com/vesoft-inc/nebula-common/master/third-party/cxx-compiler-abi-version.sh
+chmod 777 install-third-party.sh
+chmod 777 cxx-compiler-abi-version.sh
 bash install-third-party.sh --prefix=/home/user/third-party
 wget https://raw.githubusercontent.com/vesoft-inc/nebula-common/master/src/common/interface/common.thrift
 wget https://raw.githubusercontent.com/vesoft-inc/nebula-common/master/src/common/interface/graph.thrift
