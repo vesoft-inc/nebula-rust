@@ -6,17 +6,17 @@
 
 [package]
 name = "nebula-rust"
-description = "The rust client to connecto to NebulaGraph 2.0"
+description = "The rust client to connect to NebulaGraph 2.0"
 version = "2.0.0-alpha"
 repository = "https://github.com/vesoft-inc/nebula-rust"
 homepage = "https://github.com/vesoft-inc/nebula-rust"
-documentation = "https://github.com/vesoft-inc/nebula-rust"
+documentation = "https://docs.rs/nebula-rust"
 readme = "README.md"
 license = "Apache 2.0 + Common Clause 1.0"
 edition = "2018"
 
 [dependencies]
-bytes = { version = "0.5", features = ["serde"] }
+fbthrift = { version = "0.0.2" }
 
 [build-dependencies]
 
