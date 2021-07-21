@@ -28,6 +28,7 @@ jobs:
         runs: |
           cargo clippy
       - name: Build
+        runs: |
           cargo build --release
       - name: Nebula Server
         run: |
