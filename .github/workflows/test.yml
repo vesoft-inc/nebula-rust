@@ -2,7 +2,7 @@ name: cpp_test
 
 on:
   pull_request:
-    types: [synchronize, reopened, labeled]
+    types: [synchronize, reopened]
     branches:
       - master
       - 'v[0-9]+.*'
