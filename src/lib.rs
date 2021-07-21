@@ -4,5 +4,4 @@
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
  */
 
-pub mod gClient;
-pub use gClient::{Connection, Session, PoolConfig};
+pub mod graph_client;
