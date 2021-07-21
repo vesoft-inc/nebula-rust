@@ -1,0 +1,52 @@
+name: cpp_test
+
+on:
+  pull_request:
+    types: [synchronize, reopened, labeled]
+    branches:
+      - master
+      - 'v[0-9]+.*'
+  schedule:
+    - cron:  '0 18 * * *'
+
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup tool chain
+        rus: |
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+          rustup component add clippy
+      - name: Lint
+        runs: |
+          cargo clippy
+      - name: Build
+          cargo build --release
+      - name: Nebula Server
+        run: |
+          sudo curl -sSL https://get.docker.com/ | sh
+          pip3 install --upgrade pip
+          pip3 install setuptools
+          pip3 install docker-compose
+          docker network ls
+          mkdir tmp
+          pushd tmp
+          git clone -b external_network https://github.com/Shylock-Hg/nebula-docker-compose.git
+          pushd nebula-docker-compose/
+          sed -i "s/\bdocker_nebula-net\b/$(docker network ls | grep github_network | tr -s [:blank:] | cut -d ' ' -f 2)/g" docker-compose.yaml
+          docker-compose up -d
+          docker network ls
+          sleep 10
+          popd
+          popd
+      - name: test
+        run: |
+          cargo test
+        timeout-minutes: 4

@@ -8,8 +8,6 @@ extern crate nebula_rust;
 
 #[cfg(test)]
 mod test_session {
-    use nebula_rust::gClient::Session::Session;
-
     #[test]
     fn new_session() {
     }
