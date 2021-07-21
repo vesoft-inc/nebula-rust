@@ -4,6 +4,4 @@
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
  */
 
-pub mod Session;
-pub mod Connection;
-pub mod PoolConfig;
+mod graph_client {};
