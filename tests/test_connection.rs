@@ -8,8 +8,6 @@ extern crate nebula_rust;
 
 #[cfg(test)]
 mod test_session {
-    use nebula_rust::graph_client;
-
     #[test]
     fn new_session() {
     }
