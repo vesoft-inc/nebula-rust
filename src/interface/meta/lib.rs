@@ -125,6 +125,7 @@ pub mod types {
         pub role: crate::types::HostRole,
         pub git_info_sha: ::std::vec::Vec<::std::primitive::u8>,
         pub zone_name: ::std::option::Option<::std::vec::Vec<::std::primitive::u8>>,
+        pub version: ::std::option::Option<::std::vec::Vec<::std::primitive::u8>>,
     }
 
     #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -146,7 +147,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ExecResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub id: crate::types::ID,
         pub leader: common::types::HostAddr,
     }
@@ -188,7 +189,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct AdminJobResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub result: crate::types::AdminJobResult,
     }
@@ -228,7 +229,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListSpacesResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub spaces: ::std::vec::Vec<crate::types::IdName>,
     }
@@ -240,7 +241,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct GetSpaceResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub item: crate::types::SpaceItem,
     }
@@ -275,7 +276,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListTagsResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub tags: ::std::vec::Vec<crate::types::TagItem>,
     }
@@ -289,7 +290,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct GetTagResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub schema: crate::types::Schema,
     }
@@ -319,7 +320,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct GetEdgeResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub schema: crate::types::Schema,
     }
@@ -338,7 +339,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListEdgesResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub edges: ::std::vec::Vec<crate::types::EdgeItem>,
     }
@@ -350,7 +351,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListHostsResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub hosts: ::std::vec::Vec<crate::types::HostItem>,
     }
@@ -371,7 +372,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListPartsResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub parts: ::std::vec::Vec<crate::types::PartItem>,
     }
@@ -383,9 +384,10 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct GetPartsAllocResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub parts: ::std::collections::BTreeMap<common::types::PartitionID, ::std::vec::Vec<common::types::HostAddr>>,
+        pub terms: ::std::option::Option<::std::collections::BTreeMap<common::types::PartitionID, ::std::primitive::i64>>,
     }
 
     #[derive(Clone, Debug, PartialEq)]
@@ -402,7 +404,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct GetResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub value: ::std::vec::Vec<::std::primitive::u8>,
     }
@@ -415,7 +417,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct MultiGetResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub values: ::std::vec::Vec<::std::vec::Vec<::std::primitive::u8>>,
     }
@@ -442,14 +444,14 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ScanResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub values: ::std::vec::Vec<::std::vec::Vec<::std::primitive::u8>>,
     }
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct HBResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub cluster_id: crate::types::ClusterID,
         pub last_update_time_in_ms: ::std::primitive::i64,
@@ -468,6 +470,7 @@ pub mod types {
         pub cluster_id: crate::types::ClusterID,
         pub leader_partIds: ::std::option::Option<::std::collections::BTreeMap<common::types::GraphSpaceID, ::std::vec::Vec<crate::types::LeaderInfo>>>,
         pub git_info_sha: ::std::vec::Vec<::std::primitive::u8>,
+        pub version: ::std::option::Option<::std::vec::Vec<::std::primitive::u8>>,
     }
 
     #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -501,7 +504,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct GetTagIndexResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub item: crate::types::IndexItem,
     }
@@ -513,7 +516,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListTagIndexesResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub items: ::std::vec::Vec<crate::types::IndexItem>,
     }
@@ -543,7 +546,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct GetEdgeIndexResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub item: crate::types::IndexItem,
     }
@@ -555,7 +558,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListEdgeIndexesResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub items: ::std::vec::Vec<crate::types::IndexItem>,
     }
@@ -601,7 +604,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListUsersResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub users: ::std::collections::BTreeMap<::std::vec::Vec<::std::primitive::u8>, ::std::vec::Vec<::std::primitive::u8>>,
     }
@@ -613,7 +616,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListRolesResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub roles: ::std::vec::Vec<crate::types::RoleItem>,
     }
@@ -647,7 +650,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct BalanceResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub id: ::std::primitive::i64,
         pub leader: common::types::HostAddr,
         pub tasks: ::std::vec::Vec<crate::types::BalanceTask>,
@@ -677,7 +680,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct GetConfigResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub items: ::std::vec::Vec<crate::types::ConfigItem>,
     }
@@ -695,7 +698,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListConfigsResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub items: ::std::vec::Vec<crate::types::ConfigItem>,
     }
@@ -722,7 +725,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListSnapshotsResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub snapshots: ::std::vec::Vec<crate::types::Snapshot>,
     }
@@ -740,7 +743,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListIndexStatusResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub statuses: ::std::vec::Vec<crate::types::IndexStatus>,
     }
@@ -775,7 +778,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct GetZoneResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub hosts: ::std::vec::Vec<common::types::HostAddr>,
     }
@@ -792,7 +795,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListZonesResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub zones: ::std::vec::Vec<crate::types::Zone>,
     }
@@ -827,7 +830,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct GetGroupResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub zone_names: ::std::vec::Vec<::std::vec::Vec<::std::primitive::u8>>,
     }
@@ -844,7 +847,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListGroupsResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub groups: ::std::vec::Vec<crate::types::Group>,
     }
@@ -877,7 +880,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListListenerResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub listeners: ::std::vec::Vec<crate::types::ListenerInfo>,
     }
@@ -889,22 +892,21 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct GetStatisResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub statis: crate::types::StatisItem,
     }
 
     #[derive(Clone, Debug, PartialEq)]
-    pub struct CheckpointInfo {
+    pub struct BackupInfo {
         pub host: common::types::HostAddr,
-        pub checkpoint_dir: ::std::vec::Vec<::std::primitive::u8>,
+        pub info: ::std::vec::Vec<common::types::CheckpointInfo>,
     }
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct SpaceBackupInfo {
         pub space: crate::types::SpaceDesc,
-        pub partition_info: common::types::PartitionBackupInfo,
-        pub cp_dirs: ::std::vec::Vec<crate::types::CheckpointInfo>,
+        pub info: ::std::vec::Vec<crate::types::BackupInfo>,
     }
 
     #[derive(Clone, Debug, PartialEq)]
@@ -912,6 +914,9 @@ pub mod types {
         pub backup_info: ::std::collections::BTreeMap<common::types::GraphSpaceID, crate::types::SpaceBackupInfo>,
         pub meta_files: ::std::vec::Vec<::std::vec::Vec<::std::primitive::u8>>,
         pub backup_name: ::std::vec::Vec<::std::primitive::u8>,
+        pub full: ::std::primitive::bool,
+        pub include_system_space: ::std::primitive::bool,
+        pub create_time: ::std::primitive::i64,
     }
 
     #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -921,7 +926,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct CreateBackupResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub meta: crate::types::BackupMeta,
     }
@@ -961,9 +966,48 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListFTClientsResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub clients: ::std::vec::Vec<crate::types::FTClient>,
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct FTIndex {
+        pub space_id: common::types::GraphSpaceID,
+        pub depend_schema: crate::types::SchemaID,
+        pub fields: ::std::vec::Vec<::std::vec::Vec<::std::primitive::u8>>,
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CreateFTIndexReq {
+        pub fulltext_index_name: ::std::vec::Vec<::std::primitive::u8>,
+        pub index: crate::types::FTIndex,
+    }
+
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct DropFTIndexReq {
+        pub space_id: common::types::GraphSpaceID,
+        pub fulltext_index_name: ::std::vec::Vec<::std::primitive::u8>,
+    }
+
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct ListFTIndexesReq {
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ListFTIndexesResp {
+        pub code: common::types::ErrorCode,
+        pub leader: common::types::HostAddr,
+        pub indexes: ::std::collections::BTreeMap<::std::vec::Vec<::std::primitive::u8>, crate::types::FTIndex>,
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct QueryDesc {
+        pub start_time: common::types::Timestamp,
+        pub status: crate::types::QueryStatus,
+        pub duration: ::std::primitive::i64,
+        pub query: ::std::vec::Vec<::std::primitive::u8>,
+        pub graph_addr: common::types::HostAddr,
     }
 
     #[derive(Clone, Debug, PartialEq)]
@@ -977,6 +1021,7 @@ pub mod types {
         pub timezone: ::std::primitive::i32,
         pub client_ip: ::std::vec::Vec<::std::primitive::u8>,
         pub configs: ::std::collections::BTreeMap<::std::vec::Vec<::std::primitive::u8>, common::types::Value>,
+        pub queries: ::std::collections::BTreeMap<common::types::ExecutionPlanID, crate::types::QueryDesc>,
     }
 
     #[derive(Clone, Debug, PartialEq)]
@@ -988,7 +1033,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct CreateSessionResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub session: crate::types::Session,
     }
@@ -998,13 +1043,20 @@ pub mod types {
         pub sessions: ::std::vec::Vec<crate::types::Session>,
     }
 
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UpdateSessionsResp {
+        pub code: common::types::ErrorCode,
+        pub leader: common::types::HostAddr,
+        pub killed_queries: ::std::collections::BTreeMap<common::types::SessionID, ::std::collections::BTreeMap<common::types::ExecutionPlanID, crate::types::QueryDesc>>,
+    }
+
     #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct ListSessionsReq {
     }
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ListSessionsResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub sessions: ::std::vec::Vec<crate::types::Session>,
     }
@@ -1016,7 +1068,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct GetSessionResp {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub leader: common::types::HostAddr,
         pub session: crate::types::Session,
     }
@@ -1027,391 +1079,38 @@ pub mod types {
     }
 
     #[derive(Clone, Debug, PartialEq)]
+    pub struct KillQueryReq {
+        pub kill_queries: ::std::collections::BTreeMap<common::types::SessionID, ::std::collections::BTreeSet<common::types::ExecutionPlanID>>,
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
     pub struct ReportTaskReq {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub job_id: ::std::primitive::i32,
         pub task_id: ::std::primitive::i32,
         pub statis: ::std::option::Option<crate::types::StatisItem>,
     }
 
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
-    pub struct ErrorCode(pub ::std::primitive::i32);
-
-    impl ErrorCode {
-        pub const SUCCEEDED: Self = ErrorCode(0i32);
-        pub const E_DISCONNECTED: Self = ErrorCode(-1i32);
-        pub const E_FAIL_TO_CONNECT: Self = ErrorCode(-2i32);
-        pub const E_RPC_FAILURE: Self = ErrorCode(-3i32);
-        pub const E_LEADER_CHANGED: Self = ErrorCode(-11i32);
-        pub const E_NO_HOSTS: Self = ErrorCode(-21i32);
-        pub const E_EXISTED: Self = ErrorCode(-22i32);
-        pub const E_NOT_FOUND: Self = ErrorCode(-23i32);
-        pub const E_INVALID_HOST: Self = ErrorCode(-24i32);
-        pub const E_UNSUPPORTED: Self = ErrorCode(-25i32);
-        pub const E_NOT_DROP: Self = ErrorCode(-26i32);
-        pub const E_BALANCER_RUNNING: Self = ErrorCode(-27i32);
-        pub const E_CONFIG_IMMUTABLE: Self = ErrorCode(-28i32);
-        pub const E_CONFLICT: Self = ErrorCode(-29i32);
-        pub const E_INVALID_PARM: Self = ErrorCode(-30i32);
-        pub const E_WRONGCLUSTER: Self = ErrorCode(-31i32);
-        pub const E_STORE_FAILURE: Self = ErrorCode(-32i32);
-        pub const E_STORE_SEGMENT_ILLEGAL: Self = ErrorCode(-33i32);
-        pub const E_BAD_BALANCE_PLAN: Self = ErrorCode(-34i32);
-        pub const E_BALANCED: Self = ErrorCode(-35i32);
-        pub const E_NO_RUNNING_BALANCE_PLAN: Self = ErrorCode(-36i32);
-        pub const E_NO_VALID_HOST: Self = ErrorCode(-37i32);
-        pub const E_CORRUPTTED_BALANCE_PLAN: Self = ErrorCode(-38i32);
-        pub const E_NO_INVALID_BALANCE_PLAN: Self = ErrorCode(-39i32);
-        pub const E_INVALID_PASSWORD: Self = ErrorCode(-41i32);
-        pub const E_IMPROPER_ROLE: Self = ErrorCode(-42i32);
-        pub const E_INVALID_PARTITION_NUM: Self = ErrorCode(-43i32);
-        pub const E_INVALID_REPLICA_FACTOR: Self = ErrorCode(-44i32);
-        pub const E_INVALID_CHARSET: Self = ErrorCode(-45i32);
-        pub const E_INVALID_COLLATE: Self = ErrorCode(-46i32);
-        pub const E_CHARSET_COLLATE_NOT_MATCH: Self = ErrorCode(-47i32);
-        pub const E_SNAPSHOT_FAILURE: Self = ErrorCode(-51i32);
-        pub const E_BLOCK_WRITE_FAILURE: Self = ErrorCode(-52i32);
-        pub const E_REBUILD_INDEX_FAILURE: Self = ErrorCode(-53i32);
-        pub const E_INDEX_WITH_TTL: Self = ErrorCode(-54i32);
-        pub const E_ADD_JOB_FAILURE: Self = ErrorCode(-55i32);
-        pub const E_STOP_JOB_FAILURE: Self = ErrorCode(-56i32);
-        pub const E_SAVE_JOB_FAILURE: Self = ErrorCode(-57i32);
-        pub const E_BALANCER_FAILURE: Self = ErrorCode(-58i32);
-        pub const E_JOB_NOT_FINISHED: Self = ErrorCode(-59i32);
-        pub const E_TASK_REPORT_OUT_DATE: Self = ErrorCode(-60i32);
-        pub const E_INVALID_JOB: Self = ErrorCode(-61i32);
-        pub const E_BACKUP_FAILURE: Self = ErrorCode(-70i32);
-        pub const E_BACKUP_BUILDING_INDEX: Self = ErrorCode(-71i32);
-        pub const E_BACKUP_SPACE_NOT_FOUND: Self = ErrorCode(-72i32);
-        pub const E_RESTORE_FAILURE: Self = ErrorCode(-80i32);
-        pub const E_UNKNOWN: Self = ErrorCode(-99i32);
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct ListClusterInfoResp {
+        pub code: common::types::ErrorCode,
+        pub leader: common::types::HostAddr,
+        pub meta_servers: ::std::vec::Vec<common::types::HostAddr>,
+        pub storage_servers: ::std::vec::Vec<common::types::NodeInfo>,
     }
 
-    impl ::fbthrift::ThriftEnum for ErrorCode {
-        fn enumerate() -> &'static [(ErrorCode, &'static str)] {
-            &[
-                (ErrorCode::SUCCEEDED, "SUCCEEDED"),
-                (ErrorCode::E_DISCONNECTED, "E_DISCONNECTED"),
-                (ErrorCode::E_FAIL_TO_CONNECT, "E_FAIL_TO_CONNECT"),
-                (ErrorCode::E_RPC_FAILURE, "E_RPC_FAILURE"),
-                (ErrorCode::E_LEADER_CHANGED, "E_LEADER_CHANGED"),
-                (ErrorCode::E_NO_HOSTS, "E_NO_HOSTS"),
-                (ErrorCode::E_EXISTED, "E_EXISTED"),
-                (ErrorCode::E_NOT_FOUND, "E_NOT_FOUND"),
-                (ErrorCode::E_INVALID_HOST, "E_INVALID_HOST"),
-                (ErrorCode::E_UNSUPPORTED, "E_UNSUPPORTED"),
-                (ErrorCode::E_NOT_DROP, "E_NOT_DROP"),
-                (ErrorCode::E_BALANCER_RUNNING, "E_BALANCER_RUNNING"),
-                (ErrorCode::E_CONFIG_IMMUTABLE, "E_CONFIG_IMMUTABLE"),
-                (ErrorCode::E_CONFLICT, "E_CONFLICT"),
-                (ErrorCode::E_INVALID_PARM, "E_INVALID_PARM"),
-                (ErrorCode::E_WRONGCLUSTER, "E_WRONGCLUSTER"),
-                (ErrorCode::E_STORE_FAILURE, "E_STORE_FAILURE"),
-                (ErrorCode::E_STORE_SEGMENT_ILLEGAL, "E_STORE_SEGMENT_ILLEGAL"),
-                (ErrorCode::E_BAD_BALANCE_PLAN, "E_BAD_BALANCE_PLAN"),
-                (ErrorCode::E_BALANCED, "E_BALANCED"),
-                (ErrorCode::E_NO_RUNNING_BALANCE_PLAN, "E_NO_RUNNING_BALANCE_PLAN"),
-                (ErrorCode::E_NO_VALID_HOST, "E_NO_VALID_HOST"),
-                (ErrorCode::E_CORRUPTTED_BALANCE_PLAN, "E_CORRUPTTED_BALANCE_PLAN"),
-                (ErrorCode::E_NO_INVALID_BALANCE_PLAN, "E_NO_INVALID_BALANCE_PLAN"),
-                (ErrorCode::E_INVALID_PASSWORD, "E_INVALID_PASSWORD"),
-                (ErrorCode::E_IMPROPER_ROLE, "E_IMPROPER_ROLE"),
-                (ErrorCode::E_INVALID_PARTITION_NUM, "E_INVALID_PARTITION_NUM"),
-                (ErrorCode::E_INVALID_REPLICA_FACTOR, "E_INVALID_REPLICA_FACTOR"),
-                (ErrorCode::E_INVALID_CHARSET, "E_INVALID_CHARSET"),
-                (ErrorCode::E_INVALID_COLLATE, "E_INVALID_COLLATE"),
-                (ErrorCode::E_CHARSET_COLLATE_NOT_MATCH, "E_CHARSET_COLLATE_NOT_MATCH"),
-                (ErrorCode::E_SNAPSHOT_FAILURE, "E_SNAPSHOT_FAILURE"),
-                (ErrorCode::E_BLOCK_WRITE_FAILURE, "E_BLOCK_WRITE_FAILURE"),
-                (ErrorCode::E_REBUILD_INDEX_FAILURE, "E_REBUILD_INDEX_FAILURE"),
-                (ErrorCode::E_INDEX_WITH_TTL, "E_INDEX_WITH_TTL"),
-                (ErrorCode::E_ADD_JOB_FAILURE, "E_ADD_JOB_FAILURE"),
-                (ErrorCode::E_STOP_JOB_FAILURE, "E_STOP_JOB_FAILURE"),
-                (ErrorCode::E_SAVE_JOB_FAILURE, "E_SAVE_JOB_FAILURE"),
-                (ErrorCode::E_BALANCER_FAILURE, "E_BALANCER_FAILURE"),
-                (ErrorCode::E_JOB_NOT_FINISHED, "E_JOB_NOT_FINISHED"),
-                (ErrorCode::E_TASK_REPORT_OUT_DATE, "E_TASK_REPORT_OUT_DATE"),
-                (ErrorCode::E_INVALID_JOB, "E_INVALID_JOB"),
-                (ErrorCode::E_BACKUP_FAILURE, "E_BACKUP_FAILURE"),
-                (ErrorCode::E_BACKUP_BUILDING_INDEX, "E_BACKUP_BUILDING_INDEX"),
-                (ErrorCode::E_BACKUP_SPACE_NOT_FOUND, "E_BACKUP_SPACE_NOT_FOUND"),
-                (ErrorCode::E_RESTORE_FAILURE, "E_RESTORE_FAILURE"),
-                (ErrorCode::E_UNKNOWN, "E_UNKNOWN"),
-            ]
-        }
-
-        fn variants() -> &'static [&'static str] {
-            &[
-                "SUCCEEDED",
-                "E_DISCONNECTED",
-                "E_FAIL_TO_CONNECT",
-                "E_RPC_FAILURE",
-                "E_LEADER_CHANGED",
-                "E_NO_HOSTS",
-                "E_EXISTED",
-                "E_NOT_FOUND",
-                "E_INVALID_HOST",
-                "E_UNSUPPORTED",
-                "E_NOT_DROP",
-                "E_BALANCER_RUNNING",
-                "E_CONFIG_IMMUTABLE",
-                "E_CONFLICT",
-                "E_INVALID_PARM",
-                "E_WRONGCLUSTER",
-                "E_STORE_FAILURE",
-                "E_STORE_SEGMENT_ILLEGAL",
-                "E_BAD_BALANCE_PLAN",
-                "E_BALANCED",
-                "E_NO_RUNNING_BALANCE_PLAN",
-                "E_NO_VALID_HOST",
-                "E_CORRUPTTED_BALANCE_PLAN",
-                "E_NO_INVALID_BALANCE_PLAN",
-                "E_INVALID_PASSWORD",
-                "E_IMPROPER_ROLE",
-                "E_INVALID_PARTITION_NUM",
-                "E_INVALID_REPLICA_FACTOR",
-                "E_INVALID_CHARSET",
-                "E_INVALID_COLLATE",
-                "E_CHARSET_COLLATE_NOT_MATCH",
-                "E_SNAPSHOT_FAILURE",
-                "E_BLOCK_WRITE_FAILURE",
-                "E_REBUILD_INDEX_FAILURE",
-                "E_INDEX_WITH_TTL",
-                "E_ADD_JOB_FAILURE",
-                "E_STOP_JOB_FAILURE",
-                "E_SAVE_JOB_FAILURE",
-                "E_BALANCER_FAILURE",
-                "E_JOB_NOT_FINISHED",
-                "E_TASK_REPORT_OUT_DATE",
-                "E_INVALID_JOB",
-                "E_BACKUP_FAILURE",
-                "E_BACKUP_BUILDING_INDEX",
-                "E_BACKUP_SPACE_NOT_FOUND",
-                "E_RESTORE_FAILURE",
-                "E_UNKNOWN",
-            ]
-        }
-
-        fn variant_values() -> &'static [ErrorCode] {
-            &[
-                ErrorCode::SUCCEEDED,
-                ErrorCode::E_DISCONNECTED,
-                ErrorCode::E_FAIL_TO_CONNECT,
-                ErrorCode::E_RPC_FAILURE,
-                ErrorCode::E_LEADER_CHANGED,
-                ErrorCode::E_NO_HOSTS,
-                ErrorCode::E_EXISTED,
-                ErrorCode::E_NOT_FOUND,
-                ErrorCode::E_INVALID_HOST,
-                ErrorCode::E_UNSUPPORTED,
-                ErrorCode::E_NOT_DROP,
-                ErrorCode::E_BALANCER_RUNNING,
-                ErrorCode::E_CONFIG_IMMUTABLE,
-                ErrorCode::E_CONFLICT,
-                ErrorCode::E_INVALID_PARM,
-                ErrorCode::E_WRONGCLUSTER,
-                ErrorCode::E_STORE_FAILURE,
-                ErrorCode::E_STORE_SEGMENT_ILLEGAL,
-                ErrorCode::E_BAD_BALANCE_PLAN,
-                ErrorCode::E_BALANCED,
-                ErrorCode::E_NO_RUNNING_BALANCE_PLAN,
-                ErrorCode::E_NO_VALID_HOST,
-                ErrorCode::E_CORRUPTTED_BALANCE_PLAN,
-                ErrorCode::E_NO_INVALID_BALANCE_PLAN,
-                ErrorCode::E_INVALID_PASSWORD,
-                ErrorCode::E_IMPROPER_ROLE,
-                ErrorCode::E_INVALID_PARTITION_NUM,
-                ErrorCode::E_INVALID_REPLICA_FACTOR,
-                ErrorCode::E_INVALID_CHARSET,
-                ErrorCode::E_INVALID_COLLATE,
-                ErrorCode::E_CHARSET_COLLATE_NOT_MATCH,
-                ErrorCode::E_SNAPSHOT_FAILURE,
-                ErrorCode::E_BLOCK_WRITE_FAILURE,
-                ErrorCode::E_REBUILD_INDEX_FAILURE,
-                ErrorCode::E_INDEX_WITH_TTL,
-                ErrorCode::E_ADD_JOB_FAILURE,
-                ErrorCode::E_STOP_JOB_FAILURE,
-                ErrorCode::E_SAVE_JOB_FAILURE,
-                ErrorCode::E_BALANCER_FAILURE,
-                ErrorCode::E_JOB_NOT_FINISHED,
-                ErrorCode::E_TASK_REPORT_OUT_DATE,
-                ErrorCode::E_INVALID_JOB,
-                ErrorCode::E_BACKUP_FAILURE,
-                ErrorCode::E_BACKUP_BUILDING_INDEX,
-                ErrorCode::E_BACKUP_SPACE_NOT_FOUND,
-                ErrorCode::E_RESTORE_FAILURE,
-                ErrorCode::E_UNKNOWN,
-            ]
-        }
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct ListClusterInfoReq {
     }
 
-    impl ::std::default::Default for ErrorCode {
-        fn default() -> Self {
-            ErrorCode(::fbthrift::__UNKNOWN_ID)
-        }
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct GetMetaDirInfoResp {
+        pub code: common::types::ErrorCode,
+        pub dir: common::types::DirInfo,
     }
 
-    impl<'a> ::std::convert::From<&'a ErrorCode> for ::std::primitive::i32 {
-        #[inline]
-        fn from(x: &'a ErrorCode) -> Self {
-            x.0
-        }
-    }
-
-    impl ::std::convert::From<ErrorCode> for ::std::primitive::i32 {
-        #[inline]
-        fn from(x: ErrorCode) -> Self {
-            x.0
-        }
-    }
-
-    impl ::std::convert::From<::std::primitive::i32> for ErrorCode {
-        #[inline]
-        fn from(x: ::std::primitive::i32) -> Self {
-            Self(x)
-        }
-    }
-
-    impl ::std::fmt::Display for ErrorCode {
-        fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-            static VARIANTS_BY_NUMBER: &[(&::std::primitive::str, ::std::primitive::i32)] = &[
-                ("E_UNKNOWN", -99),
-                ("E_RESTORE_FAILURE", -80),
-                ("E_BACKUP_SPACE_NOT_FOUND", -72),
-                ("E_BACKUP_BUILDING_INDEX", -71),
-                ("E_BACKUP_FAILURE", -70),
-                ("E_INVALID_JOB", -61),
-                ("E_TASK_REPORT_OUT_DATE", -60),
-                ("E_JOB_NOT_FINISHED", -59),
-                ("E_BALANCER_FAILURE", -58),
-                ("E_SAVE_JOB_FAILURE", -57),
-                ("E_STOP_JOB_FAILURE", -56),
-                ("E_ADD_JOB_FAILURE", -55),
-                ("E_INDEX_WITH_TTL", -54),
-                ("E_REBUILD_INDEX_FAILURE", -53),
-                ("E_BLOCK_WRITE_FAILURE", -52),
-                ("E_SNAPSHOT_FAILURE", -51),
-                ("E_CHARSET_COLLATE_NOT_MATCH", -47),
-                ("E_INVALID_COLLATE", -46),
-                ("E_INVALID_CHARSET", -45),
-                ("E_INVALID_REPLICA_FACTOR", -44),
-                ("E_INVALID_PARTITION_NUM", -43),
-                ("E_IMPROPER_ROLE", -42),
-                ("E_INVALID_PASSWORD", -41),
-                ("E_NO_INVALID_BALANCE_PLAN", -39),
-                ("E_CORRUPTTED_BALANCE_PLAN", -38),
-                ("E_NO_VALID_HOST", -37),
-                ("E_NO_RUNNING_BALANCE_PLAN", -36),
-                ("E_BALANCED", -35),
-                ("E_BAD_BALANCE_PLAN", -34),
-                ("E_STORE_SEGMENT_ILLEGAL", -33),
-                ("E_STORE_FAILURE", -32),
-                ("E_WRONGCLUSTER", -31),
-                ("E_INVALID_PARM", -30),
-                ("E_CONFLICT", -29),
-                ("E_CONFIG_IMMUTABLE", -28),
-                ("E_BALANCER_RUNNING", -27),
-                ("E_NOT_DROP", -26),
-                ("E_UNSUPPORTED", -25),
-                ("E_INVALID_HOST", -24),
-                ("E_NOT_FOUND", -23),
-                ("E_EXISTED", -22),
-                ("E_NO_HOSTS", -21),
-                ("E_LEADER_CHANGED", -11),
-                ("E_RPC_FAILURE", -3),
-                ("E_FAIL_TO_CONNECT", -2),
-                ("E_DISCONNECTED", -1),
-                ("SUCCEEDED", 0),
-            ];
-            ::fbthrift::help::enum_display(VARIANTS_BY_NUMBER, fmt, self.0)
-        }
-    }
-
-    impl ::std::fmt::Debug for ErrorCode {
-        fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-            write!(fmt, "ErrorCode::{}", self)
-        }
-    }
-
-    impl ::std::str::FromStr for ErrorCode {
-        type Err = ::anyhow::Error;
-
-        fn from_str(string: &::std::primitive::str) -> ::std::result::Result<Self, Self::Err> {
-            static VARIANTS_BY_NAME: &[(&::std::primitive::str, ::std::primitive::i32)] = &[
-                ("E_ADD_JOB_FAILURE", -55),
-                ("E_BACKUP_BUILDING_INDEX", -71),
-                ("E_BACKUP_FAILURE", -70),
-                ("E_BACKUP_SPACE_NOT_FOUND", -72),
-                ("E_BAD_BALANCE_PLAN", -34),
-                ("E_BALANCED", -35),
-                ("E_BALANCER_FAILURE", -58),
-                ("E_BALANCER_RUNNING", -27),
-                ("E_BLOCK_WRITE_FAILURE", -52),
-                ("E_CHARSET_COLLATE_NOT_MATCH", -47),
-                ("E_CONFIG_IMMUTABLE", -28),
-                ("E_CONFLICT", -29),
-                ("E_CORRUPTTED_BALANCE_PLAN", -38),
-                ("E_DISCONNECTED", -1),
-                ("E_EXISTED", -22),
-                ("E_FAIL_TO_CONNECT", -2),
-                ("E_IMPROPER_ROLE", -42),
-                ("E_INDEX_WITH_TTL", -54),
-                ("E_INVALID_CHARSET", -45),
-                ("E_INVALID_COLLATE", -46),
-                ("E_INVALID_HOST", -24),
-                ("E_INVALID_JOB", -61),
-                ("E_INVALID_PARM", -30),
-                ("E_INVALID_PARTITION_NUM", -43),
-                ("E_INVALID_PASSWORD", -41),
-                ("E_INVALID_REPLICA_FACTOR", -44),
-                ("E_JOB_NOT_FINISHED", -59),
-                ("E_LEADER_CHANGED", -11),
-                ("E_NOT_DROP", -26),
-                ("E_NOT_FOUND", -23),
-                ("E_NO_HOSTS", -21),
-                ("E_NO_INVALID_BALANCE_PLAN", -39),
-                ("E_NO_RUNNING_BALANCE_PLAN", -36),
-                ("E_NO_VALID_HOST", -37),
-                ("E_REBUILD_INDEX_FAILURE", -53),
-                ("E_RESTORE_FAILURE", -80),
-                ("E_RPC_FAILURE", -3),
-                ("E_SAVE_JOB_FAILURE", -57),
-                ("E_SNAPSHOT_FAILURE", -51),
-                ("E_STOP_JOB_FAILURE", -56),
-                ("E_STORE_FAILURE", -32),
-                ("E_STORE_SEGMENT_ILLEGAL", -33),
-                ("E_TASK_REPORT_OUT_DATE", -60),
-                ("E_UNKNOWN", -99),
-                ("E_UNSUPPORTED", -25),
-                ("E_WRONGCLUSTER", -31),
-                ("SUCCEEDED", 0),
-            ];
-            ::fbthrift::help::enum_from_str(VARIANTS_BY_NAME, string, "ErrorCode").map(ErrorCode)
-        }
-    }
-
-    impl ::fbthrift::GetTType for ErrorCode {
-        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::I32;
-    }
-
-    impl<P> ::fbthrift::Serialize<P> for ErrorCode
-    where
-        P: ::fbthrift::ProtocolWriter,
-    {
-        #[inline]
-        fn write(&self, p: &mut P) {
-            p.write_i32(self.into())
-        }
-    }
-
-    impl<P> ::fbthrift::Deserialize<P> for ErrorCode
-    where
-        P: ::fbthrift::ProtocolReader,
-    {
-        #[inline]
-        fn read(p: &mut P) -> ::anyhow::Result<Self> {
-            ::std::result::Result::Ok(ErrorCode::from(p.read_i32()?))
-        }
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct GetMetaDirInfoReq {
     }
 
     #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
@@ -2324,10 +2023,11 @@ pub mod types {
         pub const FLUSH: Self = AdminCmd(1i32);
         pub const REBUILD_TAG_INDEX: Self = AdminCmd(2i32);
         pub const REBUILD_EDGE_INDEX: Self = AdminCmd(3i32);
-        pub const STATS: Self = AdminCmd(4i32);
-        pub const DATA_BALANCE: Self = AdminCmd(5i32);
-        pub const DOWELOAD: Self = AdminCmd(6i32);
-        pub const INGEST: Self = AdminCmd(7i32);
+        pub const REBUILD_FULLTEXT_INDEX: Self = AdminCmd(4i32);
+        pub const STATS: Self = AdminCmd(5i32);
+        pub const DATA_BALANCE: Self = AdminCmd(6i32);
+        pub const DOWNLOAD: Self = AdminCmd(7i32);
+        pub const INGEST: Self = AdminCmd(8i32);
         pub const UNKNOWN: Self = AdminCmd(99i32);
     }
 
@@ -2338,9 +2038,10 @@ pub mod types {
                 (AdminCmd::FLUSH, "FLUSH"),
                 (AdminCmd::REBUILD_TAG_INDEX, "REBUILD_TAG_INDEX"),
                 (AdminCmd::REBUILD_EDGE_INDEX, "REBUILD_EDGE_INDEX"),
+                (AdminCmd::REBUILD_FULLTEXT_INDEX, "REBUILD_FULLTEXT_INDEX"),
                 (AdminCmd::STATS, "STATS"),
                 (AdminCmd::DATA_BALANCE, "DATA_BALANCE"),
-                (AdminCmd::DOWELOAD, "DOWELOAD"),
+                (AdminCmd::DOWNLOAD, "DOWNLOAD"),
                 (AdminCmd::INGEST, "INGEST"),
                 (AdminCmd::UNKNOWN, "UNKNOWN"),
             ]
@@ -2352,9 +2053,10 @@ pub mod types {
                 "FLUSH",
                 "REBUILD_TAG_INDEX",
                 "REBUILD_EDGE_INDEX",
+                "REBUILD_FULLTEXT_INDEX",
                 "STATS",
                 "DATA_BALANCE",
-                "DOWELOAD",
+                "DOWNLOAD",
                 "INGEST",
                 "UNKNOWN",
             ]
@@ -2366,9 +2068,10 @@ pub mod types {
                 AdminCmd::FLUSH,
                 AdminCmd::REBUILD_TAG_INDEX,
                 AdminCmd::REBUILD_EDGE_INDEX,
+                AdminCmd::REBUILD_FULLTEXT_INDEX,
                 AdminCmd::STATS,
                 AdminCmd::DATA_BALANCE,
-                AdminCmd::DOWELOAD,
+                AdminCmd::DOWNLOAD,
                 AdminCmd::INGEST,
                 AdminCmd::UNKNOWN,
             ]
@@ -2409,10 +2112,11 @@ pub mod types {
                 ("FLUSH", 1),
                 ("REBUILD_TAG_INDEX", 2),
                 ("REBUILD_EDGE_INDEX", 3),
-                ("STATS", 4),
-                ("DATA_BALANCE", 5),
-                ("DOWELOAD", 6),
-                ("INGEST", 7),
+                ("REBUILD_FULLTEXT_INDEX", 4),
+                ("STATS", 5),
+                ("DATA_BALANCE", 6),
+                ("DOWNLOAD", 7),
+                ("INGEST", 8),
                 ("UNKNOWN", 99),
             ];
             ::fbthrift::help::enum_display(VARIANTS_BY_NUMBER, fmt, self.0)
@@ -2431,13 +2135,14 @@ pub mod types {
         fn from_str(string: &::std::primitive::str) -> ::std::result::Result<Self, Self::Err> {
             static VARIANTS_BY_NAME: &[(&::std::primitive::str, ::std::primitive::i32)] = &[
                 ("COMPACT", 0),
-                ("DATA_BALANCE", 5),
-                ("DOWELOAD", 6),
+                ("DATA_BALANCE", 6),
+                ("DOWNLOAD", 7),
                 ("FLUSH", 1),
-                ("INGEST", 7),
+                ("INGEST", 8),
                 ("REBUILD_EDGE_INDEX", 3),
+                ("REBUILD_FULLTEXT_INDEX", 4),
                 ("REBUILD_TAG_INDEX", 2),
-                ("STATS", 4),
+                ("STATS", 5),
                 ("UNKNOWN", 99),
             ];
             ::fbthrift::help::enum_from_str(VARIANTS_BY_NAME, string, "AdminCmd").map(AdminCmd)
@@ -3435,6 +3140,116 @@ pub mod types {
         #[inline]
         fn read(p: &mut P) -> ::anyhow::Result<Self> {
             ::std::result::Result::Ok(FTServiceType::from(p.read_i32()?))
+        }
+    }
+
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+    pub struct QueryStatus(pub ::std::primitive::i32);
+
+    impl QueryStatus {
+        pub const RUNNING: Self = QueryStatus(1i32);
+        pub const KILLING: Self = QueryStatus(2i32);
+    }
+
+    impl ::fbthrift::ThriftEnum for QueryStatus {
+        fn enumerate() -> &'static [(QueryStatus, &'static str)] {
+            &[
+                (QueryStatus::RUNNING, "RUNNING"),
+                (QueryStatus::KILLING, "KILLING"),
+            ]
+        }
+
+        fn variants() -> &'static [&'static str] {
+            &[
+                "RUNNING",
+                "KILLING",
+            ]
+        }
+
+        fn variant_values() -> &'static [QueryStatus] {
+            &[
+                QueryStatus::RUNNING,
+                QueryStatus::KILLING,
+            ]
+        }
+    }
+
+    impl ::std::default::Default for QueryStatus {
+        fn default() -> Self {
+            QueryStatus(::fbthrift::__UNKNOWN_ID)
+        }
+    }
+
+    impl<'a> ::std::convert::From<&'a QueryStatus> for ::std::primitive::i32 {
+        #[inline]
+        fn from(x: &'a QueryStatus) -> Self {
+            x.0
+        }
+    }
+
+    impl ::std::convert::From<QueryStatus> for ::std::primitive::i32 {
+        #[inline]
+        fn from(x: QueryStatus) -> Self {
+            x.0
+        }
+    }
+
+    impl ::std::convert::From<::std::primitive::i32> for QueryStatus {
+        #[inline]
+        fn from(x: ::std::primitive::i32) -> Self {
+            Self(x)
+        }
+    }
+
+    impl ::std::fmt::Display for QueryStatus {
+        fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+            static VARIANTS_BY_NUMBER: &[(&::std::primitive::str, ::std::primitive::i32)] = &[
+                ("RUNNING", 1),
+                ("KILLING", 2),
+            ];
+            ::fbthrift::help::enum_display(VARIANTS_BY_NUMBER, fmt, self.0)
+        }
+    }
+
+    impl ::std::fmt::Debug for QueryStatus {
+        fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+            write!(fmt, "QueryStatus::{}", self)
+        }
+    }
+
+    impl ::std::str::FromStr for QueryStatus {
+        type Err = ::anyhow::Error;
+
+        fn from_str(string: &::std::primitive::str) -> ::std::result::Result<Self, Self::Err> {
+            static VARIANTS_BY_NAME: &[(&::std::primitive::str, ::std::primitive::i32)] = &[
+                ("KILLING", 2),
+                ("RUNNING", 1),
+            ];
+            ::fbthrift::help::enum_from_str(VARIANTS_BY_NAME, string, "QueryStatus").map(QueryStatus)
+        }
+    }
+
+    impl ::fbthrift::GetTType for QueryStatus {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::I32;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for QueryStatus
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        #[inline]
+        fn write(&self, p: &mut P) {
+            p.write_i32(self.into())
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for QueryStatus
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        #[inline]
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            ::std::result::Result::Ok(QueryStatus::from(p.read_i32()?))
         }
     }
 
@@ -4526,6 +4341,7 @@ pub mod types {
                 role: ::std::default::Default::default(),
                 git_info_sha: ::std::default::Default::default(),
                 zone_name: ::std::option::Option::None,
+                version: ::std::option::Option::None,
             }
         }
     }
@@ -4566,6 +4382,11 @@ pub mod types {
                 ::fbthrift::Serialize::write(some, p);
                 p.write_field_end();
             }
+            if let ::std::option::Option::Some(some) = &self.version {
+                p.write_field_begin("version", ::fbthrift::TType::String, 8);
+                ::fbthrift::Serialize::write(some, p);
+                p.write_field_end();
+            }
             p.write_field_stop();
             p.write_struct_end();
         }
@@ -4583,6 +4404,7 @@ pub mod types {
                 ::fbthrift::Field::new("leader_parts", ::fbthrift::TType::Map, 3),
                 ::fbthrift::Field::new("role", ::fbthrift::TType::I32, 5),
                 ::fbthrift::Field::new("status", ::fbthrift::TType::I32, 2),
+                ::fbthrift::Field::new("version", ::fbthrift::TType::String, 8),
                 ::fbthrift::Field::new("zone_name", ::fbthrift::TType::String, 7),
             ];
             let mut field_hostAddr = ::std::option::Option::None;
@@ -4592,6 +4414,7 @@ pub mod types {
             let mut field_role = ::std::option::Option::None;
             let mut field_git_info_sha = ::std::option::Option::None;
             let mut field_zone_name = ::std::option::Option::None;
+            let mut field_version = ::std::option::Option::None;
             let _ = p.read_struct_begin(|_| ())?;
             loop {
                 let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
@@ -4604,6 +4427,7 @@ pub mod types {
                     (::fbthrift::TType::I32, 5) => field_role = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (::fbthrift::TType::String, 6) => field_git_info_sha = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (::fbthrift::TType::String, 7) => field_zone_name = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::String, 8) => field_version = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (fty, _) => p.skip(fty)?,
                 }
                 p.read_field_end()?;
@@ -4617,6 +4441,7 @@ pub mod types {
                 role: field_role.unwrap_or_default(),
                 git_info_sha: field_git_info_sha.unwrap_or_default(),
                 zone_name: field_zone_name,
+                version: field_version,
             })
         }
     }
@@ -7246,6 +7071,7 @@ pub mod types {
                 code: ::std::default::Default::default(),
                 leader: ::std::default::Default::default(),
                 parts: ::std::default::Default::default(),
+                terms: ::std::option::Option::None,
             }
         }
     }
@@ -7272,6 +7098,11 @@ pub mod types {
             p.write_field_begin("parts", ::fbthrift::TType::Map, 3);
             ::fbthrift::Serialize::write(&self.parts, p);
             p.write_field_end();
+            if let ::std::option::Option::Some(some) = &self.terms {
+                p.write_field_begin("terms", ::fbthrift::TType::Map, 4);
+                ::fbthrift::Serialize::write(some, p);
+                p.write_field_end();
+            }
             p.write_field_stop();
             p.write_struct_end();
         }
@@ -7286,10 +7117,12 @@ pub mod types {
                 ::fbthrift::Field::new("code", ::fbthrift::TType::I32, 1),
                 ::fbthrift::Field::new("leader", ::fbthrift::TType::Struct, 2),
                 ::fbthrift::Field::new("parts", ::fbthrift::TType::Map, 3),
+                ::fbthrift::Field::new("terms", ::fbthrift::TType::Map, 4),
             ];
             let mut field_code = ::std::option::Option::None;
             let mut field_leader = ::std::option::Option::None;
             let mut field_parts = ::std::option::Option::None;
+            let mut field_terms = ::std::option::Option::None;
             let _ = p.read_struct_begin(|_| ())?;
             loop {
                 let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
@@ -7298,6 +7131,7 @@ pub mod types {
                     (::fbthrift::TType::I32, 1) => field_code = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (::fbthrift::TType::Struct, 2) => field_leader = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (::fbthrift::TType::Map, 3) => field_parts = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Map, 4) => field_terms = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (fty, _) => p.skip(fty)?,
                 }
                 p.read_field_end()?;
@@ -7307,6 +7141,7 @@ pub mod types {
                 code: field_code.unwrap_or_default(),
                 leader: field_leader.unwrap_or_default(),
                 parts: field_parts.unwrap_or_default(),
+                terms: field_terms,
             })
         }
     }
@@ -8080,6 +7915,7 @@ pub mod types {
                 cluster_id: ::std::default::Default::default(),
                 leader_partIds: ::std::option::Option::None,
                 git_info_sha: ::std::default::Default::default(),
+                version: ::std::option::Option::None,
             }
         }
     }
@@ -8114,6 +7950,11 @@ pub mod types {
             p.write_field_begin("git_info_sha", ::fbthrift::TType::String, 5);
             ::fbthrift::Serialize::write(&self.git_info_sha, p);
             p.write_field_end();
+            if let ::std::option::Option::Some(some) = &self.version {
+                p.write_field_begin("version", ::fbthrift::TType::String, 6);
+                ::fbthrift::Serialize::write(some, p);
+                p.write_field_end();
+            }
             p.write_field_stop();
             p.write_struct_end();
         }
@@ -8130,12 +7971,14 @@ pub mod types {
                 ::fbthrift::Field::new("host", ::fbthrift::TType::Struct, 2),
                 ::fbthrift::Field::new("leader_partIds", ::fbthrift::TType::Map, 4),
                 ::fbthrift::Field::new("role", ::fbthrift::TType::I32, 1),
+                ::fbthrift::Field::new("version", ::fbthrift::TType::String, 6),
             ];
             let mut field_role = ::std::option::Option::None;
             let mut field_host = ::std::option::Option::None;
             let mut field_cluster_id = ::std::option::Option::None;
             let mut field_leader_partIds = ::std::option::Option::None;
             let mut field_git_info_sha = ::std::option::Option::None;
+            let mut field_version = ::std::option::Option::None;
             let _ = p.read_struct_begin(|_| ())?;
             loop {
                 let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
@@ -8146,6 +7989,7 @@ pub mod types {
                     (::fbthrift::TType::I64, 3) => field_cluster_id = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (::fbthrift::TType::Map, 4) => field_leader_partIds = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (::fbthrift::TType::String, 5) => field_git_info_sha = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::String, 6) => field_version = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (fty, _) => p.skip(fty)?,
                 }
                 p.read_field_end()?;
@@ -8157,6 +8001,7 @@ pub mod types {
                 cluster_id: field_cluster_id.unwrap_or_default(),
                 leader_partIds: field_leader_partIds,
                 git_info_sha: field_git_info_sha.unwrap_or_default(),
+                version: field_version,
             })
         }
     }
@@ -12674,57 +12519,57 @@ pub mod types {
     }
 
 
-    impl ::std::default::Default for self::CheckpointInfo {
+    impl ::std::default::Default for self::BackupInfo {
         fn default() -> Self {
             Self {
                 host: ::std::default::Default::default(),
-                checkpoint_dir: ::std::default::Default::default(),
+                info: ::std::default::Default::default(),
             }
         }
     }
 
-    unsafe impl ::std::marker::Send for self::CheckpointInfo {}
-    unsafe impl ::std::marker::Sync for self::CheckpointInfo {}
+    unsafe impl ::std::marker::Send for self::BackupInfo {}
+    unsafe impl ::std::marker::Sync for self::BackupInfo {}
 
-    impl ::fbthrift::GetTType for self::CheckpointInfo {
+    impl ::fbthrift::GetTType for self::BackupInfo {
         const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
     }
 
-    impl<P> ::fbthrift::Serialize<P> for self::CheckpointInfo
+    impl<P> ::fbthrift::Serialize<P> for self::BackupInfo
     where
         P: ::fbthrift::ProtocolWriter,
     {
         fn write(&self, p: &mut P) {
-            p.write_struct_begin("CheckpointInfo");
+            p.write_struct_begin("BackupInfo");
             p.write_field_begin("host", ::fbthrift::TType::Struct, 1);
             ::fbthrift::Serialize::write(&self.host, p);
             p.write_field_end();
-            p.write_field_begin("checkpoint_dir", ::fbthrift::TType::String, 2);
-            ::fbthrift::Serialize::write(&self.checkpoint_dir, p);
+            p.write_field_begin("info", ::fbthrift::TType::List, 2);
+            ::fbthrift::Serialize::write(&self.info, p);
             p.write_field_end();
             p.write_field_stop();
             p.write_struct_end();
         }
     }
 
-    impl<P> ::fbthrift::Deserialize<P> for self::CheckpointInfo
+    impl<P> ::fbthrift::Deserialize<P> for self::BackupInfo
     where
         P: ::fbthrift::ProtocolReader,
     {
         fn read(p: &mut P) -> ::anyhow::Result<Self> {
             static FIELDS: &[::fbthrift::Field] = &[
-                ::fbthrift::Field::new("checkpoint_dir", ::fbthrift::TType::String, 2),
                 ::fbthrift::Field::new("host", ::fbthrift::TType::Struct, 1),
+                ::fbthrift::Field::new("info", ::fbthrift::TType::List, 2),
             ];
             let mut field_host = ::std::option::Option::None;
-            let mut field_checkpoint_dir = ::std::option::Option::None;
+            let mut field_info = ::std::option::Option::None;
             let _ = p.read_struct_begin(|_| ())?;
             loop {
                 let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
                 match (fty, fid as ::std::primitive::i32) {
                     (::fbthrift::TType::Stop, _) => break,
                     (::fbthrift::TType::Struct, 1) => field_host = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
-                    (::fbthrift::TType::String, 2) => field_checkpoint_dir = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::List, 2) => field_info = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (fty, _) => p.skip(fty)?,
                 }
                 p.read_field_end()?;
@@ -12732,7 +12577,7 @@ pub mod types {
             p.read_struct_end()?;
             ::std::result::Result::Ok(Self {
                 host: field_host.unwrap_or_default(),
-                checkpoint_dir: field_checkpoint_dir.unwrap_or_default(),
+                info: field_info.unwrap_or_default(),
             })
         }
     }
@@ -12742,8 +12587,7 @@ pub mod types {
         fn default() -> Self {
             Self {
                 space: ::std::default::Default::default(),
-                partition_info: ::std::default::Default::default(),
-                cp_dirs: ::std::default::Default::default(),
+                info: ::std::default::Default::default(),
             }
         }
     }
@@ -12764,11 +12608,8 @@ pub mod types {
             p.write_field_begin("space", ::fbthrift::TType::Struct, 1);
             ::fbthrift::Serialize::write(&self.space, p);
             p.write_field_end();
-            p.write_field_begin("partition_info", ::fbthrift::TType::Struct, 2);
-            ::fbthrift::Serialize::write(&self.partition_info, p);
-            p.write_field_end();
-            p.write_field_begin("cp_dirs", ::fbthrift::TType::List, 3);
-            ::fbthrift::Serialize::write(&self.cp_dirs, p);
+            p.write_field_begin("info", ::fbthrift::TType::List, 2);
+            ::fbthrift::Serialize::write(&self.info, p);
             p.write_field_end();
             p.write_field_stop();
             p.write_struct_end();
@@ -12781,21 +12622,18 @@ pub mod types {
     {
         fn read(p: &mut P) -> ::anyhow::Result<Self> {
             static FIELDS: &[::fbthrift::Field] = &[
-                ::fbthrift::Field::new("cp_dirs", ::fbthrift::TType::List, 3),
-                ::fbthrift::Field::new("partition_info", ::fbthrift::TType::Struct, 2),
+                ::fbthrift::Field::new("info", ::fbthrift::TType::List, 2),
                 ::fbthrift::Field::new("space", ::fbthrift::TType::Struct, 1),
             ];
             let mut field_space = ::std::option::Option::None;
-            let mut field_partition_info = ::std::option::Option::None;
-            let mut field_cp_dirs = ::std::option::Option::None;
+            let mut field_info = ::std::option::Option::None;
             let _ = p.read_struct_begin(|_| ())?;
             loop {
                 let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
                 match (fty, fid as ::std::primitive::i32) {
                     (::fbthrift::TType::Stop, _) => break,
                     (::fbthrift::TType::Struct, 1) => field_space = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
-                    (::fbthrift::TType::Struct, 2) => field_partition_info = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
-                    (::fbthrift::TType::List, 3) => field_cp_dirs = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::List, 2) => field_info = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (fty, _) => p.skip(fty)?,
                 }
                 p.read_field_end()?;
@@ -12803,8 +12641,7 @@ pub mod types {
             p.read_struct_end()?;
             ::std::result::Result::Ok(Self {
                 space: field_space.unwrap_or_default(),
-                partition_info: field_partition_info.unwrap_or_default(),
-                cp_dirs: field_cp_dirs.unwrap_or_default(),
+                info: field_info.unwrap_or_default(),
             })
         }
     }
@@ -12816,6 +12653,9 @@ pub mod types {
                 backup_info: ::std::default::Default::default(),
                 meta_files: ::std::default::Default::default(),
                 backup_name: ::std::default::Default::default(),
+                full: ::std::default::Default::default(),
+                include_system_space: ::std::default::Default::default(),
+                create_time: ::std::default::Default::default(),
             }
         }
     }
@@ -12842,6 +12682,15 @@ pub mod types {
             p.write_field_begin("backup_name", ::fbthrift::TType::String, 3);
             ::fbthrift::Serialize::write(&self.backup_name, p);
             p.write_field_end();
+            p.write_field_begin("full", ::fbthrift::TType::Bool, 4);
+            ::fbthrift::Serialize::write(&self.full, p);
+            p.write_field_end();
+            p.write_field_begin("include_system_space", ::fbthrift::TType::Bool, 5);
+            ::fbthrift::Serialize::write(&self.include_system_space, p);
+            p.write_field_end();
+            p.write_field_begin("create_time", ::fbthrift::TType::I64, 6);
+            ::fbthrift::Serialize::write(&self.create_time, p);
+            p.write_field_end();
             p.write_field_stop();
             p.write_struct_end();
         }
@@ -12855,11 +12704,17 @@ pub mod types {
             static FIELDS: &[::fbthrift::Field] = &[
                 ::fbthrift::Field::new("backup_info", ::fbthrift::TType::Map, 1),
                 ::fbthrift::Field::new("backup_name", ::fbthrift::TType::String, 3),
+                ::fbthrift::Field::new("create_time", ::fbthrift::TType::I64, 6),
+                ::fbthrift::Field::new("full", ::fbthrift::TType::Bool, 4),
+                ::fbthrift::Field::new("include_system_space", ::fbthrift::TType::Bool, 5),
                 ::fbthrift::Field::new("meta_files", ::fbthrift::TType::List, 2),
             ];
             let mut field_backup_info = ::std::option::Option::None;
             let mut field_meta_files = ::std::option::Option::None;
             let mut field_backup_name = ::std::option::Option::None;
+            let mut field_full = ::std::option::Option::None;
+            let mut field_include_system_space = ::std::option::Option::None;
+            let mut field_create_time = ::std::option::Option::None;
             let _ = p.read_struct_begin(|_| ())?;
             loop {
                 let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
@@ -12868,6 +12723,9 @@ pub mod types {
                     (::fbthrift::TType::Map, 1) => field_backup_info = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (::fbthrift::TType::List, 2) => field_meta_files = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (::fbthrift::TType::String, 3) => field_backup_name = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Bool, 4) => field_full = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Bool, 5) => field_include_system_space = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::I64, 6) => field_create_time = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (fty, _) => p.skip(fty)?,
                 }
                 p.read_field_end()?;
@@ -12877,6 +12735,9 @@ pub mod types {
                 backup_info: field_backup_info.unwrap_or_default(),
                 meta_files: field_meta_files.unwrap_or_default(),
                 backup_name: field_backup_name.unwrap_or_default(),
+                full: field_full.unwrap_or_default(),
+                include_system_space: field_include_system_space.unwrap_or_default(),
+                create_time: field_create_time.unwrap_or_default(),
             })
         }
     }
@@ -13448,6 +13309,414 @@ pub mod types {
     }
 
 
+    impl ::std::default::Default for self::FTIndex {
+        fn default() -> Self {
+            Self {
+                space_id: ::std::default::Default::default(),
+                depend_schema: ::std::default::Default::default(),
+                fields: ::std::default::Default::default(),
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::FTIndex {}
+    unsafe impl ::std::marker::Sync for self::FTIndex {}
+
+    impl ::fbthrift::GetTType for self::FTIndex {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::FTIndex
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("FTIndex");
+            p.write_field_begin("space_id", ::fbthrift::TType::I32, 1);
+            ::fbthrift::Serialize::write(&self.space_id, p);
+            p.write_field_end();
+            p.write_field_begin("depend_schema", ::fbthrift::TType::Struct, 2);
+            ::fbthrift::Serialize::write(&self.depend_schema, p);
+            p.write_field_end();
+            p.write_field_begin("fields", ::fbthrift::TType::List, 3);
+            ::fbthrift::Serialize::write(&self.fields, p);
+            p.write_field_end();
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::FTIndex
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("depend_schema", ::fbthrift::TType::Struct, 2),
+                ::fbthrift::Field::new("fields", ::fbthrift::TType::List, 3),
+                ::fbthrift::Field::new("space_id", ::fbthrift::TType::I32, 1),
+            ];
+            let mut field_space_id = ::std::option::Option::None;
+            let mut field_depend_schema = ::std::option::Option::None;
+            let mut field_fields = ::std::option::Option::None;
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::I32, 1) => field_space_id = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Struct, 2) => field_depend_schema = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::List, 3) => field_fields = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+                space_id: field_space_id.unwrap_or_default(),
+                depend_schema: field_depend_schema.unwrap_or_default(),
+                fields: field_fields.unwrap_or_default(),
+            })
+        }
+    }
+
+
+    impl ::std::default::Default for self::CreateFTIndexReq {
+        fn default() -> Self {
+            Self {
+                fulltext_index_name: ::std::default::Default::default(),
+                index: ::std::default::Default::default(),
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::CreateFTIndexReq {}
+    unsafe impl ::std::marker::Sync for self::CreateFTIndexReq {}
+
+    impl ::fbthrift::GetTType for self::CreateFTIndexReq {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::CreateFTIndexReq
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("CreateFTIndexReq");
+            p.write_field_begin("fulltext_index_name", ::fbthrift::TType::String, 1);
+            ::fbthrift::Serialize::write(&self.fulltext_index_name, p);
+            p.write_field_end();
+            p.write_field_begin("index", ::fbthrift::TType::Struct, 2);
+            ::fbthrift::Serialize::write(&self.index, p);
+            p.write_field_end();
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::CreateFTIndexReq
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("fulltext_index_name", ::fbthrift::TType::String, 1),
+                ::fbthrift::Field::new("index", ::fbthrift::TType::Struct, 2),
+            ];
+            let mut field_fulltext_index_name = ::std::option::Option::None;
+            let mut field_index = ::std::option::Option::None;
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::String, 1) => field_fulltext_index_name = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Struct, 2) => field_index = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+                fulltext_index_name: field_fulltext_index_name.unwrap_or_default(),
+                index: field_index.unwrap_or_default(),
+            })
+        }
+    }
+
+
+    impl ::std::default::Default for self::DropFTIndexReq {
+        fn default() -> Self {
+            Self {
+                space_id: ::std::default::Default::default(),
+                fulltext_index_name: ::std::default::Default::default(),
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::DropFTIndexReq {}
+    unsafe impl ::std::marker::Sync for self::DropFTIndexReq {}
+
+    impl ::fbthrift::GetTType for self::DropFTIndexReq {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::DropFTIndexReq
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("DropFTIndexReq");
+            p.write_field_begin("space_id", ::fbthrift::TType::I32, 1);
+            ::fbthrift::Serialize::write(&self.space_id, p);
+            p.write_field_end();
+            p.write_field_begin("fulltext_index_name", ::fbthrift::TType::String, 2);
+            ::fbthrift::Serialize::write(&self.fulltext_index_name, p);
+            p.write_field_end();
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::DropFTIndexReq
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("fulltext_index_name", ::fbthrift::TType::String, 2),
+                ::fbthrift::Field::new("space_id", ::fbthrift::TType::I32, 1),
+            ];
+            let mut field_space_id = ::std::option::Option::None;
+            let mut field_fulltext_index_name = ::std::option::Option::None;
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::I32, 1) => field_space_id = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::String, 2) => field_fulltext_index_name = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+                space_id: field_space_id.unwrap_or_default(),
+                fulltext_index_name: field_fulltext_index_name.unwrap_or_default(),
+            })
+        }
+    }
+
+
+    impl ::std::default::Default for self::ListFTIndexesReq {
+        fn default() -> Self {
+            Self {
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::ListFTIndexesReq {}
+    unsafe impl ::std::marker::Sync for self::ListFTIndexesReq {}
+
+    impl ::fbthrift::GetTType for self::ListFTIndexesReq {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::ListFTIndexesReq
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("ListFTIndexesReq");
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::ListFTIndexesReq
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+            ];
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+            })
+        }
+    }
+
+
+    impl ::std::default::Default for self::ListFTIndexesResp {
+        fn default() -> Self {
+            Self {
+                code: ::std::default::Default::default(),
+                leader: ::std::default::Default::default(),
+                indexes: ::std::default::Default::default(),
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::ListFTIndexesResp {}
+    unsafe impl ::std::marker::Sync for self::ListFTIndexesResp {}
+
+    impl ::fbthrift::GetTType for self::ListFTIndexesResp {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::ListFTIndexesResp
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("ListFTIndexesResp");
+            p.write_field_begin("code", ::fbthrift::TType::I32, 1);
+            ::fbthrift::Serialize::write(&self.code, p);
+            p.write_field_end();
+            p.write_field_begin("leader", ::fbthrift::TType::Struct, 2);
+            ::fbthrift::Serialize::write(&self.leader, p);
+            p.write_field_end();
+            p.write_field_begin("indexes", ::fbthrift::TType::Map, 3);
+            ::fbthrift::Serialize::write(&self.indexes, p);
+            p.write_field_end();
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::ListFTIndexesResp
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("code", ::fbthrift::TType::I32, 1),
+                ::fbthrift::Field::new("indexes", ::fbthrift::TType::Map, 3),
+                ::fbthrift::Field::new("leader", ::fbthrift::TType::Struct, 2),
+            ];
+            let mut field_code = ::std::option::Option::None;
+            let mut field_leader = ::std::option::Option::None;
+            let mut field_indexes = ::std::option::Option::None;
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::I32, 1) => field_code = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Struct, 2) => field_leader = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Map, 3) => field_indexes = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+                code: field_code.unwrap_or_default(),
+                leader: field_leader.unwrap_or_default(),
+                indexes: field_indexes.unwrap_or_default(),
+            })
+        }
+    }
+
+
+    impl ::std::default::Default for self::QueryDesc {
+        fn default() -> Self {
+            Self {
+                start_time: ::std::default::Default::default(),
+                status: ::std::default::Default::default(),
+                duration: ::std::default::Default::default(),
+                query: ::std::default::Default::default(),
+                graph_addr: ::std::default::Default::default(),
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::QueryDesc {}
+    unsafe impl ::std::marker::Sync for self::QueryDesc {}
+
+    impl ::fbthrift::GetTType for self::QueryDesc {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::QueryDesc
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("QueryDesc");
+            p.write_field_begin("start_time", ::fbthrift::TType::I64, 1);
+            ::fbthrift::Serialize::write(&self.start_time, p);
+            p.write_field_end();
+            p.write_field_begin("status", ::fbthrift::TType::I32, 2);
+            ::fbthrift::Serialize::write(&self.status, p);
+            p.write_field_end();
+            p.write_field_begin("duration", ::fbthrift::TType::I64, 3);
+            ::fbthrift::Serialize::write(&self.duration, p);
+            p.write_field_end();
+            p.write_field_begin("query", ::fbthrift::TType::String, 4);
+            ::fbthrift::Serialize::write(&self.query, p);
+            p.write_field_end();
+            p.write_field_begin("graph_addr", ::fbthrift::TType::Struct, 5);
+            ::fbthrift::Serialize::write(&self.graph_addr, p);
+            p.write_field_end();
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::QueryDesc
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("duration", ::fbthrift::TType::I64, 3),
+                ::fbthrift::Field::new("graph_addr", ::fbthrift::TType::Struct, 5),
+                ::fbthrift::Field::new("query", ::fbthrift::TType::String, 4),
+                ::fbthrift::Field::new("start_time", ::fbthrift::TType::I64, 1),
+                ::fbthrift::Field::new("status", ::fbthrift::TType::I32, 2),
+            ];
+            let mut field_start_time = ::std::option::Option::None;
+            let mut field_status = ::std::option::Option::None;
+            let mut field_duration = ::std::option::Option::None;
+            let mut field_query = ::std::option::Option::None;
+            let mut field_graph_addr = ::std::option::Option::None;
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::I64, 1) => field_start_time = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::I32, 2) => field_status = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::I64, 3) => field_duration = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::String, 4) => field_query = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Struct, 5) => field_graph_addr = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+                start_time: field_start_time.unwrap_or_default(),
+                status: field_status.unwrap_or_default(),
+                duration: field_duration.unwrap_or_default(),
+                query: field_query.unwrap_or_default(),
+                graph_addr: field_graph_addr.unwrap_or_default(),
+            })
+        }
+    }
+
+
     impl ::std::default::Default for self::Session {
         fn default() -> Self {
             Self {
@@ -13460,6 +13729,7 @@ pub mod types {
                 timezone: ::std::default::Default::default(),
                 client_ip: ::std::default::Default::default(),
                 configs: ::std::default::Default::default(),
+                queries: ::std::default::Default::default(),
             }
         }
     }
@@ -13504,6 +13774,9 @@ pub mod types {
             p.write_field_begin("configs", ::fbthrift::TType::Map, 9);
             ::fbthrift::Serialize::write(&self.configs, p);
             p.write_field_end();
+            p.write_field_begin("queries", ::fbthrift::TType::Map, 10);
+            ::fbthrift::Serialize::write(&self.queries, p);
+            p.write_field_end();
             p.write_field_stop();
             p.write_struct_end();
         }
@@ -13519,6 +13792,7 @@ pub mod types {
                 ::fbthrift::Field::new("configs", ::fbthrift::TType::Map, 9),
                 ::fbthrift::Field::new("create_time", ::fbthrift::TType::I64, 2),
                 ::fbthrift::Field::new("graph_addr", ::fbthrift::TType::Struct, 6),
+                ::fbthrift::Field::new("queries", ::fbthrift::TType::Map, 10),
                 ::fbthrift::Field::new("session_id", ::fbthrift::TType::I64, 1),
                 ::fbthrift::Field::new("space_name", ::fbthrift::TType::String, 5),
                 ::fbthrift::Field::new("timezone", ::fbthrift::TType::I32, 7),
@@ -13534,6 +13808,7 @@ pub mod types {
             let mut field_timezone = ::std::option::Option::None;
             let mut field_client_ip = ::std::option::Option::None;
             let mut field_configs = ::std::option::Option::None;
+            let mut field_queries = ::std::option::Option::None;
             let _ = p.read_struct_begin(|_| ())?;
             loop {
                 let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
@@ -13548,6 +13823,7 @@ pub mod types {
                     (::fbthrift::TType::I32, 7) => field_timezone = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (::fbthrift::TType::String, 8) => field_client_ip = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (::fbthrift::TType::Map, 9) => field_configs = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Map, 10) => field_queries = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (fty, _) => p.skip(fty)?,
                 }
                 p.read_field_end()?;
@@ -13563,6 +13839,7 @@ pub mod types {
                 timezone: field_timezone.unwrap_or_default(),
                 client_ip: field_client_ip.unwrap_or_default(),
                 configs: field_configs.unwrap_or_default(),
+                queries: field_queries.unwrap_or_default(),
             })
         }
     }
@@ -13763,6 +14040,78 @@ pub mod types {
             p.read_struct_end()?;
             ::std::result::Result::Ok(Self {
                 sessions: field_sessions.unwrap_or_default(),
+            })
+        }
+    }
+
+
+    impl ::std::default::Default for self::UpdateSessionsResp {
+        fn default() -> Self {
+            Self {
+                code: ::std::default::Default::default(),
+                leader: ::std::default::Default::default(),
+                killed_queries: ::std::default::Default::default(),
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::UpdateSessionsResp {}
+    unsafe impl ::std::marker::Sync for self::UpdateSessionsResp {}
+
+    impl ::fbthrift::GetTType for self::UpdateSessionsResp {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::UpdateSessionsResp
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("UpdateSessionsResp");
+            p.write_field_begin("code", ::fbthrift::TType::I32, 1);
+            ::fbthrift::Serialize::write(&self.code, p);
+            p.write_field_end();
+            p.write_field_begin("leader", ::fbthrift::TType::Struct, 2);
+            ::fbthrift::Serialize::write(&self.leader, p);
+            p.write_field_end();
+            p.write_field_begin("killed_queries", ::fbthrift::TType::Map, 3);
+            ::fbthrift::Serialize::write(&self.killed_queries, p);
+            p.write_field_end();
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::UpdateSessionsResp
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("code", ::fbthrift::TType::I32, 1),
+                ::fbthrift::Field::new("killed_queries", ::fbthrift::TType::Map, 3),
+                ::fbthrift::Field::new("leader", ::fbthrift::TType::Struct, 2),
+            ];
+            let mut field_code = ::std::option::Option::None;
+            let mut field_leader = ::std::option::Option::None;
+            let mut field_killed_queries = ::std::option::Option::None;
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::I32, 1) => field_code = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Struct, 2) => field_leader = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Map, 3) => field_killed_queries = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+                code: field_code.unwrap_or_default(),
+                leader: field_leader.unwrap_or_default(),
+                killed_queries: field_killed_queries.unwrap_or_default(),
             })
         }
     }
@@ -14072,6 +14421,62 @@ pub mod types {
     }
 
 
+    impl ::std::default::Default for self::KillQueryReq {
+        fn default() -> Self {
+            Self {
+                kill_queries: ::std::default::Default::default(),
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::KillQueryReq {}
+    unsafe impl ::std::marker::Sync for self::KillQueryReq {}
+
+    impl ::fbthrift::GetTType for self::KillQueryReq {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::KillQueryReq
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("KillQueryReq");
+            p.write_field_begin("kill_queries", ::fbthrift::TType::Map, 1);
+            ::fbthrift::Serialize::write(&self.kill_queries, p);
+            p.write_field_end();
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::KillQueryReq
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("kill_queries", ::fbthrift::TType::Map, 1),
+            ];
+            let mut field_kill_queries = ::std::option::Option::None;
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::Map, 1) => field_kill_queries = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+                kill_queries: field_kill_queries.unwrap_or_default(),
+            })
+        }
+    }
+
+
     impl ::std::default::Default for self::ReportTaskReq {
         fn default() -> Self {
             Self {
@@ -14149,6 +14554,246 @@ pub mod types {
                 job_id: field_job_id.unwrap_or_default(),
                 task_id: field_task_id.unwrap_or_default(),
                 statis: field_statis,
+            })
+        }
+    }
+
+
+    impl ::std::default::Default for self::ListClusterInfoResp {
+        fn default() -> Self {
+            Self {
+                code: ::std::default::Default::default(),
+                leader: ::std::default::Default::default(),
+                meta_servers: ::std::default::Default::default(),
+                storage_servers: ::std::default::Default::default(),
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::ListClusterInfoResp {}
+    unsafe impl ::std::marker::Sync for self::ListClusterInfoResp {}
+
+    impl ::fbthrift::GetTType for self::ListClusterInfoResp {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::ListClusterInfoResp
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("ListClusterInfoResp");
+            p.write_field_begin("code", ::fbthrift::TType::I32, 1);
+            ::fbthrift::Serialize::write(&self.code, p);
+            p.write_field_end();
+            p.write_field_begin("leader", ::fbthrift::TType::Struct, 2);
+            ::fbthrift::Serialize::write(&self.leader, p);
+            p.write_field_end();
+            p.write_field_begin("meta_servers", ::fbthrift::TType::List, 3);
+            ::fbthrift::Serialize::write(&self.meta_servers, p);
+            p.write_field_end();
+            p.write_field_begin("storage_servers", ::fbthrift::TType::List, 4);
+            ::fbthrift::Serialize::write(&self.storage_servers, p);
+            p.write_field_end();
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::ListClusterInfoResp
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("code", ::fbthrift::TType::I32, 1),
+                ::fbthrift::Field::new("leader", ::fbthrift::TType::Struct, 2),
+                ::fbthrift::Field::new("meta_servers", ::fbthrift::TType::List, 3),
+                ::fbthrift::Field::new("storage_servers", ::fbthrift::TType::List, 4),
+            ];
+            let mut field_code = ::std::option::Option::None;
+            let mut field_leader = ::std::option::Option::None;
+            let mut field_meta_servers = ::std::option::Option::None;
+            let mut field_storage_servers = ::std::option::Option::None;
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::I32, 1) => field_code = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Struct, 2) => field_leader = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::List, 3) => field_meta_servers = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::List, 4) => field_storage_servers = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+                code: field_code.unwrap_or_default(),
+                leader: field_leader.unwrap_or_default(),
+                meta_servers: field_meta_servers.unwrap_or_default(),
+                storage_servers: field_storage_servers.unwrap_or_default(),
+            })
+        }
+    }
+
+
+    impl ::std::default::Default for self::ListClusterInfoReq {
+        fn default() -> Self {
+            Self {
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::ListClusterInfoReq {}
+    unsafe impl ::std::marker::Sync for self::ListClusterInfoReq {}
+
+    impl ::fbthrift::GetTType for self::ListClusterInfoReq {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::ListClusterInfoReq
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("ListClusterInfoReq");
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::ListClusterInfoReq
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+            ];
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+            })
+        }
+    }
+
+
+    impl ::std::default::Default for self::GetMetaDirInfoResp {
+        fn default() -> Self {
+            Self {
+                code: ::std::default::Default::default(),
+                dir: ::std::default::Default::default(),
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::GetMetaDirInfoResp {}
+    unsafe impl ::std::marker::Sync for self::GetMetaDirInfoResp {}
+
+    impl ::fbthrift::GetTType for self::GetMetaDirInfoResp {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::GetMetaDirInfoResp
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("GetMetaDirInfoResp");
+            p.write_field_begin("code", ::fbthrift::TType::I32, 1);
+            ::fbthrift::Serialize::write(&self.code, p);
+            p.write_field_end();
+            p.write_field_begin("dir", ::fbthrift::TType::Struct, 2);
+            ::fbthrift::Serialize::write(&self.dir, p);
+            p.write_field_end();
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::GetMetaDirInfoResp
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("code", ::fbthrift::TType::I32, 1),
+                ::fbthrift::Field::new("dir", ::fbthrift::TType::Struct, 2),
+            ];
+            let mut field_code = ::std::option::Option::None;
+            let mut field_dir = ::std::option::Option::None;
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::I32, 1) => field_code = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Struct, 2) => field_dir = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+                code: field_code.unwrap_or_default(),
+                dir: field_dir.unwrap_or_default(),
+            })
+        }
+    }
+
+
+    impl ::std::default::Default for self::GetMetaDirInfoReq {
+        fn default() -> Self {
+            Self {
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::GetMetaDirInfoReq {}
+    unsafe impl ::std::marker::Sync for self::GetMetaDirInfoReq {}
+
+    impl ::fbthrift::GetTType for self::GetMetaDirInfoReq {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::GetMetaDirInfoReq
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("GetMetaDirInfoReq");
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::GetMetaDirInfoReq
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+            ];
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
             })
         }
     }
@@ -21079,6 +21724,279 @@ pub mod services {
         }
 
         #[derive(Clone, Debug)]
+        pub enum CreateFTIndexExn {
+            Success(crate::types::ExecResp),
+            ApplicationException(::fbthrift::ApplicationException),
+        }
+
+        impl ::std::convert::From<::fbthrift::ApplicationException> for CreateFTIndexExn {
+            fn from(exn: ::fbthrift::ApplicationException) -> Self {
+                CreateFTIndexExn::ApplicationException(exn)
+            }
+        }
+
+        impl ::fbthrift::GetTType for CreateFTIndexExn {
+            const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+        }
+
+        impl<P> ::fbthrift::Serialize<P> for CreateFTIndexExn
+        where
+            P: ::fbthrift::ProtocolWriter,
+        {
+            fn write(&self, p: &mut P) {
+                p.write_struct_begin("CreateFTIndex");
+                match self {
+                    CreateFTIndexExn::Success(inner) => {
+                        p.write_field_begin(
+                            "Success",
+                            ::fbthrift::TType::Struct,
+                            0i16,
+                        );
+                        inner.write(p);
+                        p.write_field_end();
+                    }
+                    CreateFTIndexExn::ApplicationException(_) => panic!(
+                        "Bad union Alt field {} id {}",
+                        "ApplicationException",
+                        -2147483648i32,
+                    ),
+                }
+                p.write_field_stop();
+                p.write_struct_end();
+            }
+        }
+
+        impl<P> ::fbthrift::Deserialize<P> for CreateFTIndexExn
+        where
+            P: ::fbthrift::ProtocolReader,
+        {
+            fn read(p: &mut P) -> ::anyhow::Result<Self> {
+                static RETURNS: &[::fbthrift::Field] = &[
+                    ::fbthrift::Field::new("Success", ::fbthrift::TType::Struct, 0),
+                ];
+                let _ = p.read_struct_begin(|_| ())?;
+                let mut once = false;
+                let mut alt = ::std::option::Option::None;
+                loop {
+                    let (_, fty, fid) = p.read_field_begin(|_| (), RETURNS)?;
+                    match ((fty, fid as ::std::primitive::i32), once) {
+                        ((::fbthrift::TType::Stop, _), _) => {
+                            p.read_field_end()?;
+                            break;
+                        }
+                        ((::fbthrift::TType::Struct, 0i32), false) => {
+                            once = true;
+                            alt = ::std::option::Option::Some(CreateFTIndexExn::Success(::fbthrift::Deserialize::read(p)?));
+                        }
+                        ((ty, _id), false) => p.skip(ty)?,
+                        ((badty, badid), true) => return ::std::result::Result::Err(::std::convert::From::from(
+                            ::fbthrift::ApplicationException::new(
+                                ::fbthrift::ApplicationExceptionErrorCode::ProtocolError,
+                                format!(
+                                    "unwanted extra union {} field ty {:?} id {}",
+                                    "CreateFTIndexExn",
+                                    badty,
+                                    badid,
+                                ),
+                            )
+                        )),
+                    }
+                    p.read_field_end()?;
+                }
+                p.read_struct_end()?;
+                alt.ok_or_else(||
+                    ::fbthrift::ApplicationException::new(
+                        ::fbthrift::ApplicationExceptionErrorCode::MissingResult,
+                        format!("Empty union {}", "CreateFTIndexExn"),
+                    )
+                    .into(),
+                )
+            }
+        }
+
+        #[derive(Clone, Debug)]
+        pub enum DropFTIndexExn {
+            Success(crate::types::ExecResp),
+            ApplicationException(::fbthrift::ApplicationException),
+        }
+
+        impl ::std::convert::From<::fbthrift::ApplicationException> for DropFTIndexExn {
+            fn from(exn: ::fbthrift::ApplicationException) -> Self {
+                DropFTIndexExn::ApplicationException(exn)
+            }
+        }
+
+        impl ::fbthrift::GetTType for DropFTIndexExn {
+            const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+        }
+
+        impl<P> ::fbthrift::Serialize<P> for DropFTIndexExn
+        where
+            P: ::fbthrift::ProtocolWriter,
+        {
+            fn write(&self, p: &mut P) {
+                p.write_struct_begin("DropFTIndex");
+                match self {
+                    DropFTIndexExn::Success(inner) => {
+                        p.write_field_begin(
+                            "Success",
+                            ::fbthrift::TType::Struct,
+                            0i16,
+                        );
+                        inner.write(p);
+                        p.write_field_end();
+                    }
+                    DropFTIndexExn::ApplicationException(_) => panic!(
+                        "Bad union Alt field {} id {}",
+                        "ApplicationException",
+                        -2147483648i32,
+                    ),
+                }
+                p.write_field_stop();
+                p.write_struct_end();
+            }
+        }
+
+        impl<P> ::fbthrift::Deserialize<P> for DropFTIndexExn
+        where
+            P: ::fbthrift::ProtocolReader,
+        {
+            fn read(p: &mut P) -> ::anyhow::Result<Self> {
+                static RETURNS: &[::fbthrift::Field] = &[
+                    ::fbthrift::Field::new("Success", ::fbthrift::TType::Struct, 0),
+                ];
+                let _ = p.read_struct_begin(|_| ())?;
+                let mut once = false;
+                let mut alt = ::std::option::Option::None;
+                loop {
+                    let (_, fty, fid) = p.read_field_begin(|_| (), RETURNS)?;
+                    match ((fty, fid as ::std::primitive::i32), once) {
+                        ((::fbthrift::TType::Stop, _), _) => {
+                            p.read_field_end()?;
+                            break;
+                        }
+                        ((::fbthrift::TType::Struct, 0i32), false) => {
+                            once = true;
+                            alt = ::std::option::Option::Some(DropFTIndexExn::Success(::fbthrift::Deserialize::read(p)?));
+                        }
+                        ((ty, _id), false) => p.skip(ty)?,
+                        ((badty, badid), true) => return ::std::result::Result::Err(::std::convert::From::from(
+                            ::fbthrift::ApplicationException::new(
+                                ::fbthrift::ApplicationExceptionErrorCode::ProtocolError,
+                                format!(
+                                    "unwanted extra union {} field ty {:?} id {}",
+                                    "DropFTIndexExn",
+                                    badty,
+                                    badid,
+                                ),
+                            )
+                        )),
+                    }
+                    p.read_field_end()?;
+                }
+                p.read_struct_end()?;
+                alt.ok_or_else(||
+                    ::fbthrift::ApplicationException::new(
+                        ::fbthrift::ApplicationExceptionErrorCode::MissingResult,
+                        format!("Empty union {}", "DropFTIndexExn"),
+                    )
+                    .into(),
+                )
+            }
+        }
+
+        #[derive(Clone, Debug)]
+        pub enum ListFTIndexesExn {
+            Success(crate::types::ListFTIndexesResp),
+            ApplicationException(::fbthrift::ApplicationException),
+        }
+
+        impl ::std::convert::From<::fbthrift::ApplicationException> for ListFTIndexesExn {
+            fn from(exn: ::fbthrift::ApplicationException) -> Self {
+                ListFTIndexesExn::ApplicationException(exn)
+            }
+        }
+
+        impl ::fbthrift::GetTType for ListFTIndexesExn {
+            const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+        }
+
+        impl<P> ::fbthrift::Serialize<P> for ListFTIndexesExn
+        where
+            P: ::fbthrift::ProtocolWriter,
+        {
+            fn write(&self, p: &mut P) {
+                p.write_struct_begin("ListFTIndexes");
+                match self {
+                    ListFTIndexesExn::Success(inner) => {
+                        p.write_field_begin(
+                            "Success",
+                            ::fbthrift::TType::Struct,
+                            0i16,
+                        );
+                        inner.write(p);
+                        p.write_field_end();
+                    }
+                    ListFTIndexesExn::ApplicationException(_) => panic!(
+                        "Bad union Alt field {} id {}",
+                        "ApplicationException",
+                        -2147483648i32,
+                    ),
+                }
+                p.write_field_stop();
+                p.write_struct_end();
+            }
+        }
+
+        impl<P> ::fbthrift::Deserialize<P> for ListFTIndexesExn
+        where
+            P: ::fbthrift::ProtocolReader,
+        {
+            fn read(p: &mut P) -> ::anyhow::Result<Self> {
+                static RETURNS: &[::fbthrift::Field] = &[
+                    ::fbthrift::Field::new("Success", ::fbthrift::TType::Struct, 0),
+                ];
+                let _ = p.read_struct_begin(|_| ())?;
+                let mut once = false;
+                let mut alt = ::std::option::Option::None;
+                loop {
+                    let (_, fty, fid) = p.read_field_begin(|_| (), RETURNS)?;
+                    match ((fty, fid as ::std::primitive::i32), once) {
+                        ((::fbthrift::TType::Stop, _), _) => {
+                            p.read_field_end()?;
+                            break;
+                        }
+                        ((::fbthrift::TType::Struct, 0i32), false) => {
+                            once = true;
+                            alt = ::std::option::Option::Some(ListFTIndexesExn::Success(::fbthrift::Deserialize::read(p)?));
+                        }
+                        ((ty, _id), false) => p.skip(ty)?,
+                        ((badty, badid), true) => return ::std::result::Result::Err(::std::convert::From::from(
+                            ::fbthrift::ApplicationException::new(
+                                ::fbthrift::ApplicationExceptionErrorCode::ProtocolError,
+                                format!(
+                                    "unwanted extra union {} field ty {:?} id {}",
+                                    "ListFTIndexesExn",
+                                    badty,
+                                    badid,
+                                ),
+                            )
+                        )),
+                    }
+                    p.read_field_end()?;
+                }
+                p.read_struct_end()?;
+                alt.ok_or_else(||
+                    ::fbthrift::ApplicationException::new(
+                        ::fbthrift::ApplicationExceptionErrorCode::MissingResult,
+                        format!("Empty union {}", "ListFTIndexesExn"),
+                    )
+                    .into(),
+                )
+            }
+        }
+
+        #[derive(Clone, Debug)]
         pub enum CreateSessionExn {
             Success(crate::types::CreateSessionResp),
             ApplicationException(::fbthrift::ApplicationException),
@@ -21171,7 +22089,7 @@ pub mod services {
 
         #[derive(Clone, Debug)]
         pub enum UpdateSessionsExn {
-            Success(crate::types::ExecResp),
+            Success(crate::types::UpdateSessionsResp),
             ApplicationException(::fbthrift::ApplicationException),
         }
 
@@ -21534,6 +22452,97 @@ pub mod services {
         }
 
         #[derive(Clone, Debug)]
+        pub enum KillQueryExn {
+            Success(crate::types::ExecResp),
+            ApplicationException(::fbthrift::ApplicationException),
+        }
+
+        impl ::std::convert::From<::fbthrift::ApplicationException> for KillQueryExn {
+            fn from(exn: ::fbthrift::ApplicationException) -> Self {
+                KillQueryExn::ApplicationException(exn)
+            }
+        }
+
+        impl ::fbthrift::GetTType for KillQueryExn {
+            const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+        }
+
+        impl<P> ::fbthrift::Serialize<P> for KillQueryExn
+        where
+            P: ::fbthrift::ProtocolWriter,
+        {
+            fn write(&self, p: &mut P) {
+                p.write_struct_begin("KillQuery");
+                match self {
+                    KillQueryExn::Success(inner) => {
+                        p.write_field_begin(
+                            "Success",
+                            ::fbthrift::TType::Struct,
+                            0i16,
+                        );
+                        inner.write(p);
+                        p.write_field_end();
+                    }
+                    KillQueryExn::ApplicationException(_) => panic!(
+                        "Bad union Alt field {} id {}",
+                        "ApplicationException",
+                        -2147483648i32,
+                    ),
+                }
+                p.write_field_stop();
+                p.write_struct_end();
+            }
+        }
+
+        impl<P> ::fbthrift::Deserialize<P> for KillQueryExn
+        where
+            P: ::fbthrift::ProtocolReader,
+        {
+            fn read(p: &mut P) -> ::anyhow::Result<Self> {
+                static RETURNS: &[::fbthrift::Field] = &[
+                    ::fbthrift::Field::new("Success", ::fbthrift::TType::Struct, 0),
+                ];
+                let _ = p.read_struct_begin(|_| ())?;
+                let mut once = false;
+                let mut alt = ::std::option::Option::None;
+                loop {
+                    let (_, fty, fid) = p.read_field_begin(|_| (), RETURNS)?;
+                    match ((fty, fid as ::std::primitive::i32), once) {
+                        ((::fbthrift::TType::Stop, _), _) => {
+                            p.read_field_end()?;
+                            break;
+                        }
+                        ((::fbthrift::TType::Struct, 0i32), false) => {
+                            once = true;
+                            alt = ::std::option::Option::Some(KillQueryExn::Success(::fbthrift::Deserialize::read(p)?));
+                        }
+                        ((ty, _id), false) => p.skip(ty)?,
+                        ((badty, badid), true) => return ::std::result::Result::Err(::std::convert::From::from(
+                            ::fbthrift::ApplicationException::new(
+                                ::fbthrift::ApplicationExceptionErrorCode::ProtocolError,
+                                format!(
+                                    "unwanted extra union {} field ty {:?} id {}",
+                                    "KillQueryExn",
+                                    badty,
+                                    badid,
+                                ),
+                            )
+                        )),
+                    }
+                    p.read_field_end()?;
+                }
+                p.read_struct_end()?;
+                alt.ok_or_else(||
+                    ::fbthrift::ApplicationException::new(
+                        ::fbthrift::ApplicationExceptionErrorCode::MissingResult,
+                        format!("Empty union {}", "KillQueryExn"),
+                    )
+                    .into(),
+                )
+            }
+        }
+
+        #[derive(Clone, Debug)]
         pub enum ReportTaskFinishExn {
             Success(crate::types::ExecResp),
             ApplicationException(::fbthrift::ApplicationException),
@@ -21618,6 +22627,188 @@ pub mod services {
                     ::fbthrift::ApplicationException::new(
                         ::fbthrift::ApplicationExceptionErrorCode::MissingResult,
                         format!("Empty union {}", "ReportTaskFinishExn"),
+                    )
+                    .into(),
+                )
+            }
+        }
+
+        #[derive(Clone, Debug)]
+        pub enum ListClusterExn {
+            Success(crate::types::ListClusterInfoResp),
+            ApplicationException(::fbthrift::ApplicationException),
+        }
+
+        impl ::std::convert::From<::fbthrift::ApplicationException> for ListClusterExn {
+            fn from(exn: ::fbthrift::ApplicationException) -> Self {
+                ListClusterExn::ApplicationException(exn)
+            }
+        }
+
+        impl ::fbthrift::GetTType for ListClusterExn {
+            const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+        }
+
+        impl<P> ::fbthrift::Serialize<P> for ListClusterExn
+        where
+            P: ::fbthrift::ProtocolWriter,
+        {
+            fn write(&self, p: &mut P) {
+                p.write_struct_begin("ListCluster");
+                match self {
+                    ListClusterExn::Success(inner) => {
+                        p.write_field_begin(
+                            "Success",
+                            ::fbthrift::TType::Struct,
+                            0i16,
+                        );
+                        inner.write(p);
+                        p.write_field_end();
+                    }
+                    ListClusterExn::ApplicationException(_) => panic!(
+                        "Bad union Alt field {} id {}",
+                        "ApplicationException",
+                        -2147483648i32,
+                    ),
+                }
+                p.write_field_stop();
+                p.write_struct_end();
+            }
+        }
+
+        impl<P> ::fbthrift::Deserialize<P> for ListClusterExn
+        where
+            P: ::fbthrift::ProtocolReader,
+        {
+            fn read(p: &mut P) -> ::anyhow::Result<Self> {
+                static RETURNS: &[::fbthrift::Field] = &[
+                    ::fbthrift::Field::new("Success", ::fbthrift::TType::Struct, 0),
+                ];
+                let _ = p.read_struct_begin(|_| ())?;
+                let mut once = false;
+                let mut alt = ::std::option::Option::None;
+                loop {
+                    let (_, fty, fid) = p.read_field_begin(|_| (), RETURNS)?;
+                    match ((fty, fid as ::std::primitive::i32), once) {
+                        ((::fbthrift::TType::Stop, _), _) => {
+                            p.read_field_end()?;
+                            break;
+                        }
+                        ((::fbthrift::TType::Struct, 0i32), false) => {
+                            once = true;
+                            alt = ::std::option::Option::Some(ListClusterExn::Success(::fbthrift::Deserialize::read(p)?));
+                        }
+                        ((ty, _id), false) => p.skip(ty)?,
+                        ((badty, badid), true) => return ::std::result::Result::Err(::std::convert::From::from(
+                            ::fbthrift::ApplicationException::new(
+                                ::fbthrift::ApplicationExceptionErrorCode::ProtocolError,
+                                format!(
+                                    "unwanted extra union {} field ty {:?} id {}",
+                                    "ListClusterExn",
+                                    badty,
+                                    badid,
+                                ),
+                            )
+                        )),
+                    }
+                    p.read_field_end()?;
+                }
+                p.read_struct_end()?;
+                alt.ok_or_else(||
+                    ::fbthrift::ApplicationException::new(
+                        ::fbthrift::ApplicationExceptionErrorCode::MissingResult,
+                        format!("Empty union {}", "ListClusterExn"),
+                    )
+                    .into(),
+                )
+            }
+        }
+
+        #[derive(Clone, Debug)]
+        pub enum GetMetaDirInfoExn {
+            Success(crate::types::GetMetaDirInfoResp),
+            ApplicationException(::fbthrift::ApplicationException),
+        }
+
+        impl ::std::convert::From<::fbthrift::ApplicationException> for GetMetaDirInfoExn {
+            fn from(exn: ::fbthrift::ApplicationException) -> Self {
+                GetMetaDirInfoExn::ApplicationException(exn)
+            }
+        }
+
+        impl ::fbthrift::GetTType for GetMetaDirInfoExn {
+            const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+        }
+
+        impl<P> ::fbthrift::Serialize<P> for GetMetaDirInfoExn
+        where
+            P: ::fbthrift::ProtocolWriter,
+        {
+            fn write(&self, p: &mut P) {
+                p.write_struct_begin("GetMetaDirInfo");
+                match self {
+                    GetMetaDirInfoExn::Success(inner) => {
+                        p.write_field_begin(
+                            "Success",
+                            ::fbthrift::TType::Struct,
+                            0i16,
+                        );
+                        inner.write(p);
+                        p.write_field_end();
+                    }
+                    GetMetaDirInfoExn::ApplicationException(_) => panic!(
+                        "Bad union Alt field {} id {}",
+                        "ApplicationException",
+                        -2147483648i32,
+                    ),
+                }
+                p.write_field_stop();
+                p.write_struct_end();
+            }
+        }
+
+        impl<P> ::fbthrift::Deserialize<P> for GetMetaDirInfoExn
+        where
+            P: ::fbthrift::ProtocolReader,
+        {
+            fn read(p: &mut P) -> ::anyhow::Result<Self> {
+                static RETURNS: &[::fbthrift::Field] = &[
+                    ::fbthrift::Field::new("Success", ::fbthrift::TType::Struct, 0),
+                ];
+                let _ = p.read_struct_begin(|_| ())?;
+                let mut once = false;
+                let mut alt = ::std::option::Option::None;
+                loop {
+                    let (_, fty, fid) = p.read_field_begin(|_| (), RETURNS)?;
+                    match ((fty, fid as ::std::primitive::i32), once) {
+                        ((::fbthrift::TType::Stop, _), _) => {
+                            p.read_field_end()?;
+                            break;
+                        }
+                        ((::fbthrift::TType::Struct, 0i32), false) => {
+                            once = true;
+                            alt = ::std::option::Option::Some(GetMetaDirInfoExn::Success(::fbthrift::Deserialize::read(p)?));
+                        }
+                        ((ty, _id), false) => p.skip(ty)?,
+                        ((badty, badid), true) => return ::std::result::Result::Err(::std::convert::From::from(
+                            ::fbthrift::ApplicationException::new(
+                                ::fbthrift::ApplicationExceptionErrorCode::ProtocolError,
+                                format!(
+                                    "unwanted extra union {} field ty {:?} id {}",
+                                    "GetMetaDirInfoExn",
+                                    badty,
+                                    badid,
+                                ),
+                            )
+                        )),
+                    }
+                    p.read_field_end()?;
+                }
+                p.read_struct_end()?;
+                alt.ok_or_else(||
+                    ::fbthrift::ApplicationException::new(
+                        ::fbthrift::ApplicationExceptionErrorCode::MissingResult,
+                        format!("Empty union {}", "GetMetaDirInfoExn"),
                     )
                     .into(),
                 )
@@ -21953,6 +23144,18 @@ pub mod client {
             &self,
             arg_req: &crate::types::ListFTClientsReq,
         ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListFTClientsResp, crate::errors::meta_service::ListFTClientsError>> + ::std::marker::Send + 'static>>;
+        fn createFTIndex(
+            &self,
+            arg_req: &crate::types::CreateFTIndexReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::CreateFTIndexError>> + ::std::marker::Send + 'static>>;
+        fn dropFTIndex(
+            &self,
+            arg_req: &crate::types::DropFTIndexReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::DropFTIndexError>> + ::std::marker::Send + 'static>>;
+        fn listFTIndexes(
+            &self,
+            arg_req: &crate::types::ListFTIndexesReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListFTIndexesResp, crate::errors::meta_service::ListFTIndexesError>> + ::std::marker::Send + 'static>>;
         fn createSession(
             &self,
             arg_req: &crate::types::CreateSessionReq,
@@ -21960,7 +23163,7 @@ pub mod client {
         fn updateSessions(
             &self,
             arg_req: &crate::types::UpdateSessionsReq,
-        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::UpdateSessionsError>> + ::std::marker::Send + 'static>>;
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::UpdateSessionsResp, crate::errors::meta_service::UpdateSessionsError>> + ::std::marker::Send + 'static>>;
         fn listSessions(
             &self,
             arg_req: &crate::types::ListSessionsReq,
@@ -21973,10 +23176,22 @@ pub mod client {
             &self,
             arg_req: &crate::types::RemoveSessionReq,
         ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::RemoveSessionError>> + ::std::marker::Send + 'static>>;
+        fn killQuery(
+            &self,
+            arg_req: &crate::types::KillQueryReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::KillQueryError>> + ::std::marker::Send + 'static>>;
         fn reportTaskFinish(
             &self,
             arg_req: &crate::types::ReportTaskReq,
         ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::ReportTaskFinishError>> + ::std::marker::Send + 'static>>;
+        fn listCluster(
+            &self,
+            arg_req: &crate::types::ListClusterInfoReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListClusterInfoResp, crate::errors::meta_service::ListClusterError>> + ::std::marker::Send + 'static>>;
+        fn getMetaDirInfo(
+            &self,
+            arg_req: &crate::types::GetMetaDirInfoReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::GetMetaDirInfoResp, crate::errors::meta_service::GetMetaDirInfoError>> + ::std::marker::Send + 'static>>;
     }
 
     impl<P, T> MetaService for MetaServiceImpl<P, T>
@@ -26241,6 +27456,174 @@ pub mod client {
                 }))
                 .boxed()
         }
+        fn createFTIndex(
+            &self,
+            arg_req: &crate::types::CreateFTIndexReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::CreateFTIndexError>> + ::std::marker::Send + 'static>> {
+            use ::fbthrift::{ProtocolReader as _, ProtocolWriter as _};
+            use ::futures::future::{FutureExt as _, TryFutureExt as _};
+            let request = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "createFTIndex",
+                ::fbthrift::MessageType::Call,
+                // Note: we send a 0 message sequence ID from clients because
+                // this field should not be used by the server (except for some
+                // language implementations).
+                0,
+                |p| {
+                    p.write_struct_begin("args");
+                    p.write_field_begin("arg_req", ::fbthrift::TType::Struct, 1i16);
+                    ::fbthrift::Serialize::write(&arg_req, p);
+                    p.write_field_end();
+                    p.write_field_stop();
+                    p.write_struct_end();
+                },
+            ));
+            self.transport()
+                .call(request)
+                .map_err(::std::convert::From::from)
+                .and_then(|reply| ::futures::future::ready({
+                    let de = P::deserializer(reply);
+                    move |mut p: P::Deserializer| -> ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::CreateFTIndexError> {
+                        let p = &mut p;
+                        let (_, message_type, _) = p.read_message_begin(|_| ())?;
+                        let result = match message_type {
+                            ::fbthrift::MessageType::Reply => {
+                                let exn: crate::services::meta_service::CreateFTIndexExn = ::fbthrift::Deserialize::read(p)?;
+                                match exn {
+                                    crate::services::meta_service::CreateFTIndexExn::Success(x) => ::std::result::Result::Ok(x),
+                                    crate::services::meta_service::CreateFTIndexExn::ApplicationException(ae) => {
+                                        ::std::result::Result::Err(crate::errors::meta_service::CreateFTIndexError::ApplicationException(ae))
+                                    }
+                                }
+                            }
+                            ::fbthrift::MessageType::Exception => {
+                                let ae: ::fbthrift::ApplicationException = ::fbthrift::Deserialize::read(p)?;
+                                ::std::result::Result::Err(crate::errors::meta_service::CreateFTIndexError::ApplicationException(ae))
+                            }
+                            ::fbthrift::MessageType::Call | ::fbthrift::MessageType::Oneway | ::fbthrift::MessageType::InvalidMessageType => {
+                                let err = ::anyhow::anyhow!("Unexpected message type {:?}", message_type);
+                                ::std::result::Result::Err(crate::errors::meta_service::CreateFTIndexError::ThriftError(err))
+                            }
+                        };
+                        p.read_message_end()?;
+                        result
+                    }(de)
+                }))
+                .boxed()
+        }
+        fn dropFTIndex(
+            &self,
+            arg_req: &crate::types::DropFTIndexReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::DropFTIndexError>> + ::std::marker::Send + 'static>> {
+            use ::fbthrift::{ProtocolReader as _, ProtocolWriter as _};
+            use ::futures::future::{FutureExt as _, TryFutureExt as _};
+            let request = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "dropFTIndex",
+                ::fbthrift::MessageType::Call,
+                // Note: we send a 0 message sequence ID from clients because
+                // this field should not be used by the server (except for some
+                // language implementations).
+                0,
+                |p| {
+                    p.write_struct_begin("args");
+                    p.write_field_begin("arg_req", ::fbthrift::TType::Struct, 1i16);
+                    ::fbthrift::Serialize::write(&arg_req, p);
+                    p.write_field_end();
+                    p.write_field_stop();
+                    p.write_struct_end();
+                },
+            ));
+            self.transport()
+                .call(request)
+                .map_err(::std::convert::From::from)
+                .and_then(|reply| ::futures::future::ready({
+                    let de = P::deserializer(reply);
+                    move |mut p: P::Deserializer| -> ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::DropFTIndexError> {
+                        let p = &mut p;
+                        let (_, message_type, _) = p.read_message_begin(|_| ())?;
+                        let result = match message_type {
+                            ::fbthrift::MessageType::Reply => {
+                                let exn: crate::services::meta_service::DropFTIndexExn = ::fbthrift::Deserialize::read(p)?;
+                                match exn {
+                                    crate::services::meta_service::DropFTIndexExn::Success(x) => ::std::result::Result::Ok(x),
+                                    crate::services::meta_service::DropFTIndexExn::ApplicationException(ae) => {
+                                        ::std::result::Result::Err(crate::errors::meta_service::DropFTIndexError::ApplicationException(ae))
+                                    }
+                                }
+                            }
+                            ::fbthrift::MessageType::Exception => {
+                                let ae: ::fbthrift::ApplicationException = ::fbthrift::Deserialize::read(p)?;
+                                ::std::result::Result::Err(crate::errors::meta_service::DropFTIndexError::ApplicationException(ae))
+                            }
+                            ::fbthrift::MessageType::Call | ::fbthrift::MessageType::Oneway | ::fbthrift::MessageType::InvalidMessageType => {
+                                let err = ::anyhow::anyhow!("Unexpected message type {:?}", message_type);
+                                ::std::result::Result::Err(crate::errors::meta_service::DropFTIndexError::ThriftError(err))
+                            }
+                        };
+                        p.read_message_end()?;
+                        result
+                    }(de)
+                }))
+                .boxed()
+        }
+        fn listFTIndexes(
+            &self,
+            arg_req: &crate::types::ListFTIndexesReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListFTIndexesResp, crate::errors::meta_service::ListFTIndexesError>> + ::std::marker::Send + 'static>> {
+            use ::fbthrift::{ProtocolReader as _, ProtocolWriter as _};
+            use ::futures::future::{FutureExt as _, TryFutureExt as _};
+            let request = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "listFTIndexes",
+                ::fbthrift::MessageType::Call,
+                // Note: we send a 0 message sequence ID from clients because
+                // this field should not be used by the server (except for some
+                // language implementations).
+                0,
+                |p| {
+                    p.write_struct_begin("args");
+                    p.write_field_begin("arg_req", ::fbthrift::TType::Struct, 1i16);
+                    ::fbthrift::Serialize::write(&arg_req, p);
+                    p.write_field_end();
+                    p.write_field_stop();
+                    p.write_struct_end();
+                },
+            ));
+            self.transport()
+                .call(request)
+                .map_err(::std::convert::From::from)
+                .and_then(|reply| ::futures::future::ready({
+                    let de = P::deserializer(reply);
+                    move |mut p: P::Deserializer| -> ::std::result::Result<crate::types::ListFTIndexesResp, crate::errors::meta_service::ListFTIndexesError> {
+                        let p = &mut p;
+                        let (_, message_type, _) = p.read_message_begin(|_| ())?;
+                        let result = match message_type {
+                            ::fbthrift::MessageType::Reply => {
+                                let exn: crate::services::meta_service::ListFTIndexesExn = ::fbthrift::Deserialize::read(p)?;
+                                match exn {
+                                    crate::services::meta_service::ListFTIndexesExn::Success(x) => ::std::result::Result::Ok(x),
+                                    crate::services::meta_service::ListFTIndexesExn::ApplicationException(ae) => {
+                                        ::std::result::Result::Err(crate::errors::meta_service::ListFTIndexesError::ApplicationException(ae))
+                                    }
+                                }
+                            }
+                            ::fbthrift::MessageType::Exception => {
+                                let ae: ::fbthrift::ApplicationException = ::fbthrift::Deserialize::read(p)?;
+                                ::std::result::Result::Err(crate::errors::meta_service::ListFTIndexesError::ApplicationException(ae))
+                            }
+                            ::fbthrift::MessageType::Call | ::fbthrift::MessageType::Oneway | ::fbthrift::MessageType::InvalidMessageType => {
+                                let err = ::anyhow::anyhow!("Unexpected message type {:?}", message_type);
+                                ::std::result::Result::Err(crate::errors::meta_service::ListFTIndexesError::ThriftError(err))
+                            }
+                        };
+                        p.read_message_end()?;
+                        result
+                    }(de)
+                }))
+                .boxed()
+        }
         fn createSession(
             &self,
             arg_req: &crate::types::CreateSessionReq,
@@ -26300,7 +27683,7 @@ pub mod client {
         fn updateSessions(
             &self,
             arg_req: &crate::types::UpdateSessionsReq,
-        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::UpdateSessionsError>> + ::std::marker::Send + 'static>> {
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::UpdateSessionsResp, crate::errors::meta_service::UpdateSessionsError>> + ::std::marker::Send + 'static>> {
             use ::fbthrift::{ProtocolReader as _, ProtocolWriter as _};
             use ::futures::future::{FutureExt as _, TryFutureExt as _};
             let request = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
@@ -26325,7 +27708,7 @@ pub mod client {
                 .map_err(::std::convert::From::from)
                 .and_then(|reply| ::futures::future::ready({
                     let de = P::deserializer(reply);
-                    move |mut p: P::Deserializer| -> ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::UpdateSessionsError> {
+                    move |mut p: P::Deserializer| -> ::std::result::Result<crate::types::UpdateSessionsResp, crate::errors::meta_service::UpdateSessionsError> {
                         let p = &mut p;
                         let (_, message_type, _) = p.read_message_begin(|_| ())?;
                         let result = match message_type {
@@ -26521,6 +27904,62 @@ pub mod client {
                 }))
                 .boxed()
         }
+        fn killQuery(
+            &self,
+            arg_req: &crate::types::KillQueryReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::KillQueryError>> + ::std::marker::Send + 'static>> {
+            use ::fbthrift::{ProtocolReader as _, ProtocolWriter as _};
+            use ::futures::future::{FutureExt as _, TryFutureExt as _};
+            let request = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "killQuery",
+                ::fbthrift::MessageType::Call,
+                // Note: we send a 0 message sequence ID from clients because
+                // this field should not be used by the server (except for some
+                // language implementations).
+                0,
+                |p| {
+                    p.write_struct_begin("args");
+                    p.write_field_begin("arg_req", ::fbthrift::TType::Struct, 1i16);
+                    ::fbthrift::Serialize::write(&arg_req, p);
+                    p.write_field_end();
+                    p.write_field_stop();
+                    p.write_struct_end();
+                },
+            ));
+            self.transport()
+                .call(request)
+                .map_err(::std::convert::From::from)
+                .and_then(|reply| ::futures::future::ready({
+                    let de = P::deserializer(reply);
+                    move |mut p: P::Deserializer| -> ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::KillQueryError> {
+                        let p = &mut p;
+                        let (_, message_type, _) = p.read_message_begin(|_| ())?;
+                        let result = match message_type {
+                            ::fbthrift::MessageType::Reply => {
+                                let exn: crate::services::meta_service::KillQueryExn = ::fbthrift::Deserialize::read(p)?;
+                                match exn {
+                                    crate::services::meta_service::KillQueryExn::Success(x) => ::std::result::Result::Ok(x),
+                                    crate::services::meta_service::KillQueryExn::ApplicationException(ae) => {
+                                        ::std::result::Result::Err(crate::errors::meta_service::KillQueryError::ApplicationException(ae))
+                                    }
+                                }
+                            }
+                            ::fbthrift::MessageType::Exception => {
+                                let ae: ::fbthrift::ApplicationException = ::fbthrift::Deserialize::read(p)?;
+                                ::std::result::Result::Err(crate::errors::meta_service::KillQueryError::ApplicationException(ae))
+                            }
+                            ::fbthrift::MessageType::Call | ::fbthrift::MessageType::Oneway | ::fbthrift::MessageType::InvalidMessageType => {
+                                let err = ::anyhow::anyhow!("Unexpected message type {:?}", message_type);
+                                ::std::result::Result::Err(crate::errors::meta_service::KillQueryError::ThriftError(err))
+                            }
+                        };
+                        p.read_message_end()?;
+                        result
+                    }(de)
+                }))
+                .boxed()
+        }
         fn reportTaskFinish(
             &self,
             arg_req: &crate::types::ReportTaskReq,
@@ -26569,6 +28008,118 @@ pub mod client {
                             ::fbthrift::MessageType::Call | ::fbthrift::MessageType::Oneway | ::fbthrift::MessageType::InvalidMessageType => {
                                 let err = ::anyhow::anyhow!("Unexpected message type {:?}", message_type);
                                 ::std::result::Result::Err(crate::errors::meta_service::ReportTaskFinishError::ThriftError(err))
+                            }
+                        };
+                        p.read_message_end()?;
+                        result
+                    }(de)
+                }))
+                .boxed()
+        }
+        fn listCluster(
+            &self,
+            arg_req: &crate::types::ListClusterInfoReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListClusterInfoResp, crate::errors::meta_service::ListClusterError>> + ::std::marker::Send + 'static>> {
+            use ::fbthrift::{ProtocolReader as _, ProtocolWriter as _};
+            use ::futures::future::{FutureExt as _, TryFutureExt as _};
+            let request = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "listCluster",
+                ::fbthrift::MessageType::Call,
+                // Note: we send a 0 message sequence ID from clients because
+                // this field should not be used by the server (except for some
+                // language implementations).
+                0,
+                |p| {
+                    p.write_struct_begin("args");
+                    p.write_field_begin("arg_req", ::fbthrift::TType::Struct, 1i16);
+                    ::fbthrift::Serialize::write(&arg_req, p);
+                    p.write_field_end();
+                    p.write_field_stop();
+                    p.write_struct_end();
+                },
+            ));
+            self.transport()
+                .call(request)
+                .map_err(::std::convert::From::from)
+                .and_then(|reply| ::futures::future::ready({
+                    let de = P::deserializer(reply);
+                    move |mut p: P::Deserializer| -> ::std::result::Result<crate::types::ListClusterInfoResp, crate::errors::meta_service::ListClusterError> {
+                        let p = &mut p;
+                        let (_, message_type, _) = p.read_message_begin(|_| ())?;
+                        let result = match message_type {
+                            ::fbthrift::MessageType::Reply => {
+                                let exn: crate::services::meta_service::ListClusterExn = ::fbthrift::Deserialize::read(p)?;
+                                match exn {
+                                    crate::services::meta_service::ListClusterExn::Success(x) => ::std::result::Result::Ok(x),
+                                    crate::services::meta_service::ListClusterExn::ApplicationException(ae) => {
+                                        ::std::result::Result::Err(crate::errors::meta_service::ListClusterError::ApplicationException(ae))
+                                    }
+                                }
+                            }
+                            ::fbthrift::MessageType::Exception => {
+                                let ae: ::fbthrift::ApplicationException = ::fbthrift::Deserialize::read(p)?;
+                                ::std::result::Result::Err(crate::errors::meta_service::ListClusterError::ApplicationException(ae))
+                            }
+                            ::fbthrift::MessageType::Call | ::fbthrift::MessageType::Oneway | ::fbthrift::MessageType::InvalidMessageType => {
+                                let err = ::anyhow::anyhow!("Unexpected message type {:?}", message_type);
+                                ::std::result::Result::Err(crate::errors::meta_service::ListClusterError::ThriftError(err))
+                            }
+                        };
+                        p.read_message_end()?;
+                        result
+                    }(de)
+                }))
+                .boxed()
+        }
+        fn getMetaDirInfo(
+            &self,
+            arg_req: &crate::types::GetMetaDirInfoReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::GetMetaDirInfoResp, crate::errors::meta_service::GetMetaDirInfoError>> + ::std::marker::Send + 'static>> {
+            use ::fbthrift::{ProtocolReader as _, ProtocolWriter as _};
+            use ::futures::future::{FutureExt as _, TryFutureExt as _};
+            let request = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "getMetaDirInfo",
+                ::fbthrift::MessageType::Call,
+                // Note: we send a 0 message sequence ID from clients because
+                // this field should not be used by the server (except for some
+                // language implementations).
+                0,
+                |p| {
+                    p.write_struct_begin("args");
+                    p.write_field_begin("arg_req", ::fbthrift::TType::Struct, 1i16);
+                    ::fbthrift::Serialize::write(&arg_req, p);
+                    p.write_field_end();
+                    p.write_field_stop();
+                    p.write_struct_end();
+                },
+            ));
+            self.transport()
+                .call(request)
+                .map_err(::std::convert::From::from)
+                .and_then(|reply| ::futures::future::ready({
+                    let de = P::deserializer(reply);
+                    move |mut p: P::Deserializer| -> ::std::result::Result<crate::types::GetMetaDirInfoResp, crate::errors::meta_service::GetMetaDirInfoError> {
+                        let p = &mut p;
+                        let (_, message_type, _) = p.read_message_begin(|_| ())?;
+                        let result = match message_type {
+                            ::fbthrift::MessageType::Reply => {
+                                let exn: crate::services::meta_service::GetMetaDirInfoExn = ::fbthrift::Deserialize::read(p)?;
+                                match exn {
+                                    crate::services::meta_service::GetMetaDirInfoExn::Success(x) => ::std::result::Result::Ok(x),
+                                    crate::services::meta_service::GetMetaDirInfoExn::ApplicationException(ae) => {
+                                        ::std::result::Result::Err(crate::errors::meta_service::GetMetaDirInfoError::ApplicationException(ae))
+                                    }
+                                }
+                            }
+                            ::fbthrift::MessageType::Exception => {
+                                let ae: ::fbthrift::ApplicationException = ::fbthrift::Deserialize::read(p)?;
+                                ::std::result::Result::Err(crate::errors::meta_service::GetMetaDirInfoError::ApplicationException(ae))
+                            }
+                            ::fbthrift::MessageType::Call | ::fbthrift::MessageType::Oneway | ::fbthrift::MessageType::InvalidMessageType => {
+                                let err = ::anyhow::anyhow!("Unexpected message type {:?}", message_type);
+                                ::std::result::Result::Err(crate::errors::meta_service::GetMetaDirInfoError::ThriftError(err))
                             }
                         };
                         p.read_message_end()?;
@@ -27192,6 +28743,30 @@ pub mod client {
                 arg_req,
             )
         }
+        fn createFTIndex(
+            &self,
+            arg_req: &crate::types::CreateFTIndexReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::CreateFTIndexError>> + ::std::marker::Send + 'static>> {
+            self.as_ref().createFTIndex(
+                arg_req,
+            )
+        }
+        fn dropFTIndex(
+            &self,
+            arg_req: &crate::types::DropFTIndexReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::DropFTIndexError>> + ::std::marker::Send + 'static>> {
+            self.as_ref().dropFTIndex(
+                arg_req,
+            )
+        }
+        fn listFTIndexes(
+            &self,
+            arg_req: &crate::types::ListFTIndexesReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListFTIndexesResp, crate::errors::meta_service::ListFTIndexesError>> + ::std::marker::Send + 'static>> {
+            self.as_ref().listFTIndexes(
+                arg_req,
+            )
+        }
         fn createSession(
             &self,
             arg_req: &crate::types::CreateSessionReq,
@@ -27203,7 +28778,7 @@ pub mod client {
         fn updateSessions(
             &self,
             arg_req: &crate::types::UpdateSessionsReq,
-        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::UpdateSessionsError>> + ::std::marker::Send + 'static>> {
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::UpdateSessionsResp, crate::errors::meta_service::UpdateSessionsError>> + ::std::marker::Send + 'static>> {
             self.as_ref().updateSessions(
                 arg_req,
             )
@@ -27232,11 +28807,35 @@ pub mod client {
                 arg_req,
             )
         }
+        fn killQuery(
+            &self,
+            arg_req: &crate::types::KillQueryReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::KillQueryError>> + ::std::marker::Send + 'static>> {
+            self.as_ref().killQuery(
+                arg_req,
+            )
+        }
         fn reportTaskFinish(
             &self,
             arg_req: &crate::types::ReportTaskReq,
         ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::ReportTaskFinishError>> + ::std::marker::Send + 'static>> {
             self.as_ref().reportTaskFinish(
+                arg_req,
+            )
+        }
+        fn listCluster(
+            &self,
+            arg_req: &crate::types::ListClusterInfoReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListClusterInfoResp, crate::errors::meta_service::ListClusterError>> + ::std::marker::Send + 'static>> {
+            self.as_ref().listCluster(
+                arg_req,
+            )
+        }
+        fn getMetaDirInfo(
+            &self,
+            arg_req: &crate::types::GetMetaDirInfoReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::GetMetaDirInfoResp, crate::errors::meta_service::GetMetaDirInfoError>> + ::std::marker::Send + 'static>> {
+            self.as_ref().getMetaDirInfo(
                 arg_req,
             )
         }
@@ -28125,6 +29724,39 @@ pub mod server {
                 ),
             ))
         }
+        async fn createFTIndex(
+            &self,
+            _req: crate::types::CreateFTIndexReq,
+        ) -> ::std::result::Result<crate::types::ExecResp, crate::services::meta_service::CreateFTIndexExn> {
+            ::std::result::Result::Err(crate::services::meta_service::CreateFTIndexExn::ApplicationException(
+                ::fbthrift::ApplicationException::unimplemented_method(
+                    "MetaService",
+                    "createFTIndex",
+                ),
+            ))
+        }
+        async fn dropFTIndex(
+            &self,
+            _req: crate::types::DropFTIndexReq,
+        ) -> ::std::result::Result<crate::types::ExecResp, crate::services::meta_service::DropFTIndexExn> {
+            ::std::result::Result::Err(crate::services::meta_service::DropFTIndexExn::ApplicationException(
+                ::fbthrift::ApplicationException::unimplemented_method(
+                    "MetaService",
+                    "dropFTIndex",
+                ),
+            ))
+        }
+        async fn listFTIndexes(
+            &self,
+            _req: crate::types::ListFTIndexesReq,
+        ) -> ::std::result::Result<crate::types::ListFTIndexesResp, crate::services::meta_service::ListFTIndexesExn> {
+            ::std::result::Result::Err(crate::services::meta_service::ListFTIndexesExn::ApplicationException(
+                ::fbthrift::ApplicationException::unimplemented_method(
+                    "MetaService",
+                    "listFTIndexes",
+                ),
+            ))
+        }
         async fn createSession(
             &self,
             _req: crate::types::CreateSessionReq,
@@ -28139,7 +29771,7 @@ pub mod server {
         async fn updateSessions(
             &self,
             _req: crate::types::UpdateSessionsReq,
-        ) -> ::std::result::Result<crate::types::ExecResp, crate::services::meta_service::UpdateSessionsExn> {
+        ) -> ::std::result::Result<crate::types::UpdateSessionsResp, crate::services::meta_service::UpdateSessionsExn> {
             ::std::result::Result::Err(crate::services::meta_service::UpdateSessionsExn::ApplicationException(
                 ::fbthrift::ApplicationException::unimplemented_method(
                     "MetaService",
@@ -28180,6 +29812,17 @@ pub mod server {
                 ),
             ))
         }
+        async fn killQuery(
+            &self,
+            _req: crate::types::KillQueryReq,
+        ) -> ::std::result::Result<crate::types::ExecResp, crate::services::meta_service::KillQueryExn> {
+            ::std::result::Result::Err(crate::services::meta_service::KillQueryExn::ApplicationException(
+                ::fbthrift::ApplicationException::unimplemented_method(
+                    "MetaService",
+                    "killQuery",
+                ),
+            ))
+        }
         async fn reportTaskFinish(
             &self,
             _req: crate::types::ReportTaskReq,
@@ -28188,6 +29831,28 @@ pub mod server {
                 ::fbthrift::ApplicationException::unimplemented_method(
                     "MetaService",
                     "reportTaskFinish",
+                ),
+            ))
+        }
+        async fn listCluster(
+            &self,
+            _req: crate::types::ListClusterInfoReq,
+        ) -> ::std::result::Result<crate::types::ListClusterInfoResp, crate::services::meta_service::ListClusterExn> {
+            ::std::result::Result::Err(crate::services::meta_service::ListClusterExn::ApplicationException(
+                ::fbthrift::ApplicationException::unimplemented_method(
+                    "MetaService",
+                    "listCluster",
+                ),
+            ))
+        }
+        async fn getMetaDirInfo(
+            &self,
+            _req: crate::types::GetMetaDirInfoReq,
+        ) -> ::std::result::Result<crate::types::GetMetaDirInfoResp, crate::services::meta_service::GetMetaDirInfoExn> {
+            ::std::result::Result::Err(crate::services::meta_service::GetMetaDirInfoExn::ApplicationException(
+                ::fbthrift::ApplicationException::unimplemented_method(
+                    "MetaService",
+                    "getMetaDirInfo",
                 ),
             ))
         }
@@ -33540,6 +35205,216 @@ pub mod server {
             ::std::result::Result::Ok(res)
         }
 
+        async fn handle_createFTIndex<'a>(
+            &'a self,
+            p: &'a mut P::Deserializer,
+            req_ctxt: &R,
+            seqid: ::std::primitive::u32,
+        ) -> ::anyhow::Result<::fbthrift::ProtocolEncodedFinal<P>> {
+            use ::const_cstr::const_cstr;
+            use ::fbthrift::ProtocolReader as _;
+
+            const_cstr! {
+                SERVICE_NAME = "MetaService";
+                METHOD_NAME = "MetaService.createFTIndex";
+            }
+            let mut ctx_stack = req_ctxt.get_context_stack(
+                &SERVICE_NAME,
+                &METHOD_NAME,
+            )?;
+            ::fbthrift::ContextStack::pre_read(&mut ctx_stack)?;
+
+            static ARGS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("req", ::fbthrift::TType::Struct, 1),
+            ];
+            let mut field_req = ::std::option::Option::None;
+
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), ARGS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::Struct, 1) => field_req = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::fbthrift::ContextStack::post_read(&mut ctx_stack, 0)?;
+            let res = self.service.createFTIndex(
+                field_req.ok_or_else(|| {
+                    ::fbthrift::ApplicationException::missing_arg(
+                        "createFTIndex",
+                        "req",
+                    )
+                })?,
+            ).await;
+            let res = match res {
+                ::std::result::Result::Ok(res) => {
+                    crate::services::meta_service::CreateFTIndexExn::Success(res)
+                }
+                ::std::result::Result::Err(crate::services::meta_service::CreateFTIndexExn::ApplicationException(aexn)) => {
+                    return ::std::result::Result::Err(aexn.into())
+                }
+                ::std::result::Result::Err(crate::services::meta_service::CreateFTIndexExn::Success(_)) => {
+                    panic!(
+                        "{} attempted to return success via error",
+                        "createFTIndex",
+                    )
+                }
+            };
+            ::fbthrift::ContextStack::pre_write(&mut ctx_stack)?;
+            let res = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "createFTIndex",
+                ::fbthrift::MessageType::Reply,
+                seqid,
+                |p| ::fbthrift::Serialize::write(&res, p),
+            ));
+            ::fbthrift::ContextStack::post_write(&mut ctx_stack, 0)?;
+            ::std::result::Result::Ok(res)
+        }
+
+        async fn handle_dropFTIndex<'a>(
+            &'a self,
+            p: &'a mut P::Deserializer,
+            req_ctxt: &R,
+            seqid: ::std::primitive::u32,
+        ) -> ::anyhow::Result<::fbthrift::ProtocolEncodedFinal<P>> {
+            use ::const_cstr::const_cstr;
+            use ::fbthrift::ProtocolReader as _;
+
+            const_cstr! {
+                SERVICE_NAME = "MetaService";
+                METHOD_NAME = "MetaService.dropFTIndex";
+            }
+            let mut ctx_stack = req_ctxt.get_context_stack(
+                &SERVICE_NAME,
+                &METHOD_NAME,
+            )?;
+            ::fbthrift::ContextStack::pre_read(&mut ctx_stack)?;
+
+            static ARGS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("req", ::fbthrift::TType::Struct, 1),
+            ];
+            let mut field_req = ::std::option::Option::None;
+
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), ARGS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::Struct, 1) => field_req = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::fbthrift::ContextStack::post_read(&mut ctx_stack, 0)?;
+            let res = self.service.dropFTIndex(
+                field_req.ok_or_else(|| {
+                    ::fbthrift::ApplicationException::missing_arg(
+                        "dropFTIndex",
+                        "req",
+                    )
+                })?,
+            ).await;
+            let res = match res {
+                ::std::result::Result::Ok(res) => {
+                    crate::services::meta_service::DropFTIndexExn::Success(res)
+                }
+                ::std::result::Result::Err(crate::services::meta_service::DropFTIndexExn::ApplicationException(aexn)) => {
+                    return ::std::result::Result::Err(aexn.into())
+                }
+                ::std::result::Result::Err(crate::services::meta_service::DropFTIndexExn::Success(_)) => {
+                    panic!(
+                        "{} attempted to return success via error",
+                        "dropFTIndex",
+                    )
+                }
+            };
+            ::fbthrift::ContextStack::pre_write(&mut ctx_stack)?;
+            let res = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "dropFTIndex",
+                ::fbthrift::MessageType::Reply,
+                seqid,
+                |p| ::fbthrift::Serialize::write(&res, p),
+            ));
+            ::fbthrift::ContextStack::post_write(&mut ctx_stack, 0)?;
+            ::std::result::Result::Ok(res)
+        }
+
+        async fn handle_listFTIndexes<'a>(
+            &'a self,
+            p: &'a mut P::Deserializer,
+            req_ctxt: &R,
+            seqid: ::std::primitive::u32,
+        ) -> ::anyhow::Result<::fbthrift::ProtocolEncodedFinal<P>> {
+            use ::const_cstr::const_cstr;
+            use ::fbthrift::ProtocolReader as _;
+
+            const_cstr! {
+                SERVICE_NAME = "MetaService";
+                METHOD_NAME = "MetaService.listFTIndexes";
+            }
+            let mut ctx_stack = req_ctxt.get_context_stack(
+                &SERVICE_NAME,
+                &METHOD_NAME,
+            )?;
+            ::fbthrift::ContextStack::pre_read(&mut ctx_stack)?;
+
+            static ARGS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("req", ::fbthrift::TType::Struct, 1),
+            ];
+            let mut field_req = ::std::option::Option::None;
+
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), ARGS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::Struct, 1) => field_req = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::fbthrift::ContextStack::post_read(&mut ctx_stack, 0)?;
+            let res = self.service.listFTIndexes(
+                field_req.ok_or_else(|| {
+                    ::fbthrift::ApplicationException::missing_arg(
+                        "listFTIndexes",
+                        "req",
+                    )
+                })?,
+            ).await;
+            let res = match res {
+                ::std::result::Result::Ok(res) => {
+                    crate::services::meta_service::ListFTIndexesExn::Success(res)
+                }
+                ::std::result::Result::Err(crate::services::meta_service::ListFTIndexesExn::ApplicationException(aexn)) => {
+                    return ::std::result::Result::Err(aexn.into())
+                }
+                ::std::result::Result::Err(crate::services::meta_service::ListFTIndexesExn::Success(_)) => {
+                    panic!(
+                        "{} attempted to return success via error",
+                        "listFTIndexes",
+                    )
+                }
+            };
+            ::fbthrift::ContextStack::pre_write(&mut ctx_stack)?;
+            let res = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "listFTIndexes",
+                ::fbthrift::MessageType::Reply,
+                seqid,
+                |p| ::fbthrift::Serialize::write(&res, p),
+            ));
+            ::fbthrift::ContextStack::post_write(&mut ctx_stack, 0)?;
+            ::std::result::Result::Ok(res)
+        }
+
         async fn handle_createSession<'a>(
             &'a self,
             p: &'a mut P::Deserializer,
@@ -33890,6 +35765,76 @@ pub mod server {
             ::std::result::Result::Ok(res)
         }
 
+        async fn handle_killQuery<'a>(
+            &'a self,
+            p: &'a mut P::Deserializer,
+            req_ctxt: &R,
+            seqid: ::std::primitive::u32,
+        ) -> ::anyhow::Result<::fbthrift::ProtocolEncodedFinal<P>> {
+            use ::const_cstr::const_cstr;
+            use ::fbthrift::ProtocolReader as _;
+
+            const_cstr! {
+                SERVICE_NAME = "MetaService";
+                METHOD_NAME = "MetaService.killQuery";
+            }
+            let mut ctx_stack = req_ctxt.get_context_stack(
+                &SERVICE_NAME,
+                &METHOD_NAME,
+            )?;
+            ::fbthrift::ContextStack::pre_read(&mut ctx_stack)?;
+
+            static ARGS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("req", ::fbthrift::TType::Struct, 1),
+            ];
+            let mut field_req = ::std::option::Option::None;
+
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), ARGS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::Struct, 1) => field_req = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::fbthrift::ContextStack::post_read(&mut ctx_stack, 0)?;
+            let res = self.service.killQuery(
+                field_req.ok_or_else(|| {
+                    ::fbthrift::ApplicationException::missing_arg(
+                        "killQuery",
+                        "req",
+                    )
+                })?,
+            ).await;
+            let res = match res {
+                ::std::result::Result::Ok(res) => {
+                    crate::services::meta_service::KillQueryExn::Success(res)
+                }
+                ::std::result::Result::Err(crate::services::meta_service::KillQueryExn::ApplicationException(aexn)) => {
+                    return ::std::result::Result::Err(aexn.into())
+                }
+                ::std::result::Result::Err(crate::services::meta_service::KillQueryExn::Success(_)) => {
+                    panic!(
+                        "{} attempted to return success via error",
+                        "killQuery",
+                    )
+                }
+            };
+            ::fbthrift::ContextStack::pre_write(&mut ctx_stack)?;
+            let res = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "killQuery",
+                ::fbthrift::MessageType::Reply,
+                seqid,
+                |p| ::fbthrift::Serialize::write(&res, p),
+            ));
+            ::fbthrift::ContextStack::post_write(&mut ctx_stack, 0)?;
+            ::std::result::Result::Ok(res)
+        }
+
         async fn handle_reportTaskFinish<'a>(
             &'a self,
             p: &'a mut P::Deserializer,
@@ -33952,6 +35897,146 @@ pub mod server {
             let res = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
                 p,
                 "reportTaskFinish",
+                ::fbthrift::MessageType::Reply,
+                seqid,
+                |p| ::fbthrift::Serialize::write(&res, p),
+            ));
+            ::fbthrift::ContextStack::post_write(&mut ctx_stack, 0)?;
+            ::std::result::Result::Ok(res)
+        }
+
+        async fn handle_listCluster<'a>(
+            &'a self,
+            p: &'a mut P::Deserializer,
+            req_ctxt: &R,
+            seqid: ::std::primitive::u32,
+        ) -> ::anyhow::Result<::fbthrift::ProtocolEncodedFinal<P>> {
+            use ::const_cstr::const_cstr;
+            use ::fbthrift::ProtocolReader as _;
+
+            const_cstr! {
+                SERVICE_NAME = "MetaService";
+                METHOD_NAME = "MetaService.listCluster";
+            }
+            let mut ctx_stack = req_ctxt.get_context_stack(
+                &SERVICE_NAME,
+                &METHOD_NAME,
+            )?;
+            ::fbthrift::ContextStack::pre_read(&mut ctx_stack)?;
+
+            static ARGS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("req", ::fbthrift::TType::Struct, 1),
+            ];
+            let mut field_req = ::std::option::Option::None;
+
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), ARGS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::Struct, 1) => field_req = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::fbthrift::ContextStack::post_read(&mut ctx_stack, 0)?;
+            let res = self.service.listCluster(
+                field_req.ok_or_else(|| {
+                    ::fbthrift::ApplicationException::missing_arg(
+                        "listCluster",
+                        "req",
+                    )
+                })?,
+            ).await;
+            let res = match res {
+                ::std::result::Result::Ok(res) => {
+                    crate::services::meta_service::ListClusterExn::Success(res)
+                }
+                ::std::result::Result::Err(crate::services::meta_service::ListClusterExn::ApplicationException(aexn)) => {
+                    return ::std::result::Result::Err(aexn.into())
+                }
+                ::std::result::Result::Err(crate::services::meta_service::ListClusterExn::Success(_)) => {
+                    panic!(
+                        "{} attempted to return success via error",
+                        "listCluster",
+                    )
+                }
+            };
+            ::fbthrift::ContextStack::pre_write(&mut ctx_stack)?;
+            let res = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "listCluster",
+                ::fbthrift::MessageType::Reply,
+                seqid,
+                |p| ::fbthrift::Serialize::write(&res, p),
+            ));
+            ::fbthrift::ContextStack::post_write(&mut ctx_stack, 0)?;
+            ::std::result::Result::Ok(res)
+        }
+
+        async fn handle_getMetaDirInfo<'a>(
+            &'a self,
+            p: &'a mut P::Deserializer,
+            req_ctxt: &R,
+            seqid: ::std::primitive::u32,
+        ) -> ::anyhow::Result<::fbthrift::ProtocolEncodedFinal<P>> {
+            use ::const_cstr::const_cstr;
+            use ::fbthrift::ProtocolReader as _;
+
+            const_cstr! {
+                SERVICE_NAME = "MetaService";
+                METHOD_NAME = "MetaService.getMetaDirInfo";
+            }
+            let mut ctx_stack = req_ctxt.get_context_stack(
+                &SERVICE_NAME,
+                &METHOD_NAME,
+            )?;
+            ::fbthrift::ContextStack::pre_read(&mut ctx_stack)?;
+
+            static ARGS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("req", ::fbthrift::TType::Struct, 1),
+            ];
+            let mut field_req = ::std::option::Option::None;
+
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), ARGS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::Struct, 1) => field_req = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::fbthrift::ContextStack::post_read(&mut ctx_stack, 0)?;
+            let res = self.service.getMetaDirInfo(
+                field_req.ok_or_else(|| {
+                    ::fbthrift::ApplicationException::missing_arg(
+                        "getMetaDirInfo",
+                        "req",
+                    )
+                })?,
+            ).await;
+            let res = match res {
+                ::std::result::Result::Ok(res) => {
+                    crate::services::meta_service::GetMetaDirInfoExn::Success(res)
+                }
+                ::std::result::Result::Err(crate::services::meta_service::GetMetaDirInfoExn::ApplicationException(aexn)) => {
+                    return ::std::result::Result::Err(aexn.into())
+                }
+                ::std::result::Result::Err(crate::services::meta_service::GetMetaDirInfoExn::Success(_)) => {
+                    panic!(
+                        "{} attempted to return success via error",
+                        "getMetaDirInfo",
+                    )
+                }
+            };
+            ::fbthrift::ContextStack::pre_write(&mut ctx_stack)?;
+            let res = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "getMetaDirInfo",
                 ::fbthrift::MessageType::Reply,
                 seqid,
                 |p| ::fbthrift::Serialize::write(&res, p),
@@ -34051,12 +36136,18 @@ pub mod server {
                 b"signInFTService" => ::std::result::Result::Ok(73usize),
                 b"signOutFTService" => ::std::result::Result::Ok(74usize),
                 b"listFTClients" => ::std::result::Result::Ok(75usize),
-                b"createSession" => ::std::result::Result::Ok(76usize),
-                b"updateSessions" => ::std::result::Result::Ok(77usize),
-                b"listSessions" => ::std::result::Result::Ok(78usize),
-                b"getSession" => ::std::result::Result::Ok(79usize),
-                b"removeSession" => ::std::result::Result::Ok(80usize),
-                b"reportTaskFinish" => ::std::result::Result::Ok(81usize),
+                b"createFTIndex" => ::std::result::Result::Ok(76usize),
+                b"dropFTIndex" => ::std::result::Result::Ok(77usize),
+                b"listFTIndexes" => ::std::result::Result::Ok(78usize),
+                b"createSession" => ::std::result::Result::Ok(79usize),
+                b"updateSessions" => ::std::result::Result::Ok(80usize),
+                b"listSessions" => ::std::result::Result::Ok(81usize),
+                b"getSession" => ::std::result::Result::Ok(82usize),
+                b"removeSession" => ::std::result::Result::Ok(83usize),
+                b"killQuery" => ::std::result::Result::Ok(84usize),
+                b"reportTaskFinish" => ::std::result::Result::Ok(85usize),
+                b"listCluster" => ::std::result::Result::Ok(86usize),
+                b"getMetaDirInfo" => ::std::result::Result::Ok(87usize),
                 _ => ::std::result::Result::Err(::fbthrift::ApplicationException::unknown_method()),
             }
         }
@@ -34145,12 +36236,18 @@ pub mod server {
                 73usize => self.handle_signInFTService(_p, _r, _seqid).await,
                 74usize => self.handle_signOutFTService(_p, _r, _seqid).await,
                 75usize => self.handle_listFTClients(_p, _r, _seqid).await,
-                76usize => self.handle_createSession(_p, _r, _seqid).await,
-                77usize => self.handle_updateSessions(_p, _r, _seqid).await,
-                78usize => self.handle_listSessions(_p, _r, _seqid).await,
-                79usize => self.handle_getSession(_p, _r, _seqid).await,
-                80usize => self.handle_removeSession(_p, _r, _seqid).await,
-                81usize => self.handle_reportTaskFinish(_p, _r, _seqid).await,
+                76usize => self.handle_createFTIndex(_p, _r, _seqid).await,
+                77usize => self.handle_dropFTIndex(_p, _r, _seqid).await,
+                78usize => self.handle_listFTIndexes(_p, _r, _seqid).await,
+                79usize => self.handle_createSession(_p, _r, _seqid).await,
+                80usize => self.handle_updateSessions(_p, _r, _seqid).await,
+                81usize => self.handle_listSessions(_p, _r, _seqid).await,
+                82usize => self.handle_getSession(_p, _r, _seqid).await,
+                83usize => self.handle_removeSession(_p, _r, _seqid).await,
+                84usize => self.handle_killQuery(_p, _r, _seqid).await,
+                85usize => self.handle_reportTaskFinish(_p, _r, _seqid).await,
+                86usize => self.handle_listCluster(_p, _r, _seqid).await,
+                87usize => self.handle_getMetaDirInfo(_p, _r, _seqid).await,
                 bad => panic!(
                     "{}: unexpected method idx {}",
                     "MetaServiceProcessor",
@@ -34410,12 +36507,18 @@ pub mod mock {
         pub signInFTService: r#impl::meta_service::signInFTService<'mock>,
         pub signOutFTService: r#impl::meta_service::signOutFTService<'mock>,
         pub listFTClients: r#impl::meta_service::listFTClients<'mock>,
+        pub createFTIndex: r#impl::meta_service::createFTIndex<'mock>,
+        pub dropFTIndex: r#impl::meta_service::dropFTIndex<'mock>,
+        pub listFTIndexes: r#impl::meta_service::listFTIndexes<'mock>,
         pub createSession: r#impl::meta_service::createSession<'mock>,
         pub updateSessions: r#impl::meta_service::updateSessions<'mock>,
         pub listSessions: r#impl::meta_service::listSessions<'mock>,
         pub getSession: r#impl::meta_service::getSession<'mock>,
         pub removeSession: r#impl::meta_service::removeSession<'mock>,
+        pub killQuery: r#impl::meta_service::killQuery<'mock>,
         pub reportTaskFinish: r#impl::meta_service::reportTaskFinish<'mock>,
+        pub listCluster: r#impl::meta_service::listCluster<'mock>,
+        pub getMetaDirInfo: r#impl::meta_service::getMetaDirInfo<'mock>,
         _marker: ::std::marker::PhantomData<&'mock ()>,
     }
 
@@ -34498,12 +36601,18 @@ pub mod mock {
                 signInFTService: r#impl::meta_service::signInFTService::unimplemented(),
                 signOutFTService: r#impl::meta_service::signOutFTService::unimplemented(),
                 listFTClients: r#impl::meta_service::listFTClients::unimplemented(),
+                createFTIndex: r#impl::meta_service::createFTIndex::unimplemented(),
+                dropFTIndex: r#impl::meta_service::dropFTIndex::unimplemented(),
+                listFTIndexes: r#impl::meta_service::listFTIndexes::unimplemented(),
                 createSession: r#impl::meta_service::createSession::unimplemented(),
                 updateSessions: r#impl::meta_service::updateSessions::unimplemented(),
                 listSessions: r#impl::meta_service::listSessions::unimplemented(),
                 getSession: r#impl::meta_service::getSession::unimplemented(),
                 removeSession: r#impl::meta_service::removeSession::unimplemented(),
+                killQuery: r#impl::meta_service::killQuery::unimplemented(),
                 reportTaskFinish: r#impl::meta_service::reportTaskFinish::unimplemented(),
+                listCluster: r#impl::meta_service::listCluster::unimplemented(),
+                getMetaDirInfo: r#impl::meta_service::getMetaDirInfo::unimplemented(),
                 _marker: ::std::marker::PhantomData,
             }
         }
@@ -35119,6 +37228,30 @@ pub mod mock {
             let closure: &mut dyn ::std::ops::FnMut(crate::types::ListFTClientsReq) -> _ = &mut **closure;
             ::std::boxed::Box::pin(::futures::future::ready(closure(arg_req.clone())))
         }
+        fn createFTIndex(
+            &self,
+            arg_req: &crate::types::CreateFTIndexReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::CreateFTIndexError>> + ::std::marker::Send + 'static>> {
+            let mut closure = self.createFTIndex.closure.lock().unwrap();
+            let closure: &mut dyn ::std::ops::FnMut(crate::types::CreateFTIndexReq) -> _ = &mut **closure;
+            ::std::boxed::Box::pin(::futures::future::ready(closure(arg_req.clone())))
+        }
+        fn dropFTIndex(
+            &self,
+            arg_req: &crate::types::DropFTIndexReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::DropFTIndexError>> + ::std::marker::Send + 'static>> {
+            let mut closure = self.dropFTIndex.closure.lock().unwrap();
+            let closure: &mut dyn ::std::ops::FnMut(crate::types::DropFTIndexReq) -> _ = &mut **closure;
+            ::std::boxed::Box::pin(::futures::future::ready(closure(arg_req.clone())))
+        }
+        fn listFTIndexes(
+            &self,
+            arg_req: &crate::types::ListFTIndexesReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListFTIndexesResp, crate::errors::meta_service::ListFTIndexesError>> + ::std::marker::Send + 'static>> {
+            let mut closure = self.listFTIndexes.closure.lock().unwrap();
+            let closure: &mut dyn ::std::ops::FnMut(crate::types::ListFTIndexesReq) -> _ = &mut **closure;
+            ::std::boxed::Box::pin(::futures::future::ready(closure(arg_req.clone())))
+        }
         fn createSession(
             &self,
             arg_req: &crate::types::CreateSessionReq,
@@ -35130,7 +37263,7 @@ pub mod mock {
         fn updateSessions(
             &self,
             arg_req: &crate::types::UpdateSessionsReq,
-        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::UpdateSessionsError>> + ::std::marker::Send + 'static>> {
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::UpdateSessionsResp, crate::errors::meta_service::UpdateSessionsError>> + ::std::marker::Send + 'static>> {
             let mut closure = self.updateSessions.closure.lock().unwrap();
             let closure: &mut dyn ::std::ops::FnMut(crate::types::UpdateSessionsReq) -> _ = &mut **closure;
             ::std::boxed::Box::pin(::futures::future::ready(closure(arg_req.clone())))
@@ -35159,12 +37292,36 @@ pub mod mock {
             let closure: &mut dyn ::std::ops::FnMut(crate::types::RemoveSessionReq) -> _ = &mut **closure;
             ::std::boxed::Box::pin(::futures::future::ready(closure(arg_req.clone())))
         }
+        fn killQuery(
+            &self,
+            arg_req: &crate::types::KillQueryReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::KillQueryError>> + ::std::marker::Send + 'static>> {
+            let mut closure = self.killQuery.closure.lock().unwrap();
+            let closure: &mut dyn ::std::ops::FnMut(crate::types::KillQueryReq) -> _ = &mut **closure;
+            ::std::boxed::Box::pin(::futures::future::ready(closure(arg_req.clone())))
+        }
         fn reportTaskFinish(
             &self,
             arg_req: &crate::types::ReportTaskReq,
         ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::ReportTaskFinishError>> + ::std::marker::Send + 'static>> {
             let mut closure = self.reportTaskFinish.closure.lock().unwrap();
             let closure: &mut dyn ::std::ops::FnMut(crate::types::ReportTaskReq) -> _ = &mut **closure;
+            ::std::boxed::Box::pin(::futures::future::ready(closure(arg_req.clone())))
+        }
+        fn listCluster(
+            &self,
+            arg_req: &crate::types::ListClusterInfoReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListClusterInfoResp, crate::errors::meta_service::ListClusterError>> + ::std::marker::Send + 'static>> {
+            let mut closure = self.listCluster.closure.lock().unwrap();
+            let closure: &mut dyn ::std::ops::FnMut(crate::types::ListClusterInfoReq) -> _ = &mut **closure;
+            ::std::boxed::Box::pin(::futures::future::ready(closure(arg_req.clone())))
+        }
+        fn getMetaDirInfo(
+            &self,
+            arg_req: &crate::types::GetMetaDirInfoReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::GetMetaDirInfoResp, crate::errors::meta_service::GetMetaDirInfoError>> + ::std::marker::Send + 'static>> {
+            let mut closure = self.getMetaDirInfo.closure.lock().unwrap();
+            let closure: &mut dyn ::std::ops::FnMut(crate::types::GetMetaDirInfoReq) -> _ = &mut **closure;
             ::std::boxed::Box::pin(::futures::future::ready(closure(arg_req.clone())))
         }
     }
@@ -38516,6 +40673,138 @@ pub mod mock {
                 }
             }
 
+            pub struct createFTIndex<'mock> {
+                pub(crate) closure: ::std::sync::Mutex<::std::boxed::Box<
+                    dyn ::std::ops::FnMut(crate::types::CreateFTIndexReq) -> ::std::result::Result<
+                        crate::types::ExecResp,
+                        crate::errors::meta_service::CreateFTIndexError,
+                    > + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                >>,
+            }
+
+            impl<'mock> createFTIndex<'mock> {
+                pub fn unimplemented() -> Self {
+                    createFTIndex {
+                        closure: ::std::sync::Mutex::new(::std::boxed::Box::new(|_: crate::types::CreateFTIndexReq| panic!(
+                            "{}::{} is not mocked",
+                            "MetaService",
+                            "createFTIndex",
+                        ))),
+                    }
+                }
+
+                pub fn ret(&self, value: crate::types::ExecResp) {
+                    self.mock(move |_: crate::types::CreateFTIndexReq| value.clone());
+                }
+
+                pub fn mock(&self, mut mock: impl ::std::ops::FnMut(crate::types::CreateFTIndexReq) -> crate::types::ExecResp + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| ::std::result::Result::Ok(mock(req)));
+                }
+
+                pub fn mock_result(&self, mut mock: impl ::std::ops::FnMut(crate::types::CreateFTIndexReq) -> ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::CreateFTIndexError> + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| mock(req));
+                }
+
+                pub fn throw<E>(&self, exception: E)
+                where
+                    E: ::std::convert::Into<crate::errors::meta_service::CreateFTIndexError>,
+                    E: ::std::clone::Clone + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |_: crate::types::CreateFTIndexReq| ::std::result::Result::Err(exception.clone().into()));
+                }
+            }
+
+            pub struct dropFTIndex<'mock> {
+                pub(crate) closure: ::std::sync::Mutex<::std::boxed::Box<
+                    dyn ::std::ops::FnMut(crate::types::DropFTIndexReq) -> ::std::result::Result<
+                        crate::types::ExecResp,
+                        crate::errors::meta_service::DropFTIndexError,
+                    > + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                >>,
+            }
+
+            impl<'mock> dropFTIndex<'mock> {
+                pub fn unimplemented() -> Self {
+                    dropFTIndex {
+                        closure: ::std::sync::Mutex::new(::std::boxed::Box::new(|_: crate::types::DropFTIndexReq| panic!(
+                            "{}::{} is not mocked",
+                            "MetaService",
+                            "dropFTIndex",
+                        ))),
+                    }
+                }
+
+                pub fn ret(&self, value: crate::types::ExecResp) {
+                    self.mock(move |_: crate::types::DropFTIndexReq| value.clone());
+                }
+
+                pub fn mock(&self, mut mock: impl ::std::ops::FnMut(crate::types::DropFTIndexReq) -> crate::types::ExecResp + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| ::std::result::Result::Ok(mock(req)));
+                }
+
+                pub fn mock_result(&self, mut mock: impl ::std::ops::FnMut(crate::types::DropFTIndexReq) -> ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::DropFTIndexError> + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| mock(req));
+                }
+
+                pub fn throw<E>(&self, exception: E)
+                where
+                    E: ::std::convert::Into<crate::errors::meta_service::DropFTIndexError>,
+                    E: ::std::clone::Clone + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |_: crate::types::DropFTIndexReq| ::std::result::Result::Err(exception.clone().into()));
+                }
+            }
+
+            pub struct listFTIndexes<'mock> {
+                pub(crate) closure: ::std::sync::Mutex<::std::boxed::Box<
+                    dyn ::std::ops::FnMut(crate::types::ListFTIndexesReq) -> ::std::result::Result<
+                        crate::types::ListFTIndexesResp,
+                        crate::errors::meta_service::ListFTIndexesError,
+                    > + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                >>,
+            }
+
+            impl<'mock> listFTIndexes<'mock> {
+                pub fn unimplemented() -> Self {
+                    listFTIndexes {
+                        closure: ::std::sync::Mutex::new(::std::boxed::Box::new(|_: crate::types::ListFTIndexesReq| panic!(
+                            "{}::{} is not mocked",
+                            "MetaService",
+                            "listFTIndexes",
+                        ))),
+                    }
+                }
+
+                pub fn ret(&self, value: crate::types::ListFTIndexesResp) {
+                    self.mock(move |_: crate::types::ListFTIndexesReq| value.clone());
+                }
+
+                pub fn mock(&self, mut mock: impl ::std::ops::FnMut(crate::types::ListFTIndexesReq) -> crate::types::ListFTIndexesResp + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| ::std::result::Result::Ok(mock(req)));
+                }
+
+                pub fn mock_result(&self, mut mock: impl ::std::ops::FnMut(crate::types::ListFTIndexesReq) -> ::std::result::Result<crate::types::ListFTIndexesResp, crate::errors::meta_service::ListFTIndexesError> + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| mock(req));
+                }
+
+                pub fn throw<E>(&self, exception: E)
+                where
+                    E: ::std::convert::Into<crate::errors::meta_service::ListFTIndexesError>,
+                    E: ::std::clone::Clone + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |_: crate::types::ListFTIndexesReq| ::std::result::Result::Err(exception.clone().into()));
+                }
+            }
+
             pub struct createSession<'mock> {
                 pub(crate) closure: ::std::sync::Mutex<::std::boxed::Box<
                     dyn ::std::ops::FnMut(crate::types::CreateSessionReq) -> ::std::result::Result<
@@ -38563,7 +40852,7 @@ pub mod mock {
             pub struct updateSessions<'mock> {
                 pub(crate) closure: ::std::sync::Mutex<::std::boxed::Box<
                     dyn ::std::ops::FnMut(crate::types::UpdateSessionsReq) -> ::std::result::Result<
-                        crate::types::ExecResp,
+                        crate::types::UpdateSessionsResp,
                         crate::errors::meta_service::UpdateSessionsError,
                     > + ::std::marker::Send + ::std::marker::Sync + 'mock,
                 >>,
@@ -38580,16 +40869,16 @@ pub mod mock {
                     }
                 }
 
-                pub fn ret(&self, value: crate::types::ExecResp) {
+                pub fn ret(&self, value: crate::types::UpdateSessionsResp) {
                     self.mock(move |_: crate::types::UpdateSessionsReq| value.clone());
                 }
 
-                pub fn mock(&self, mut mock: impl ::std::ops::FnMut(crate::types::UpdateSessionsReq) -> crate::types::ExecResp + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                pub fn mock(&self, mut mock: impl ::std::ops::FnMut(crate::types::UpdateSessionsReq) -> crate::types::UpdateSessionsResp + ::std::marker::Send + ::std::marker::Sync + 'mock) {
                     let mut closure = self.closure.lock().unwrap();
                     *closure = ::std::boxed::Box::new(move |req| ::std::result::Result::Ok(mock(req)));
                 }
 
-                pub fn mock_result(&self, mut mock: impl ::std::ops::FnMut(crate::types::UpdateSessionsReq) -> ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::UpdateSessionsError> + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                pub fn mock_result(&self, mut mock: impl ::std::ops::FnMut(crate::types::UpdateSessionsReq) -> ::std::result::Result<crate::types::UpdateSessionsResp, crate::errors::meta_service::UpdateSessionsError> + ::std::marker::Send + ::std::marker::Sync + 'mock) {
                     let mut closure = self.closure.lock().unwrap();
                     *closure = ::std::boxed::Box::new(move |req| mock(req));
                 }
@@ -38736,6 +41025,50 @@ pub mod mock {
                 }
             }
 
+            pub struct killQuery<'mock> {
+                pub(crate) closure: ::std::sync::Mutex<::std::boxed::Box<
+                    dyn ::std::ops::FnMut(crate::types::KillQueryReq) -> ::std::result::Result<
+                        crate::types::ExecResp,
+                        crate::errors::meta_service::KillQueryError,
+                    > + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                >>,
+            }
+
+            impl<'mock> killQuery<'mock> {
+                pub fn unimplemented() -> Self {
+                    killQuery {
+                        closure: ::std::sync::Mutex::new(::std::boxed::Box::new(|_: crate::types::KillQueryReq| panic!(
+                            "{}::{} is not mocked",
+                            "MetaService",
+                            "killQuery",
+                        ))),
+                    }
+                }
+
+                pub fn ret(&self, value: crate::types::ExecResp) {
+                    self.mock(move |_: crate::types::KillQueryReq| value.clone());
+                }
+
+                pub fn mock(&self, mut mock: impl ::std::ops::FnMut(crate::types::KillQueryReq) -> crate::types::ExecResp + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| ::std::result::Result::Ok(mock(req)));
+                }
+
+                pub fn mock_result(&self, mut mock: impl ::std::ops::FnMut(crate::types::KillQueryReq) -> ::std::result::Result<crate::types::ExecResp, crate::errors::meta_service::KillQueryError> + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| mock(req));
+                }
+
+                pub fn throw<E>(&self, exception: E)
+                where
+                    E: ::std::convert::Into<crate::errors::meta_service::KillQueryError>,
+                    E: ::std::clone::Clone + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |_: crate::types::KillQueryReq| ::std::result::Result::Err(exception.clone().into()));
+                }
+            }
+
             pub struct reportTaskFinish<'mock> {
                 pub(crate) closure: ::std::sync::Mutex<::std::boxed::Box<
                     dyn ::std::ops::FnMut(crate::types::ReportTaskReq) -> ::std::result::Result<
@@ -38777,6 +41110,94 @@ pub mod mock {
                 {
                     let mut closure = self.closure.lock().unwrap();
                     *closure = ::std::boxed::Box::new(move |_: crate::types::ReportTaskReq| ::std::result::Result::Err(exception.clone().into()));
+                }
+            }
+
+            pub struct listCluster<'mock> {
+                pub(crate) closure: ::std::sync::Mutex<::std::boxed::Box<
+                    dyn ::std::ops::FnMut(crate::types::ListClusterInfoReq) -> ::std::result::Result<
+                        crate::types::ListClusterInfoResp,
+                        crate::errors::meta_service::ListClusterError,
+                    > + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                >>,
+            }
+
+            impl<'mock> listCluster<'mock> {
+                pub fn unimplemented() -> Self {
+                    listCluster {
+                        closure: ::std::sync::Mutex::new(::std::boxed::Box::new(|_: crate::types::ListClusterInfoReq| panic!(
+                            "{}::{} is not mocked",
+                            "MetaService",
+                            "listCluster",
+                        ))),
+                    }
+                }
+
+                pub fn ret(&self, value: crate::types::ListClusterInfoResp) {
+                    self.mock(move |_: crate::types::ListClusterInfoReq| value.clone());
+                }
+
+                pub fn mock(&self, mut mock: impl ::std::ops::FnMut(crate::types::ListClusterInfoReq) -> crate::types::ListClusterInfoResp + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| ::std::result::Result::Ok(mock(req)));
+                }
+
+                pub fn mock_result(&self, mut mock: impl ::std::ops::FnMut(crate::types::ListClusterInfoReq) -> ::std::result::Result<crate::types::ListClusterInfoResp, crate::errors::meta_service::ListClusterError> + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| mock(req));
+                }
+
+                pub fn throw<E>(&self, exception: E)
+                where
+                    E: ::std::convert::Into<crate::errors::meta_service::ListClusterError>,
+                    E: ::std::clone::Clone + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |_: crate::types::ListClusterInfoReq| ::std::result::Result::Err(exception.clone().into()));
+                }
+            }
+
+            pub struct getMetaDirInfo<'mock> {
+                pub(crate) closure: ::std::sync::Mutex<::std::boxed::Box<
+                    dyn ::std::ops::FnMut(crate::types::GetMetaDirInfoReq) -> ::std::result::Result<
+                        crate::types::GetMetaDirInfoResp,
+                        crate::errors::meta_service::GetMetaDirInfoError,
+                    > + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                >>,
+            }
+
+            impl<'mock> getMetaDirInfo<'mock> {
+                pub fn unimplemented() -> Self {
+                    getMetaDirInfo {
+                        closure: ::std::sync::Mutex::new(::std::boxed::Box::new(|_: crate::types::GetMetaDirInfoReq| panic!(
+                            "{}::{} is not mocked",
+                            "MetaService",
+                            "getMetaDirInfo",
+                        ))),
+                    }
+                }
+
+                pub fn ret(&self, value: crate::types::GetMetaDirInfoResp) {
+                    self.mock(move |_: crate::types::GetMetaDirInfoReq| value.clone());
+                }
+
+                pub fn mock(&self, mut mock: impl ::std::ops::FnMut(crate::types::GetMetaDirInfoReq) -> crate::types::GetMetaDirInfoResp + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| ::std::result::Result::Ok(mock(req)));
+                }
+
+                pub fn mock_result(&self, mut mock: impl ::std::ops::FnMut(crate::types::GetMetaDirInfoReq) -> ::std::result::Result<crate::types::GetMetaDirInfoResp, crate::errors::meta_service::GetMetaDirInfoError> + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| mock(req));
+                }
+
+                pub fn throw<E>(&self, exception: E)
+                where
+                    E: ::std::convert::Into<crate::errors::meta_service::GetMetaDirInfoError>,
+                    E: ::std::clone::Clone + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |_: crate::types::GetMetaDirInfoReq| ::std::result::Result::Err(exception.clone().into()));
                 }
             }
         }
@@ -38938,6 +41359,12 @@ pub mod errors {
 
         pub type ListFTClientsError = ::fbthrift::NonthrowingFunctionError;
 
+        pub type CreateFTIndexError = ::fbthrift::NonthrowingFunctionError;
+
+        pub type DropFTIndexError = ::fbthrift::NonthrowingFunctionError;
+
+        pub type ListFTIndexesError = ::fbthrift::NonthrowingFunctionError;
+
         pub type CreateSessionError = ::fbthrift::NonthrowingFunctionError;
 
         pub type UpdateSessionsError = ::fbthrift::NonthrowingFunctionError;
@@ -38948,7 +41375,13 @@ pub mod errors {
 
         pub type RemoveSessionError = ::fbthrift::NonthrowingFunctionError;
 
+        pub type KillQueryError = ::fbthrift::NonthrowingFunctionError;
+
         pub type ReportTaskFinishError = ::fbthrift::NonthrowingFunctionError;
+
+        pub type ListClusterError = ::fbthrift::NonthrowingFunctionError;
+
+        pub type GetMetaDirInfoError = ::fbthrift::NonthrowingFunctionError;
 
     }
 

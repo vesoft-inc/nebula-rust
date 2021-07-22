@@ -51,7 +51,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct ExecutionResponse {
-        pub error_code: crate::types::ErrorCode,
+        pub error_code: common::types::ErrorCode,
         pub latency_in_us: ::std::primitive::i32,
         pub data: ::std::option::Option<common::types::DataSet>,
         pub space_name: ::std::option::Option<::std::vec::Vec<::std::primitive::u8>>,
@@ -62,197 +62,11 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct AuthResponse {
-        pub error_code: crate::types::ErrorCode,
+        pub error_code: common::types::ErrorCode,
         pub error_msg: ::std::option::Option<::std::vec::Vec<::std::primitive::u8>>,
         pub session_id: ::std::option::Option<::std::primitive::i64>,
-    }
-
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
-    pub struct ErrorCode(pub ::std::primitive::i32);
-
-    impl ErrorCode {
-        pub const SUCCEEDED: Self = ErrorCode(0i32);
-        pub const E_DISCONNECTED: Self = ErrorCode(-1i32);
-        pub const E_FAIL_TO_CONNECT: Self = ErrorCode(-2i32);
-        pub const E_RPC_FAILURE: Self = ErrorCode(-3i32);
-        pub const E_BAD_USERNAME_PASSWORD: Self = ErrorCode(-4i32);
-        pub const E_SESSION_INVALID: Self = ErrorCode(-5i32);
-        pub const E_SESSION_TIMEOUT: Self = ErrorCode(-6i32);
-        pub const E_SYNTAX_ERROR: Self = ErrorCode(-7i32);
-        pub const E_EXECUTION_ERROR: Self = ErrorCode(-8i32);
-        pub const E_STATEMENT_EMPTY: Self = ErrorCode(-9i32);
-        pub const E_USER_NOT_FOUND: Self = ErrorCode(-10i32);
-        pub const E_BAD_PERMISSION: Self = ErrorCode(-11i32);
-        pub const E_SEMANTIC_ERROR: Self = ErrorCode(-12i32);
-        pub const E_TOO_MANY_CONNECTIONS: Self = ErrorCode(-13i32);
-        pub const E_PARTIAL_SUCCEEDED: Self = ErrorCode(-14i32);
-    }
-
-    impl ::fbthrift::ThriftEnum for ErrorCode {
-        fn enumerate() -> &'static [(ErrorCode, &'static str)] {
-            &[
-                (ErrorCode::SUCCEEDED, "SUCCEEDED"),
-                (ErrorCode::E_DISCONNECTED, "E_DISCONNECTED"),
-                (ErrorCode::E_FAIL_TO_CONNECT, "E_FAIL_TO_CONNECT"),
-                (ErrorCode::E_RPC_FAILURE, "E_RPC_FAILURE"),
-                (ErrorCode::E_BAD_USERNAME_PASSWORD, "E_BAD_USERNAME_PASSWORD"),
-                (ErrorCode::E_SESSION_INVALID, "E_SESSION_INVALID"),
-                (ErrorCode::E_SESSION_TIMEOUT, "E_SESSION_TIMEOUT"),
-                (ErrorCode::E_SYNTAX_ERROR, "E_SYNTAX_ERROR"),
-                (ErrorCode::E_EXECUTION_ERROR, "E_EXECUTION_ERROR"),
-                (ErrorCode::E_STATEMENT_EMPTY, "E_STATEMENT_EMPTY"),
-                (ErrorCode::E_USER_NOT_FOUND, "E_USER_NOT_FOUND"),
-                (ErrorCode::E_BAD_PERMISSION, "E_BAD_PERMISSION"),
-                (ErrorCode::E_SEMANTIC_ERROR, "E_SEMANTIC_ERROR"),
-                (ErrorCode::E_TOO_MANY_CONNECTIONS, "E_TOO_MANY_CONNECTIONS"),
-                (ErrorCode::E_PARTIAL_SUCCEEDED, "E_PARTIAL_SUCCEEDED"),
-            ]
-        }
-
-        fn variants() -> &'static [&'static str] {
-            &[
-                "SUCCEEDED",
-                "E_DISCONNECTED",
-                "E_FAIL_TO_CONNECT",
-                "E_RPC_FAILURE",
-                "E_BAD_USERNAME_PASSWORD",
-                "E_SESSION_INVALID",
-                "E_SESSION_TIMEOUT",
-                "E_SYNTAX_ERROR",
-                "E_EXECUTION_ERROR",
-                "E_STATEMENT_EMPTY",
-                "E_USER_NOT_FOUND",
-                "E_BAD_PERMISSION",
-                "E_SEMANTIC_ERROR",
-                "E_TOO_MANY_CONNECTIONS",
-                "E_PARTIAL_SUCCEEDED",
-            ]
-        }
-
-        fn variant_values() -> &'static [ErrorCode] {
-            &[
-                ErrorCode::SUCCEEDED,
-                ErrorCode::E_DISCONNECTED,
-                ErrorCode::E_FAIL_TO_CONNECT,
-                ErrorCode::E_RPC_FAILURE,
-                ErrorCode::E_BAD_USERNAME_PASSWORD,
-                ErrorCode::E_SESSION_INVALID,
-                ErrorCode::E_SESSION_TIMEOUT,
-                ErrorCode::E_SYNTAX_ERROR,
-                ErrorCode::E_EXECUTION_ERROR,
-                ErrorCode::E_STATEMENT_EMPTY,
-                ErrorCode::E_USER_NOT_FOUND,
-                ErrorCode::E_BAD_PERMISSION,
-                ErrorCode::E_SEMANTIC_ERROR,
-                ErrorCode::E_TOO_MANY_CONNECTIONS,
-                ErrorCode::E_PARTIAL_SUCCEEDED,
-            ]
-        }
-    }
-
-    impl ::std::default::Default for ErrorCode {
-        fn default() -> Self {
-            ErrorCode(::fbthrift::__UNKNOWN_ID)
-        }
-    }
-
-    impl<'a> ::std::convert::From<&'a ErrorCode> for ::std::primitive::i32 {
-        #[inline]
-        fn from(x: &'a ErrorCode) -> Self {
-            x.0
-        }
-    }
-
-    impl ::std::convert::From<ErrorCode> for ::std::primitive::i32 {
-        #[inline]
-        fn from(x: ErrorCode) -> Self {
-            x.0
-        }
-    }
-
-    impl ::std::convert::From<::std::primitive::i32> for ErrorCode {
-        #[inline]
-        fn from(x: ::std::primitive::i32) -> Self {
-            Self(x)
-        }
-    }
-
-    impl ::std::fmt::Display for ErrorCode {
-        fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-            static VARIANTS_BY_NUMBER: &[(&::std::primitive::str, ::std::primitive::i32)] = &[
-                ("E_PARTIAL_SUCCEEDED", -14),
-                ("E_TOO_MANY_CONNECTIONS", -13),
-                ("E_SEMANTIC_ERROR", -12),
-                ("E_BAD_PERMISSION", -11),
-                ("E_USER_NOT_FOUND", -10),
-                ("E_STATEMENT_EMPTY", -9),
-                ("E_EXECUTION_ERROR", -8),
-                ("E_SYNTAX_ERROR", -7),
-                ("E_SESSION_TIMEOUT", -6),
-                ("E_SESSION_INVALID", -5),
-                ("E_BAD_USERNAME_PASSWORD", -4),
-                ("E_RPC_FAILURE", -3),
-                ("E_FAIL_TO_CONNECT", -2),
-                ("E_DISCONNECTED", -1),
-                ("SUCCEEDED", 0),
-            ];
-            ::fbthrift::help::enum_display(VARIANTS_BY_NUMBER, fmt, self.0)
-        }
-    }
-
-    impl ::std::fmt::Debug for ErrorCode {
-        fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-            write!(fmt, "ErrorCode::{}", self)
-        }
-    }
-
-    impl ::std::str::FromStr for ErrorCode {
-        type Err = ::anyhow::Error;
-
-        fn from_str(string: &::std::primitive::str) -> ::std::result::Result<Self, Self::Err> {
-            static VARIANTS_BY_NAME: &[(&::std::primitive::str, ::std::primitive::i32)] = &[
-                ("E_BAD_PERMISSION", -11),
-                ("E_BAD_USERNAME_PASSWORD", -4),
-                ("E_DISCONNECTED", -1),
-                ("E_EXECUTION_ERROR", -8),
-                ("E_FAIL_TO_CONNECT", -2),
-                ("E_PARTIAL_SUCCEEDED", -14),
-                ("E_RPC_FAILURE", -3),
-                ("E_SEMANTIC_ERROR", -12),
-                ("E_SESSION_INVALID", -5),
-                ("E_SESSION_TIMEOUT", -6),
-                ("E_STATEMENT_EMPTY", -9),
-                ("E_SYNTAX_ERROR", -7),
-                ("E_TOO_MANY_CONNECTIONS", -13),
-                ("E_USER_NOT_FOUND", -10),
-                ("SUCCEEDED", 0),
-            ];
-            ::fbthrift::help::enum_from_str(VARIANTS_BY_NAME, string, "ErrorCode").map(ErrorCode)
-        }
-    }
-
-    impl ::fbthrift::GetTType for ErrorCode {
-        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::I32;
-    }
-
-    impl<P> ::fbthrift::Serialize<P> for ErrorCode
-    where
-        P: ::fbthrift::ProtocolWriter,
-    {
-        #[inline]
-        fn write(&self, p: &mut P) {
-            p.write_i32(self.into())
-        }
-    }
-
-    impl<P> ::fbthrift::Deserialize<P> for ErrorCode
-    where
-        P: ::fbthrift::ProtocolReader,
-    {
-        #[inline]
-        fn read(p: &mut P) -> ::anyhow::Result<Self> {
-            ::std::result::Result::Ok(ErrorCode::from(p.read_i32()?))
-        }
+        pub time_zone_offset_seconds: ::std::option::Option<::std::primitive::i32>,
+        pub time_zone_name: ::std::option::Option<::std::vec::Vec<::std::primitive::u8>>,
     }
 
     impl ::std::default::Default for self::ProfilingStats {
@@ -777,6 +591,8 @@ pub mod types {
                 error_code: ::std::default::Default::default(),
                 error_msg: ::std::option::Option::None,
                 session_id: ::std::option::Option::None,
+                time_zone_offset_seconds: ::std::option::Option::None,
+                time_zone_name: ::std::option::Option::None,
             }
         }
     }
@@ -807,6 +623,16 @@ pub mod types {
                 ::fbthrift::Serialize::write(some, p);
                 p.write_field_end();
             }
+            if let ::std::option::Option::Some(some) = &self.time_zone_offset_seconds {
+                p.write_field_begin("time_zone_offset_seconds", ::fbthrift::TType::I32, 4);
+                ::fbthrift::Serialize::write(some, p);
+                p.write_field_end();
+            }
+            if let ::std::option::Option::Some(some) = &self.time_zone_name {
+                p.write_field_begin("time_zone_name", ::fbthrift::TType::String, 5);
+                ::fbthrift::Serialize::write(some, p);
+                p.write_field_end();
+            }
             p.write_field_stop();
             p.write_struct_end();
         }
@@ -821,10 +647,14 @@ pub mod types {
                 ::fbthrift::Field::new("error_code", ::fbthrift::TType::I32, 1),
                 ::fbthrift::Field::new("error_msg", ::fbthrift::TType::String, 2),
                 ::fbthrift::Field::new("session_id", ::fbthrift::TType::I64, 3),
+                ::fbthrift::Field::new("time_zone_name", ::fbthrift::TType::String, 5),
+                ::fbthrift::Field::new("time_zone_offset_seconds", ::fbthrift::TType::I32, 4),
             ];
             let mut field_error_code = ::std::option::Option::None;
             let mut field_error_msg = ::std::option::Option::None;
             let mut field_session_id = ::std::option::Option::None;
+            let mut field_time_zone_offset_seconds = ::std::option::Option::None;
+            let mut field_time_zone_name = ::std::option::Option::None;
             let _ = p.read_struct_begin(|_| ())?;
             loop {
                 let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
@@ -833,6 +663,8 @@ pub mod types {
                     (::fbthrift::TType::I32, 1) => field_error_code = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (::fbthrift::TType::String, 2) => field_error_msg = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (::fbthrift::TType::I64, 3) => field_session_id = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::I32, 4) => field_time_zone_offset_seconds = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::String, 5) => field_time_zone_name = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (fty, _) => p.skip(fty)?,
                 }
                 p.read_field_end()?;
@@ -842,6 +674,8 @@ pub mod types {
                 error_code: field_error_code.unwrap_or_default(),
                 error_msg: field_error_msg,
                 session_id: field_session_id,
+                time_zone_offset_seconds: field_time_zone_offset_seconds,
+                time_zone_name: field_time_zone_name,
             })
         }
     }
