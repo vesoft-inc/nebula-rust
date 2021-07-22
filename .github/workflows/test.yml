@@ -36,15 +36,12 @@ jobs:
           pip3 install --upgrade pip
           pip3 install setuptools
           pip3 install docker-compose
-          docker network ls
           mkdir tmp
           pushd tmp
-          git clone -b external_network https://github.com/Shylock-Hg/nebula-docker-compose.git
+          git clone --depth=1 https://github.com/vesoft-inc/nebula-docker-compose.git
           pushd nebula-docker-compose/
-          sed -i "s/\bdocker_nebula-net\b/$(docker network ls | grep github_network | tr -s [:blank:] | cut -d ' ' -f 2)/g" docker-compose.yaml
           docker-compose up -d
-          docker network ls
-          sleep 10
+          sleep 3
           popd
           popd
       - name: test
