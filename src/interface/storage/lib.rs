@@ -12,7 +12,7 @@ pub mod types {
 
     #[derive(Clone, Debug, PartialEq)]
     pub struct PartitionResult {
-        pub code: crate::types::ErrorCode,
+        pub code: common::types::ErrorCode,
         pub part_id: common::types::PartitionID,
         pub leader: ::std::option::Option<common::types::HostAddr>,
     }
@@ -413,20 +413,17 @@ pub mod types {
     #[derive(Clone, Debug, PartialEq)]
     pub struct CreateCPResp {
         pub result: crate::types::ResponseCommon,
-        pub path: ::std::vec::Vec<::std::primitive::u8>,
+        pub info: ::std::vec::Vec<common::types::CheckpointInfo>,
     }
 
     #[derive(Clone, Debug, PartialEq)]
-    pub struct PartitionInfoResp {
+    pub struct ListClusterInfoResp {
         pub result: crate::types::ResponseCommon,
-        pub backup_name: ::std::vec::Vec<::std::primitive::u8>,
-        pub partition_info: common::types::PartitionBackupInfo,
+        pub dir: common::types::DirInfo,
     }
 
     #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    pub struct PartitionInfoRequest {
-        pub space_id: common::types::GraphSpaceID,
-        pub backup_name: ::std::vec::Vec<::std::primitive::u8>,
+    pub struct ListClusterInfoReq {
     }
 
     #[derive(Clone, Debug, PartialEq)]
@@ -474,386 +471,6 @@ pub mod types {
     pub struct GetValueResponse {
         pub result: crate::types::ResponseCommon,
         pub value: ::std::vec::Vec<::std::primitive::u8>,
-    }
-
-    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
-    pub struct ErrorCode(pub ::std::primitive::i32);
-
-    impl ErrorCode {
-        pub const SUCCEEDED: Self = ErrorCode(0i32);
-        pub const E_DISCONNECTED: Self = ErrorCode(-1i32);
-        pub const E_FAILED_TO_CONNECT: Self = ErrorCode(-2i32);
-        pub const E_RPC_FAILURE: Self = ErrorCode(-3i32);
-        pub const E_LEADER_CHANGED: Self = ErrorCode(-11i32);
-        pub const E_KEY_HAS_EXISTS: Self = ErrorCode(-12i32);
-        pub const E_SPACE_NOT_FOUND: Self = ErrorCode(-13i32);
-        pub const E_PART_NOT_FOUND: Self = ErrorCode(-14i32);
-        pub const E_KEY_NOT_FOUND: Self = ErrorCode(-15i32);
-        pub const E_CONSENSUS_ERROR: Self = ErrorCode(-16i32);
-        pub const E_DATA_TYPE_MISMATCH: Self = ErrorCode(-17i32);
-        pub const E_INVALID_FIELD_VALUE: Self = ErrorCode(-18i32);
-        pub const E_REBUILD_INDEX_FAILED: Self = ErrorCode(-19i32);
-        pub const E_INVALID_OPERATION: Self = ErrorCode(-20i32);
-        pub const E_NOT_NULLABLE: Self = ErrorCode(-21i32);
-        pub const E_FIELD_UNSET: Self = ErrorCode(-22i32);
-        pub const E_OUT_OF_RANGE: Self = ErrorCode(-23i32);
-        pub const E_ATOMIC_OP_FAILED: Self = ErrorCode(-24i32);
-        pub const E_DATA_CONFLICT_ERROR: Self = ErrorCode(-25i32);
-        pub const E_EDGE_PROP_NOT_FOUND: Self = ErrorCode(-31i32);
-        pub const E_TAG_PROP_NOT_FOUND: Self = ErrorCode(-32i32);
-        pub const E_IMPROPER_DATA_TYPE: Self = ErrorCode(-33i32);
-        pub const E_EDGE_NOT_FOUND: Self = ErrorCode(-34i32);
-        pub const E_TAG_NOT_FOUND: Self = ErrorCode(-35i32);
-        pub const E_INVALID_SPACEVIDLEN: Self = ErrorCode(-36i32);
-        pub const E_INDEX_NOT_FOUND: Self = ErrorCode(-37i32);
-        pub const E_INVALID_FILTER: Self = ErrorCode(-41i32);
-        pub const E_INVALID_UPDATER: Self = ErrorCode(-42i32);
-        pub const E_INVALID_STORE: Self = ErrorCode(-43i32);
-        pub const E_INVALID_PEER: Self = ErrorCode(-44i32);
-        pub const E_RETRY_EXHAUSTED: Self = ErrorCode(-45i32);
-        pub const E_TRANSFER_LEADER_FAILED: Self = ErrorCode(-46i32);
-        pub const E_INVALID_STAT_TYPE: Self = ErrorCode(-47i32);
-        pub const E_INVALID_VID: Self = ErrorCode(-48i32);
-        pub const E_NO_TRANSFORMED: Self = ErrorCode(-49i32);
-        pub const E_LOAD_META_FAILED: Self = ErrorCode(-51i32);
-        pub const E_FAILED_TO_CHECKPOINT: Self = ErrorCode(-60i32);
-        pub const E_CHECKPOINT_BLOCKED: Self = ErrorCode(-61i32);
-        pub const E_BACKUP_FAILED: Self = ErrorCode(-65i32);
-        pub const E_PARTIAL_RESULT: Self = ErrorCode(-71i32);
-        pub const E_FILTER_OUT: Self = ErrorCode(-81i32);
-        pub const E_INVALID_DATA: Self = ErrorCode(-82i32);
-        pub const E_MUTATE_EDGE_CONFLICT: Self = ErrorCode(-85i32);
-        pub const E_OUTDATED_LOCK: Self = ErrorCode(-86i32);
-        pub const E_INVALID_TASK_PARA: Self = ErrorCode(-90i32);
-        pub const E_USER_CANCEL: Self = ErrorCode(-99i32);
-        pub const E_UNKNOWN: Self = ErrorCode(-100i32);
-    }
-
-    impl ::fbthrift::ThriftEnum for ErrorCode {
-        fn enumerate() -> &'static [(ErrorCode, &'static str)] {
-            &[
-                (ErrorCode::SUCCEEDED, "SUCCEEDED"),
-                (ErrorCode::E_DISCONNECTED, "E_DISCONNECTED"),
-                (ErrorCode::E_FAILED_TO_CONNECT, "E_FAILED_TO_CONNECT"),
-                (ErrorCode::E_RPC_FAILURE, "E_RPC_FAILURE"),
-                (ErrorCode::E_LEADER_CHANGED, "E_LEADER_CHANGED"),
-                (ErrorCode::E_KEY_HAS_EXISTS, "E_KEY_HAS_EXISTS"),
-                (ErrorCode::E_SPACE_NOT_FOUND, "E_SPACE_NOT_FOUND"),
-                (ErrorCode::E_PART_NOT_FOUND, "E_PART_NOT_FOUND"),
-                (ErrorCode::E_KEY_NOT_FOUND, "E_KEY_NOT_FOUND"),
-                (ErrorCode::E_CONSENSUS_ERROR, "E_CONSENSUS_ERROR"),
-                (ErrorCode::E_DATA_TYPE_MISMATCH, "E_DATA_TYPE_MISMATCH"),
-                (ErrorCode::E_INVALID_FIELD_VALUE, "E_INVALID_FIELD_VALUE"),
-                (ErrorCode::E_REBUILD_INDEX_FAILED, "E_REBUILD_INDEX_FAILED"),
-                (ErrorCode::E_INVALID_OPERATION, "E_INVALID_OPERATION"),
-                (ErrorCode::E_NOT_NULLABLE, "E_NOT_NULLABLE"),
-                (ErrorCode::E_FIELD_UNSET, "E_FIELD_UNSET"),
-                (ErrorCode::E_OUT_OF_RANGE, "E_OUT_OF_RANGE"),
-                (ErrorCode::E_ATOMIC_OP_FAILED, "E_ATOMIC_OP_FAILED"),
-                (ErrorCode::E_DATA_CONFLICT_ERROR, "E_DATA_CONFLICT_ERROR"),
-                (ErrorCode::E_EDGE_PROP_NOT_FOUND, "E_EDGE_PROP_NOT_FOUND"),
-                (ErrorCode::E_TAG_PROP_NOT_FOUND, "E_TAG_PROP_NOT_FOUND"),
-                (ErrorCode::E_IMPROPER_DATA_TYPE, "E_IMPROPER_DATA_TYPE"),
-                (ErrorCode::E_EDGE_NOT_FOUND, "E_EDGE_NOT_FOUND"),
-                (ErrorCode::E_TAG_NOT_FOUND, "E_TAG_NOT_FOUND"),
-                (ErrorCode::E_INVALID_SPACEVIDLEN, "E_INVALID_SPACEVIDLEN"),
-                (ErrorCode::E_INDEX_NOT_FOUND, "E_INDEX_NOT_FOUND"),
-                (ErrorCode::E_INVALID_FILTER, "E_INVALID_FILTER"),
-                (ErrorCode::E_INVALID_UPDATER, "E_INVALID_UPDATER"),
-                (ErrorCode::E_INVALID_STORE, "E_INVALID_STORE"),
-                (ErrorCode::E_INVALID_PEER, "E_INVALID_PEER"),
-                (ErrorCode::E_RETRY_EXHAUSTED, "E_RETRY_EXHAUSTED"),
-                (ErrorCode::E_TRANSFER_LEADER_FAILED, "E_TRANSFER_LEADER_FAILED"),
-                (ErrorCode::E_INVALID_STAT_TYPE, "E_INVALID_STAT_TYPE"),
-                (ErrorCode::E_INVALID_VID, "E_INVALID_VID"),
-                (ErrorCode::E_NO_TRANSFORMED, "E_NO_TRANSFORMED"),
-                (ErrorCode::E_LOAD_META_FAILED, "E_LOAD_META_FAILED"),
-                (ErrorCode::E_FAILED_TO_CHECKPOINT, "E_FAILED_TO_CHECKPOINT"),
-                (ErrorCode::E_CHECKPOINT_BLOCKED, "E_CHECKPOINT_BLOCKED"),
-                (ErrorCode::E_BACKUP_FAILED, "E_BACKUP_FAILED"),
-                (ErrorCode::E_PARTIAL_RESULT, "E_PARTIAL_RESULT"),
-                (ErrorCode::E_FILTER_OUT, "E_FILTER_OUT"),
-                (ErrorCode::E_INVALID_DATA, "E_INVALID_DATA"),
-                (ErrorCode::E_MUTATE_EDGE_CONFLICT, "E_MUTATE_EDGE_CONFLICT"),
-                (ErrorCode::E_OUTDATED_LOCK, "E_OUTDATED_LOCK"),
-                (ErrorCode::E_INVALID_TASK_PARA, "E_INVALID_TASK_PARA"),
-                (ErrorCode::E_USER_CANCEL, "E_USER_CANCEL"),
-                (ErrorCode::E_UNKNOWN, "E_UNKNOWN"),
-            ]
-        }
-
-        fn variants() -> &'static [&'static str] {
-            &[
-                "SUCCEEDED",
-                "E_DISCONNECTED",
-                "E_FAILED_TO_CONNECT",
-                "E_RPC_FAILURE",
-                "E_LEADER_CHANGED",
-                "E_KEY_HAS_EXISTS",
-                "E_SPACE_NOT_FOUND",
-                "E_PART_NOT_FOUND",
-                "E_KEY_NOT_FOUND",
-                "E_CONSENSUS_ERROR",
-                "E_DATA_TYPE_MISMATCH",
-                "E_INVALID_FIELD_VALUE",
-                "E_REBUILD_INDEX_FAILED",
-                "E_INVALID_OPERATION",
-                "E_NOT_NULLABLE",
-                "E_FIELD_UNSET",
-                "E_OUT_OF_RANGE",
-                "E_ATOMIC_OP_FAILED",
-                "E_DATA_CONFLICT_ERROR",
-                "E_EDGE_PROP_NOT_FOUND",
-                "E_TAG_PROP_NOT_FOUND",
-                "E_IMPROPER_DATA_TYPE",
-                "E_EDGE_NOT_FOUND",
-                "E_TAG_NOT_FOUND",
-                "E_INVALID_SPACEVIDLEN",
-                "E_INDEX_NOT_FOUND",
-                "E_INVALID_FILTER",
-                "E_INVALID_UPDATER",
-                "E_INVALID_STORE",
-                "E_INVALID_PEER",
-                "E_RETRY_EXHAUSTED",
-                "E_TRANSFER_LEADER_FAILED",
-                "E_INVALID_STAT_TYPE",
-                "E_INVALID_VID",
-                "E_NO_TRANSFORMED",
-                "E_LOAD_META_FAILED",
-                "E_FAILED_TO_CHECKPOINT",
-                "E_CHECKPOINT_BLOCKED",
-                "E_BACKUP_FAILED",
-                "E_PARTIAL_RESULT",
-                "E_FILTER_OUT",
-                "E_INVALID_DATA",
-                "E_MUTATE_EDGE_CONFLICT",
-                "E_OUTDATED_LOCK",
-                "E_INVALID_TASK_PARA",
-                "E_USER_CANCEL",
-                "E_UNKNOWN",
-            ]
-        }
-
-        fn variant_values() -> &'static [ErrorCode] {
-            &[
-                ErrorCode::SUCCEEDED,
-                ErrorCode::E_DISCONNECTED,
-                ErrorCode::E_FAILED_TO_CONNECT,
-                ErrorCode::E_RPC_FAILURE,
-                ErrorCode::E_LEADER_CHANGED,
-                ErrorCode::E_KEY_HAS_EXISTS,
-                ErrorCode::E_SPACE_NOT_FOUND,
-                ErrorCode::E_PART_NOT_FOUND,
-                ErrorCode::E_KEY_NOT_FOUND,
-                ErrorCode::E_CONSENSUS_ERROR,
-                ErrorCode::E_DATA_TYPE_MISMATCH,
-                ErrorCode::E_INVALID_FIELD_VALUE,
-                ErrorCode::E_REBUILD_INDEX_FAILED,
-                ErrorCode::E_INVALID_OPERATION,
-                ErrorCode::E_NOT_NULLABLE,
-                ErrorCode::E_FIELD_UNSET,
-                ErrorCode::E_OUT_OF_RANGE,
-                ErrorCode::E_ATOMIC_OP_FAILED,
-                ErrorCode::E_DATA_CONFLICT_ERROR,
-                ErrorCode::E_EDGE_PROP_NOT_FOUND,
-                ErrorCode::E_TAG_PROP_NOT_FOUND,
-                ErrorCode::E_IMPROPER_DATA_TYPE,
-                ErrorCode::E_EDGE_NOT_FOUND,
-                ErrorCode::E_TAG_NOT_FOUND,
-                ErrorCode::E_INVALID_SPACEVIDLEN,
-                ErrorCode::E_INDEX_NOT_FOUND,
-                ErrorCode::E_INVALID_FILTER,
-                ErrorCode::E_INVALID_UPDATER,
-                ErrorCode::E_INVALID_STORE,
-                ErrorCode::E_INVALID_PEER,
-                ErrorCode::E_RETRY_EXHAUSTED,
-                ErrorCode::E_TRANSFER_LEADER_FAILED,
-                ErrorCode::E_INVALID_STAT_TYPE,
-                ErrorCode::E_INVALID_VID,
-                ErrorCode::E_NO_TRANSFORMED,
-                ErrorCode::E_LOAD_META_FAILED,
-                ErrorCode::E_FAILED_TO_CHECKPOINT,
-                ErrorCode::E_CHECKPOINT_BLOCKED,
-                ErrorCode::E_BACKUP_FAILED,
-                ErrorCode::E_PARTIAL_RESULT,
-                ErrorCode::E_FILTER_OUT,
-                ErrorCode::E_INVALID_DATA,
-                ErrorCode::E_MUTATE_EDGE_CONFLICT,
-                ErrorCode::E_OUTDATED_LOCK,
-                ErrorCode::E_INVALID_TASK_PARA,
-                ErrorCode::E_USER_CANCEL,
-                ErrorCode::E_UNKNOWN,
-            ]
-        }
-    }
-
-    impl ::std::default::Default for ErrorCode {
-        fn default() -> Self {
-            ErrorCode(::fbthrift::__UNKNOWN_ID)
-        }
-    }
-
-    impl<'a> ::std::convert::From<&'a ErrorCode> for ::std::primitive::i32 {
-        #[inline]
-        fn from(x: &'a ErrorCode) -> Self {
-            x.0
-        }
-    }
-
-    impl ::std::convert::From<ErrorCode> for ::std::primitive::i32 {
-        #[inline]
-        fn from(x: ErrorCode) -> Self {
-            x.0
-        }
-    }
-
-    impl ::std::convert::From<::std::primitive::i32> for ErrorCode {
-        #[inline]
-        fn from(x: ::std::primitive::i32) -> Self {
-            Self(x)
-        }
-    }
-
-    impl ::std::fmt::Display for ErrorCode {
-        fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-            static VARIANTS_BY_NUMBER: &[(&::std::primitive::str, ::std::primitive::i32)] = &[
-                ("E_UNKNOWN", -100),
-                ("E_USER_CANCEL", -99),
-                ("E_INVALID_TASK_PARA", -90),
-                ("E_OUTDATED_LOCK", -86),
-                ("E_MUTATE_EDGE_CONFLICT", -85),
-                ("E_INVALID_DATA", -82),
-                ("E_FILTER_OUT", -81),
-                ("E_PARTIAL_RESULT", -71),
-                ("E_BACKUP_FAILED", -65),
-                ("E_CHECKPOINT_BLOCKED", -61),
-                ("E_FAILED_TO_CHECKPOINT", -60),
-                ("E_LOAD_META_FAILED", -51),
-                ("E_NO_TRANSFORMED", -49),
-                ("E_INVALID_VID", -48),
-                ("E_INVALID_STAT_TYPE", -47),
-                ("E_TRANSFER_LEADER_FAILED", -46),
-                ("E_RETRY_EXHAUSTED", -45),
-                ("E_INVALID_PEER", -44),
-                ("E_INVALID_STORE", -43),
-                ("E_INVALID_UPDATER", -42),
-                ("E_INVALID_FILTER", -41),
-                ("E_INDEX_NOT_FOUND", -37),
-                ("E_INVALID_SPACEVIDLEN", -36),
-                ("E_TAG_NOT_FOUND", -35),
-                ("E_EDGE_NOT_FOUND", -34),
-                ("E_IMPROPER_DATA_TYPE", -33),
-                ("E_TAG_PROP_NOT_FOUND", -32),
-                ("E_EDGE_PROP_NOT_FOUND", -31),
-                ("E_DATA_CONFLICT_ERROR", -25),
-                ("E_ATOMIC_OP_FAILED", -24),
-                ("E_OUT_OF_RANGE", -23),
-                ("E_FIELD_UNSET", -22),
-                ("E_NOT_NULLABLE", -21),
-                ("E_INVALID_OPERATION", -20),
-                ("E_REBUILD_INDEX_FAILED", -19),
-                ("E_INVALID_FIELD_VALUE", -18),
-                ("E_DATA_TYPE_MISMATCH", -17),
-                ("E_CONSENSUS_ERROR", -16),
-                ("E_KEY_NOT_FOUND", -15),
-                ("E_PART_NOT_FOUND", -14),
-                ("E_SPACE_NOT_FOUND", -13),
-                ("E_KEY_HAS_EXISTS", -12),
-                ("E_LEADER_CHANGED", -11),
-                ("E_RPC_FAILURE", -3),
-                ("E_FAILED_TO_CONNECT", -2),
-                ("E_DISCONNECTED", -1),
-                ("SUCCEEDED", 0),
-            ];
-            ::fbthrift::help::enum_display(VARIANTS_BY_NUMBER, fmt, self.0)
-        }
-    }
-
-    impl ::std::fmt::Debug for ErrorCode {
-        fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
-            write!(fmt, "ErrorCode::{}", self)
-        }
-    }
-
-    impl ::std::str::FromStr for ErrorCode {
-        type Err = ::anyhow::Error;
-
-        fn from_str(string: &::std::primitive::str) -> ::std::result::Result<Self, Self::Err> {
-            static VARIANTS_BY_NAME: &[(&::std::primitive::str, ::std::primitive::i32)] = &[
-                ("E_ATOMIC_OP_FAILED", -24),
-                ("E_BACKUP_FAILED", -65),
-                ("E_CHECKPOINT_BLOCKED", -61),
-                ("E_CONSENSUS_ERROR", -16),
-                ("E_DATA_CONFLICT_ERROR", -25),
-                ("E_DATA_TYPE_MISMATCH", -17),
-                ("E_DISCONNECTED", -1),
-                ("E_EDGE_NOT_FOUND", -34),
-                ("E_EDGE_PROP_NOT_FOUND", -31),
-                ("E_FAILED_TO_CHECKPOINT", -60),
-                ("E_FAILED_TO_CONNECT", -2),
-                ("E_FIELD_UNSET", -22),
-                ("E_FILTER_OUT", -81),
-                ("E_IMPROPER_DATA_TYPE", -33),
-                ("E_INDEX_NOT_FOUND", -37),
-                ("E_INVALID_DATA", -82),
-                ("E_INVALID_FIELD_VALUE", -18),
-                ("E_INVALID_FILTER", -41),
-                ("E_INVALID_OPERATION", -20),
-                ("E_INVALID_PEER", -44),
-                ("E_INVALID_SPACEVIDLEN", -36),
-                ("E_INVALID_STAT_TYPE", -47),
-                ("E_INVALID_STORE", -43),
-                ("E_INVALID_TASK_PARA", -90),
-                ("E_INVALID_UPDATER", -42),
-                ("E_INVALID_VID", -48),
-                ("E_KEY_HAS_EXISTS", -12),
-                ("E_KEY_NOT_FOUND", -15),
-                ("E_LEADER_CHANGED", -11),
-                ("E_LOAD_META_FAILED", -51),
-                ("E_MUTATE_EDGE_CONFLICT", -85),
-                ("E_NOT_NULLABLE", -21),
-                ("E_NO_TRANSFORMED", -49),
-                ("E_OUTDATED_LOCK", -86),
-                ("E_OUT_OF_RANGE", -23),
-                ("E_PARTIAL_RESULT", -71),
-                ("E_PART_NOT_FOUND", -14),
-                ("E_REBUILD_INDEX_FAILED", -19),
-                ("E_RETRY_EXHAUSTED", -45),
-                ("E_RPC_FAILURE", -3),
-                ("E_SPACE_NOT_FOUND", -13),
-                ("E_TAG_NOT_FOUND", -35),
-                ("E_TAG_PROP_NOT_FOUND", -32),
-                ("E_TRANSFER_LEADER_FAILED", -46),
-                ("E_UNKNOWN", -100),
-                ("E_USER_CANCEL", -99),
-                ("SUCCEEDED", 0),
-            ];
-            ::fbthrift::help::enum_from_str(VARIANTS_BY_NAME, string, "ErrorCode").map(ErrorCode)
-        }
-    }
-
-    impl ::fbthrift::GetTType for ErrorCode {
-        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::I32;
-    }
-
-    impl<P> ::fbthrift::Serialize<P> for ErrorCode
-    where
-        P: ::fbthrift::ProtocolWriter,
-    {
-        #[inline]
-        fn write(&self, p: &mut P) {
-            p.write_i32(self.into())
-        }
-    }
-
-    impl<P> ::fbthrift::Deserialize<P> for ErrorCode
-    where
-        P: ::fbthrift::ProtocolReader,
-    {
-        #[inline]
-        fn read(p: &mut P) -> ::anyhow::Result<Self> {
-            ::std::result::Result::Ok(ErrorCode::from(p.read_i32()?))
-        }
     }
 
     #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
@@ -5578,7 +5195,7 @@ pub mod types {
         fn default() -> Self {
             Self {
                 result: ::std::default::Default::default(),
-                path: ::std::default::Default::default(),
+                info: ::std::default::Default::default(),
             }
         }
     }
@@ -5599,8 +5216,8 @@ pub mod types {
             p.write_field_begin("result", ::fbthrift::TType::Struct, 1);
             ::fbthrift::Serialize::write(&self.result, p);
             p.write_field_end();
-            p.write_field_begin("path", ::fbthrift::TType::String, 2);
-            ::fbthrift::Serialize::write(&self.path, p);
+            p.write_field_begin("info", ::fbthrift::TType::List, 2);
+            ::fbthrift::Serialize::write(&self.info, p);
             p.write_field_end();
             p.write_field_stop();
             p.write_struct_end();
@@ -5613,18 +5230,18 @@ pub mod types {
     {
         fn read(p: &mut P) -> ::anyhow::Result<Self> {
             static FIELDS: &[::fbthrift::Field] = &[
-                ::fbthrift::Field::new("path", ::fbthrift::TType::String, 2),
+                ::fbthrift::Field::new("info", ::fbthrift::TType::List, 2),
                 ::fbthrift::Field::new("result", ::fbthrift::TType::Struct, 1),
             ];
             let mut field_result = ::std::option::Option::None;
-            let mut field_path = ::std::option::Option::None;
+            let mut field_info = ::std::option::Option::None;
             let _ = p.read_struct_begin(|_| ())?;
             loop {
                 let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
                 match (fty, fid as ::std::primitive::i32) {
                     (::fbthrift::TType::Stop, _) => break,
                     (::fbthrift::TType::Struct, 1) => field_result = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
-                    (::fbthrift::TType::String, 2) => field_path = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::List, 2) => field_info = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (fty, _) => p.skip(fty)?,
                 }
                 p.read_field_end()?;
@@ -5632,70 +5249,63 @@ pub mod types {
             p.read_struct_end()?;
             ::std::result::Result::Ok(Self {
                 result: field_result.unwrap_or_default(),
-                path: field_path.unwrap_or_default(),
+                info: field_info.unwrap_or_default(),
             })
         }
     }
 
 
-    impl ::std::default::Default for self::PartitionInfoResp {
+    impl ::std::default::Default for self::ListClusterInfoResp {
         fn default() -> Self {
             Self {
                 result: ::std::default::Default::default(),
-                backup_name: ::std::default::Default::default(),
-                partition_info: ::std::default::Default::default(),
+                dir: ::std::default::Default::default(),
             }
         }
     }
 
-    unsafe impl ::std::marker::Send for self::PartitionInfoResp {}
-    unsafe impl ::std::marker::Sync for self::PartitionInfoResp {}
+    unsafe impl ::std::marker::Send for self::ListClusterInfoResp {}
+    unsafe impl ::std::marker::Sync for self::ListClusterInfoResp {}
 
-    impl ::fbthrift::GetTType for self::PartitionInfoResp {
+    impl ::fbthrift::GetTType for self::ListClusterInfoResp {
         const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
     }
 
-    impl<P> ::fbthrift::Serialize<P> for self::PartitionInfoResp
+    impl<P> ::fbthrift::Serialize<P> for self::ListClusterInfoResp
     where
         P: ::fbthrift::ProtocolWriter,
     {
         fn write(&self, p: &mut P) {
-            p.write_struct_begin("PartitionInfoResp");
+            p.write_struct_begin("ListClusterInfoResp");
             p.write_field_begin("result", ::fbthrift::TType::Struct, 1);
             ::fbthrift::Serialize::write(&self.result, p);
             p.write_field_end();
-            p.write_field_begin("backup_name", ::fbthrift::TType::String, 2);
-            ::fbthrift::Serialize::write(&self.backup_name, p);
-            p.write_field_end();
-            p.write_field_begin("partition_info", ::fbthrift::TType::Struct, 3);
-            ::fbthrift::Serialize::write(&self.partition_info, p);
+            p.write_field_begin("dir", ::fbthrift::TType::Struct, 2);
+            ::fbthrift::Serialize::write(&self.dir, p);
             p.write_field_end();
             p.write_field_stop();
             p.write_struct_end();
         }
     }
 
-    impl<P> ::fbthrift::Deserialize<P> for self::PartitionInfoResp
+    impl<P> ::fbthrift::Deserialize<P> for self::ListClusterInfoResp
     where
         P: ::fbthrift::ProtocolReader,
     {
         fn read(p: &mut P) -> ::anyhow::Result<Self> {
             static FIELDS: &[::fbthrift::Field] = &[
-                ::fbthrift::Field::new("backup_name", ::fbthrift::TType::String, 2),
-                ::fbthrift::Field::new("partition_info", ::fbthrift::TType::Struct, 3),
+                ::fbthrift::Field::new("dir", ::fbthrift::TType::Struct, 2),
                 ::fbthrift::Field::new("result", ::fbthrift::TType::Struct, 1),
             ];
             let mut field_result = ::std::option::Option::None;
-            let mut field_backup_name = ::std::option::Option::None;
-            let mut field_partition_info = ::std::option::Option::None;
+            let mut field_dir = ::std::option::Option::None;
             let _ = p.read_struct_begin(|_| ())?;
             loop {
                 let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
                 match (fty, fid as ::std::primitive::i32) {
                     (::fbthrift::TType::Stop, _) => break,
                     (::fbthrift::TType::Struct, 1) => field_result = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
-                    (::fbthrift::TType::String, 2) => field_backup_name = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
-                    (::fbthrift::TType::Struct, 3) => field_partition_info = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Struct, 2) => field_dir = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (fty, _) => p.skip(fty)?,
                 }
                 p.read_field_end()?;
@@ -5703,72 +5313,55 @@ pub mod types {
             p.read_struct_end()?;
             ::std::result::Result::Ok(Self {
                 result: field_result.unwrap_or_default(),
-                backup_name: field_backup_name.unwrap_or_default(),
-                partition_info: field_partition_info.unwrap_or_default(),
+                dir: field_dir.unwrap_or_default(),
             })
         }
     }
 
 
-    impl ::std::default::Default for self::PartitionInfoRequest {
+    impl ::std::default::Default for self::ListClusterInfoReq {
         fn default() -> Self {
             Self {
-                space_id: ::std::default::Default::default(),
-                backup_name: ::std::default::Default::default(),
             }
         }
     }
 
-    unsafe impl ::std::marker::Send for self::PartitionInfoRequest {}
-    unsafe impl ::std::marker::Sync for self::PartitionInfoRequest {}
+    unsafe impl ::std::marker::Send for self::ListClusterInfoReq {}
+    unsafe impl ::std::marker::Sync for self::ListClusterInfoReq {}
 
-    impl ::fbthrift::GetTType for self::PartitionInfoRequest {
+    impl ::fbthrift::GetTType for self::ListClusterInfoReq {
         const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
     }
 
-    impl<P> ::fbthrift::Serialize<P> for self::PartitionInfoRequest
+    impl<P> ::fbthrift::Serialize<P> for self::ListClusterInfoReq
     where
         P: ::fbthrift::ProtocolWriter,
     {
         fn write(&self, p: &mut P) {
-            p.write_struct_begin("PartitionInfoRequest");
-            p.write_field_begin("space_id", ::fbthrift::TType::I32, 1);
-            ::fbthrift::Serialize::write(&self.space_id, p);
-            p.write_field_end();
-            p.write_field_begin("backup_name", ::fbthrift::TType::String, 2);
-            ::fbthrift::Serialize::write(&self.backup_name, p);
-            p.write_field_end();
+            p.write_struct_begin("ListClusterInfoReq");
             p.write_field_stop();
             p.write_struct_end();
         }
     }
 
-    impl<P> ::fbthrift::Deserialize<P> for self::PartitionInfoRequest
+    impl<P> ::fbthrift::Deserialize<P> for self::ListClusterInfoReq
     where
         P: ::fbthrift::ProtocolReader,
     {
         fn read(p: &mut P) -> ::anyhow::Result<Self> {
             static FIELDS: &[::fbthrift::Field] = &[
-                ::fbthrift::Field::new("backup_name", ::fbthrift::TType::String, 2),
-                ::fbthrift::Field::new("space_id", ::fbthrift::TType::I32, 1),
             ];
-            let mut field_space_id = ::std::option::Option::None;
-            let mut field_backup_name = ::std::option::Option::None;
             let _ = p.read_struct_begin(|_| ())?;
             loop {
                 let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
                 match (fty, fid as ::std::primitive::i32) {
                     (::fbthrift::TType::Stop, _) => break,
-                    (::fbthrift::TType::I32, 1) => field_space_id = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
-                    (::fbthrift::TType::String, 2) => field_backup_name = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
                     (fty, _) => p.skip(fty)?,
                 }
                 p.read_field_end()?;
             }
             p.read_struct_end()?;
             ::std::result::Result::Ok(Self {
-                space_id: field_space_id.unwrap_or_default(),
-                backup_name: field_backup_name.unwrap_or_default(),
             })
         }
     }
@@ -8912,6 +8505,97 @@ pub mod services {
                 )
             }
         }
+
+        #[derive(Clone, Debug)]
+        pub enum ListClusterInfoExn {
+            Success(crate::types::ListClusterInfoResp),
+            ApplicationException(::fbthrift::ApplicationException),
+        }
+
+        impl ::std::convert::From<::fbthrift::ApplicationException> for ListClusterInfoExn {
+            fn from(exn: ::fbthrift::ApplicationException) -> Self {
+                ListClusterInfoExn::ApplicationException(exn)
+            }
+        }
+
+        impl ::fbthrift::GetTType for ListClusterInfoExn {
+            const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+        }
+
+        impl<P> ::fbthrift::Serialize<P> for ListClusterInfoExn
+        where
+            P: ::fbthrift::ProtocolWriter,
+        {
+            fn write(&self, p: &mut P) {
+                p.write_struct_begin("ListClusterInfo");
+                match self {
+                    ListClusterInfoExn::Success(inner) => {
+                        p.write_field_begin(
+                            "Success",
+                            ::fbthrift::TType::Struct,
+                            0i16,
+                        );
+                        inner.write(p);
+                        p.write_field_end();
+                    }
+                    ListClusterInfoExn::ApplicationException(_) => panic!(
+                        "Bad union Alt field {} id {}",
+                        "ApplicationException",
+                        -2147483648i32,
+                    ),
+                }
+                p.write_field_stop();
+                p.write_struct_end();
+            }
+        }
+
+        impl<P> ::fbthrift::Deserialize<P> for ListClusterInfoExn
+        where
+            P: ::fbthrift::ProtocolReader,
+        {
+            fn read(p: &mut P) -> ::anyhow::Result<Self> {
+                static RETURNS: &[::fbthrift::Field] = &[
+                    ::fbthrift::Field::new("Success", ::fbthrift::TType::Struct, 0),
+                ];
+                let _ = p.read_struct_begin(|_| ())?;
+                let mut once = false;
+                let mut alt = ::std::option::Option::None;
+                loop {
+                    let (_, fty, fid) = p.read_field_begin(|_| (), RETURNS)?;
+                    match ((fty, fid as ::std::primitive::i32), once) {
+                        ((::fbthrift::TType::Stop, _), _) => {
+                            p.read_field_end()?;
+                            break;
+                        }
+                        ((::fbthrift::TType::Struct, 0i32), false) => {
+                            once = true;
+                            alt = ::std::option::Option::Some(ListClusterInfoExn::Success(::fbthrift::Deserialize::read(p)?));
+                        }
+                        ((ty, _id), false) => p.skip(ty)?,
+                        ((badty, badid), true) => return ::std::result::Result::Err(::std::convert::From::from(
+                            ::fbthrift::ApplicationException::new(
+                                ::fbthrift::ApplicationExceptionErrorCode::ProtocolError,
+                                format!(
+                                    "unwanted extra union {} field ty {:?} id {}",
+                                    "ListClusterInfoExn",
+                                    badty,
+                                    badid,
+                                ),
+                            )
+                        )),
+                    }
+                    p.read_field_end()?;
+                }
+                p.read_struct_end()?;
+                alt.ok_or_else(||
+                    ::fbthrift::ApplicationException::new(
+                        ::fbthrift::ApplicationExceptionErrorCode::MissingResult,
+                        format!("Empty union {}", "ListClusterInfoExn"),
+                    )
+                    .into(),
+                )
+            }
+        }
     }
 
     pub mod general_storage_service {
@@ -10491,6 +10175,10 @@ pub mod client {
             &self,
             arg_req: &crate::types::StopAdminTaskRequest,
         ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::AdminExecResp, crate::errors::storage_admin_service::StopAdminTaskError>> + ::std::marker::Send + 'static>>;
+        fn listClusterInfo(
+            &self,
+            arg_req: &crate::types::ListClusterInfoReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListClusterInfoResp, crate::errors::storage_admin_service::ListClusterInfoError>> + ::std::marker::Send + 'static>>;
     }
 
     impl<P, T> StorageAdminService for StorageAdminServiceImpl<P, T>
@@ -11339,6 +11027,62 @@ pub mod client {
                 }))
                 .boxed()
         }
+        fn listClusterInfo(
+            &self,
+            arg_req: &crate::types::ListClusterInfoReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListClusterInfoResp, crate::errors::storage_admin_service::ListClusterInfoError>> + ::std::marker::Send + 'static>> {
+            use ::fbthrift::{ProtocolReader as _, ProtocolWriter as _};
+            use ::futures::future::{FutureExt as _, TryFutureExt as _};
+            let request = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "listClusterInfo",
+                ::fbthrift::MessageType::Call,
+                // Note: we send a 0 message sequence ID from clients because
+                // this field should not be used by the server (except for some
+                // language implementations).
+                0,
+                |p| {
+                    p.write_struct_begin("args");
+                    p.write_field_begin("arg_req", ::fbthrift::TType::Struct, 1i16);
+                    ::fbthrift::Serialize::write(&arg_req, p);
+                    p.write_field_end();
+                    p.write_field_stop();
+                    p.write_struct_end();
+                },
+            ));
+            self.transport()
+                .call(request)
+                .map_err(::std::convert::From::from)
+                .and_then(|reply| ::futures::future::ready({
+                    let de = P::deserializer(reply);
+                    move |mut p: P::Deserializer| -> ::std::result::Result<crate::types::ListClusterInfoResp, crate::errors::storage_admin_service::ListClusterInfoError> {
+                        let p = &mut p;
+                        let (_, message_type, _) = p.read_message_begin(|_| ())?;
+                        let result = match message_type {
+                            ::fbthrift::MessageType::Reply => {
+                                let exn: crate::services::storage_admin_service::ListClusterInfoExn = ::fbthrift::Deserialize::read(p)?;
+                                match exn {
+                                    crate::services::storage_admin_service::ListClusterInfoExn::Success(x) => ::std::result::Result::Ok(x),
+                                    crate::services::storage_admin_service::ListClusterInfoExn::ApplicationException(ae) => {
+                                        ::std::result::Result::Err(crate::errors::storage_admin_service::ListClusterInfoError::ApplicationException(ae))
+                                    }
+                                }
+                            }
+                            ::fbthrift::MessageType::Exception => {
+                                let ae: ::fbthrift::ApplicationException = ::fbthrift::Deserialize::read(p)?;
+                                ::std::result::Result::Err(crate::errors::storage_admin_service::ListClusterInfoError::ApplicationException(ae))
+                            }
+                            ::fbthrift::MessageType::Call | ::fbthrift::MessageType::Oneway | ::fbthrift::MessageType::InvalidMessageType => {
+                                let err = ::anyhow::anyhow!("Unexpected message type {:?}", message_type);
+                                ::std::result::Result::Err(crate::errors::storage_admin_service::ListClusterInfoError::ThriftError(err))
+                            }
+                        };
+                        p.read_message_end()?;
+                        result
+                    }(de)
+                }))
+                .boxed()
+        }
     }
 
     impl<'a, T> StorageAdminService for T
@@ -11463,6 +11207,14 @@ pub mod client {
             arg_req: &crate::types::StopAdminTaskRequest,
         ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::AdminExecResp, crate::errors::storage_admin_service::StopAdminTaskError>> + ::std::marker::Send + 'static>> {
             self.as_ref().stopAdminTask(
+                arg_req,
+            )
+        }
+        fn listClusterInfo(
+            &self,
+            arg_req: &crate::types::ListClusterInfoReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListClusterInfoResp, crate::errors::storage_admin_service::ListClusterInfoError>> + ::std::marker::Send + 'static>> {
+            self.as_ref().listClusterInfo(
                 arg_req,
             )
         }
@@ -13486,6 +13238,17 @@ pub mod server {
                 ),
             ))
         }
+        async fn listClusterInfo(
+            &self,
+            _req: crate::types::ListClusterInfoReq,
+        ) -> ::std::result::Result<crate::types::ListClusterInfoResp, crate::services::storage_admin_service::ListClusterInfoExn> {
+            ::std::result::Result::Err(crate::services::storage_admin_service::ListClusterInfoExn::ApplicationException(
+                ::fbthrift::ApplicationException::unimplemented_method(
+                    "StorageAdminService",
+                    "listClusterInfo",
+                ),
+            ))
+        }
     }
 
     #[derive(Clone, Debug)]
@@ -14564,6 +14327,76 @@ pub mod server {
             ::fbthrift::ContextStack::post_write(&mut ctx_stack, 0)?;
             ::std::result::Result::Ok(res)
         }
+
+        async fn handle_listClusterInfo<'a>(
+            &'a self,
+            p: &'a mut P::Deserializer,
+            req_ctxt: &R,
+            seqid: ::std::primitive::u32,
+        ) -> ::anyhow::Result<::fbthrift::ProtocolEncodedFinal<P>> {
+            use ::const_cstr::const_cstr;
+            use ::fbthrift::ProtocolReader as _;
+
+            const_cstr! {
+                SERVICE_NAME = "StorageAdminService";
+                METHOD_NAME = "StorageAdminService.listClusterInfo";
+            }
+            let mut ctx_stack = req_ctxt.get_context_stack(
+                &SERVICE_NAME,
+                &METHOD_NAME,
+            )?;
+            ::fbthrift::ContextStack::pre_read(&mut ctx_stack)?;
+
+            static ARGS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("req", ::fbthrift::TType::Struct, 1),
+            ];
+            let mut field_req = ::std::option::Option::None;
+
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), ARGS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::Struct, 1) => field_req = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::fbthrift::ContextStack::post_read(&mut ctx_stack, 0)?;
+            let res = self.service.listClusterInfo(
+                field_req.ok_or_else(|| {
+                    ::fbthrift::ApplicationException::missing_arg(
+                        "listClusterInfo",
+                        "req",
+                    )
+                })?,
+            ).await;
+            let res = match res {
+                ::std::result::Result::Ok(res) => {
+                    crate::services::storage_admin_service::ListClusterInfoExn::Success(res)
+                }
+                ::std::result::Result::Err(crate::services::storage_admin_service::ListClusterInfoExn::ApplicationException(aexn)) => {
+                    return ::std::result::Result::Err(aexn.into())
+                }
+                ::std::result::Result::Err(crate::services::storage_admin_service::ListClusterInfoExn::Success(_)) => {
+                    panic!(
+                        "{} attempted to return success via error",
+                        "listClusterInfo",
+                    )
+                }
+            };
+            ::fbthrift::ContextStack::pre_write(&mut ctx_stack)?;
+            let res = ::fbthrift::serialize!(P, |p| ::fbthrift::protocol::write_message(
+                p,
+                "listClusterInfo",
+                ::fbthrift::MessageType::Reply,
+                seqid,
+                |p| ::fbthrift::Serialize::write(&res, p),
+            ));
+            ::fbthrift::ContextStack::post_write(&mut ctx_stack, 0)?;
+            ::std::result::Result::Ok(res)
+        }
     }
 
     #[::async_trait::async_trait]
@@ -14595,6 +14428,7 @@ pub mod server {
                 b"checkPeers" => ::std::result::Result::Ok(12usize),
                 b"addAdminTask" => ::std::result::Result::Ok(13usize),
                 b"stopAdminTask" => ::std::result::Result::Ok(14usize),
+                b"listClusterInfo" => ::std::result::Result::Ok(15usize),
                 _ => ::std::result::Result::Err(::fbthrift::ApplicationException::unknown_method()),
             }
         }
@@ -14622,6 +14456,7 @@ pub mod server {
                 12usize => self.handle_checkPeers(_p, _r, _seqid).await,
                 13usize => self.handle_addAdminTask(_p, _r, _seqid).await,
                 14usize => self.handle_stopAdminTask(_p, _r, _seqid).await,
+                15usize => self.handle_listClusterInfo(_p, _r, _seqid).await,
                 bad => panic!(
                     "{}: unexpected method idx {}",
                     "StorageAdminServiceProcessor",
@@ -15680,6 +15515,7 @@ pub mod mock {
         pub checkPeers: r#impl::storage_admin_service::checkPeers<'mock>,
         pub addAdminTask: r#impl::storage_admin_service::addAdminTask<'mock>,
         pub stopAdminTask: r#impl::storage_admin_service::stopAdminTask<'mock>,
+        pub listClusterInfo: r#impl::storage_admin_service::listClusterInfo<'mock>,
         _marker: ::std::marker::PhantomData<&'mock ()>,
     }
 
@@ -15701,6 +15537,7 @@ pub mod mock {
                 checkPeers: r#impl::storage_admin_service::checkPeers::unimplemented(),
                 addAdminTask: r#impl::storage_admin_service::addAdminTask::unimplemented(),
                 stopAdminTask: r#impl::storage_admin_service::stopAdminTask::unimplemented(),
+                listClusterInfo: r#impl::storage_admin_service::listClusterInfo::unimplemented(),
                 _marker: ::std::marker::PhantomData,
             }
         }
@@ -15826,6 +15663,14 @@ pub mod mock {
         ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::AdminExecResp, crate::errors::storage_admin_service::StopAdminTaskError>> + ::std::marker::Send + 'static>> {
             let mut closure = self.stopAdminTask.closure.lock().unwrap();
             let closure: &mut dyn ::std::ops::FnMut(crate::types::StopAdminTaskRequest) -> _ = &mut **closure;
+            ::std::boxed::Box::pin(::futures::future::ready(closure(arg_req.clone())))
+        }
+        fn listClusterInfo(
+            &self,
+            arg_req: &crate::types::ListClusterInfoReq,
+        ) -> ::std::pin::Pin<::std::boxed::Box<dyn ::std::future::Future<Output = ::std::result::Result<crate::types::ListClusterInfoResp, crate::errors::storage_admin_service::ListClusterInfoError>> + ::std::marker::Send + 'static>> {
+            let mut closure = self.listClusterInfo.closure.lock().unwrap();
+            let closure: &mut dyn ::std::ops::FnMut(crate::types::ListClusterInfoReq) -> _ = &mut **closure;
             ::std::boxed::Box::pin(::futures::future::ready(closure(arg_req.clone())))
         }
     }
@@ -17194,6 +17039,50 @@ pub mod mock {
                     *closure = ::std::boxed::Box::new(move |_: crate::types::StopAdminTaskRequest| ::std::result::Result::Err(exception.clone().into()));
                 }
             }
+
+            pub struct listClusterInfo<'mock> {
+                pub(crate) closure: ::std::sync::Mutex<::std::boxed::Box<
+                    dyn ::std::ops::FnMut(crate::types::ListClusterInfoReq) -> ::std::result::Result<
+                        crate::types::ListClusterInfoResp,
+                        crate::errors::storage_admin_service::ListClusterInfoError,
+                    > + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                >>,
+            }
+
+            impl<'mock> listClusterInfo<'mock> {
+                pub fn unimplemented() -> Self {
+                    listClusterInfo {
+                        closure: ::std::sync::Mutex::new(::std::boxed::Box::new(|_: crate::types::ListClusterInfoReq| panic!(
+                            "{}::{} is not mocked",
+                            "StorageAdminService",
+                            "listClusterInfo",
+                        ))),
+                    }
+                }
+
+                pub fn ret(&self, value: crate::types::ListClusterInfoResp) {
+                    self.mock(move |_: crate::types::ListClusterInfoReq| value.clone());
+                }
+
+                pub fn mock(&self, mut mock: impl ::std::ops::FnMut(crate::types::ListClusterInfoReq) -> crate::types::ListClusterInfoResp + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| ::std::result::Result::Ok(mock(req)));
+                }
+
+                pub fn mock_result(&self, mut mock: impl ::std::ops::FnMut(crate::types::ListClusterInfoReq) -> ::std::result::Result<crate::types::ListClusterInfoResp, crate::errors::storage_admin_service::ListClusterInfoError> + ::std::marker::Send + ::std::marker::Sync + 'mock) {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |req| mock(req));
+                }
+
+                pub fn throw<E>(&self, exception: E)
+                where
+                    E: ::std::convert::Into<crate::errors::storage_admin_service::ListClusterInfoError>,
+                    E: ::std::clone::Clone + ::std::marker::Send + ::std::marker::Sync + 'mock,
+                {
+                    let mut closure = self.closure.lock().unwrap();
+                    *closure = ::std::boxed::Box::new(move |_: crate::types::ListClusterInfoReq| ::std::result::Result::Err(exception.clone().into()));
+                }
+            }
         }
         pub mod general_storage_service {
 
@@ -17486,6 +17375,8 @@ pub mod errors {
         pub type AddAdminTaskError = ::fbthrift::NonthrowingFunctionError;
 
         pub type StopAdminTaskError = ::fbthrift::NonthrowingFunctionError;
+
+        pub type ListClusterInfoError = ::fbthrift::NonthrowingFunctionError;
 
     }
 

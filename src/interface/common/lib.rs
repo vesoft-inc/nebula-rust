@@ -32,6 +32,8 @@ pub mod types {
 
     pub type SessionID = ::std::primitive::i64;
 
+    pub type ExecutionPlanID = ::std::primitive::i64;
+
     #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
     pub struct Date {
         pub year: ::std::primitive::i16,
@@ -159,9 +161,27 @@ pub mod types {
         pub term_id: crate::types::TermID,
     }
 
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    pub struct DirInfo {
+        pub root: ::std::vec::Vec<::std::primitive::u8>,
+        pub data: ::std::vec::Vec<::std::vec::Vec<::std::primitive::u8>>,
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct NodeInfo {
+        pub host: crate::types::HostAddr,
+        pub dir: crate::types::DirInfo,
+    }
+
     #[derive(Clone, Debug, PartialEq)]
     pub struct PartitionBackupInfo {
         pub info: ::std::collections::BTreeMap<crate::types::PartitionID, crate::types::LogInfo>,
+    }
+
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct CheckpointInfo {
+        pub partition_info: crate::types::PartitionBackupInfo,
+        pub path: ::std::vec::Vec<::std::primitive::u8>,
     }
 
     #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
@@ -309,6 +329,783 @@ pub mod types {
             ::std::result::Result::Ok(NullType::from(p.read_i32()?))
         }
     }
+
+    #[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+    pub struct ErrorCode(pub ::std::primitive::i32);
+
+    impl ErrorCode {
+        pub const SUCCEEDED: Self = ErrorCode(0i32);
+        pub const E_DISCONNECTED: Self = ErrorCode(-1i32);
+        pub const E_FAIL_TO_CONNECT: Self = ErrorCode(-2i32);
+        pub const E_RPC_FAILURE: Self = ErrorCode(-3i32);
+        pub const E_LEADER_CHANGED: Self = ErrorCode(-4i32);
+        pub const E_SPACE_NOT_FOUND: Self = ErrorCode(-5i32);
+        pub const E_TAG_NOT_FOUND: Self = ErrorCode(-6i32);
+        pub const E_EDGE_NOT_FOUND: Self = ErrorCode(-7i32);
+        pub const E_INDEX_NOT_FOUND: Self = ErrorCode(-8i32);
+        pub const E_EDGE_PROP_NOT_FOUND: Self = ErrorCode(-9i32);
+        pub const E_TAG_PROP_NOT_FOUND: Self = ErrorCode(-10i32);
+        pub const E_ROLE_NOT_FOUND: Self = ErrorCode(-11i32);
+        pub const E_CONFIG_NOT_FOUND: Self = ErrorCode(-12i32);
+        pub const E_GROUP_NOT_FOUND: Self = ErrorCode(-13i32);
+        pub const E_ZONE_NOT_FOUND: Self = ErrorCode(-14i32);
+        pub const E_LISTENER_NOT_FOUND: Self = ErrorCode(-15i32);
+        pub const E_PART_NOT_FOUND: Self = ErrorCode(-16i32);
+        pub const E_KEY_NOT_FOUND: Self = ErrorCode(-17i32);
+        pub const E_USER_NOT_FOUND: Self = ErrorCode(-18i32);
+        pub const E_BACKUP_FAILED: Self = ErrorCode(-24i32);
+        pub const E_BACKUP_EMPTY_TABLE: Self = ErrorCode(-25i32);
+        pub const E_BACKUP_TABLE_FAILED: Self = ErrorCode(-26i32);
+        pub const E_PARTIAL_RESULT: Self = ErrorCode(-27i32);
+        pub const E_REBUILD_INDEX_FAILED: Self = ErrorCode(-28i32);
+        pub const E_INVALID_PASSWORD: Self = ErrorCode(-29i32);
+        pub const E_FAILED_GET_ABS_PATH: Self = ErrorCode(-30i32);
+        pub const E_BAD_USERNAME_PASSWORD: Self = ErrorCode(-1001i32);
+        pub const E_SESSION_INVALID: Self = ErrorCode(-1002i32);
+        pub const E_SESSION_TIMEOUT: Self = ErrorCode(-1003i32);
+        pub const E_SYNTAX_ERROR: Self = ErrorCode(-1004i32);
+        pub const E_EXECUTION_ERROR: Self = ErrorCode(-1005i32);
+        pub const E_STATEMENT_EMPTY: Self = ErrorCode(-1006i32);
+        pub const E_BAD_PERMISSION: Self = ErrorCode(-1008i32);
+        pub const E_SEMANTIC_ERROR: Self = ErrorCode(-1009i32);
+        pub const E_TOO_MANY_CONNECTIONS: Self = ErrorCode(-1010i32);
+        pub const E_PARTIAL_SUCCEEDED: Self = ErrorCode(-1011i32);
+        pub const E_NO_HOSTS: Self = ErrorCode(-2001i32);
+        pub const E_EXISTED: Self = ErrorCode(-2002i32);
+        pub const E_INVALID_HOST: Self = ErrorCode(-2003i32);
+        pub const E_UNSUPPORTED: Self = ErrorCode(-2004i32);
+        pub const E_NOT_DROP: Self = ErrorCode(-2005i32);
+        pub const E_BALANCER_RUNNING: Self = ErrorCode(-2006i32);
+        pub const E_CONFIG_IMMUTABLE: Self = ErrorCode(-2007i32);
+        pub const E_CONFLICT: Self = ErrorCode(-2008i32);
+        pub const E_INVALID_PARM: Self = ErrorCode(-2009i32);
+        pub const E_WRONGCLUSTER: Self = ErrorCode(-2010i32);
+        pub const E_STORE_FAILURE: Self = ErrorCode(-2021i32);
+        pub const E_STORE_SEGMENT_ILLEGAL: Self = ErrorCode(-2022i32);
+        pub const E_BAD_BALANCE_PLAN: Self = ErrorCode(-2023i32);
+        pub const E_BALANCED: Self = ErrorCode(-2024i32);
+        pub const E_NO_RUNNING_BALANCE_PLAN: Self = ErrorCode(-2025i32);
+        pub const E_NO_VALID_HOST: Self = ErrorCode(-2026i32);
+        pub const E_CORRUPTTED_BALANCE_PLAN: Self = ErrorCode(-2027i32);
+        pub const E_NO_INVALID_BALANCE_PLAN: Self = ErrorCode(-2028i32);
+        pub const E_IMPROPER_ROLE: Self = ErrorCode(-2030i32);
+        pub const E_INVALID_PARTITION_NUM: Self = ErrorCode(-2031i32);
+        pub const E_INVALID_REPLICA_FACTOR: Self = ErrorCode(-2032i32);
+        pub const E_INVALID_CHARSET: Self = ErrorCode(-2033i32);
+        pub const E_INVALID_COLLATE: Self = ErrorCode(-2034i32);
+        pub const E_CHARSET_COLLATE_NOT_MATCH: Self = ErrorCode(-2035i32);
+        pub const E_SNAPSHOT_FAILURE: Self = ErrorCode(-2040i32);
+        pub const E_BLOCK_WRITE_FAILURE: Self = ErrorCode(-2041i32);
+        pub const E_REBUILD_INDEX_FAILURE: Self = ErrorCode(-2042i32);
+        pub const E_INDEX_WITH_TTL: Self = ErrorCode(-2043i32);
+        pub const E_ADD_JOB_FAILURE: Self = ErrorCode(-2044i32);
+        pub const E_STOP_JOB_FAILURE: Self = ErrorCode(-2045i32);
+        pub const E_SAVE_JOB_FAILURE: Self = ErrorCode(-2046i32);
+        pub const E_BALANCER_FAILURE: Self = ErrorCode(-2047i32);
+        pub const E_JOB_NOT_FINISHED: Self = ErrorCode(-2048i32);
+        pub const E_TASK_REPORT_OUT_DATE: Self = ErrorCode(-2049i32);
+        pub const E_INVALID_JOB: Self = ErrorCode(-2065i32);
+        pub const E_BACKUP_BUILDING_INDEX: Self = ErrorCode(-2066i32);
+        pub const E_BACKUP_SPACE_NOT_FOUND: Self = ErrorCode(-2067i32);
+        pub const E_RESTORE_FAILURE: Self = ErrorCode(-2068i32);
+        pub const E_SESSION_NOT_FOUND: Self = ErrorCode(-2069i32);
+        pub const E_LIST_CLUSTER_FAILURE: Self = ErrorCode(-2070i32);
+        pub const E_LIST_CLUSTER_GET_ABS_PATH_FAILURE: Self = ErrorCode(-2071i32);
+        pub const E_GET_META_DIR_FAILURE: Self = ErrorCode(-2072i32);
+        pub const E_QUERY_NOT_FOUND: Self = ErrorCode(-2073i32);
+        pub const E_CONSENSUS_ERROR: Self = ErrorCode(-3001i32);
+        pub const E_KEY_HAS_EXISTS: Self = ErrorCode(-3002i32);
+        pub const E_DATA_TYPE_MISMATCH: Self = ErrorCode(-3003i32);
+        pub const E_INVALID_FIELD_VALUE: Self = ErrorCode(-3004i32);
+        pub const E_INVALID_OPERATION: Self = ErrorCode(-3005i32);
+        pub const E_NOT_NULLABLE: Self = ErrorCode(-3006i32);
+        pub const E_FIELD_UNSET: Self = ErrorCode(-3007i32);
+        pub const E_OUT_OF_RANGE: Self = ErrorCode(-3008i32);
+        pub const E_ATOMIC_OP_FAILED: Self = ErrorCode(-3009i32);
+        pub const E_DATA_CONFLICT_ERROR: Self = ErrorCode(-3010i32);
+        pub const E_WRITE_STALLED: Self = ErrorCode(-3011i32);
+        pub const E_IMPROPER_DATA_TYPE: Self = ErrorCode(-3021i32);
+        pub const E_INVALID_SPACEVIDLEN: Self = ErrorCode(-3022i32);
+        pub const E_INVALID_FILTER: Self = ErrorCode(-3031i32);
+        pub const E_INVALID_UPDATER: Self = ErrorCode(-3032i32);
+        pub const E_INVALID_STORE: Self = ErrorCode(-3033i32);
+        pub const E_INVALID_PEER: Self = ErrorCode(-3034i32);
+        pub const E_RETRY_EXHAUSTED: Self = ErrorCode(-3035i32);
+        pub const E_TRANSFER_LEADER_FAILED: Self = ErrorCode(-3036i32);
+        pub const E_INVALID_STAT_TYPE: Self = ErrorCode(-3037i32);
+        pub const E_INVALID_VID: Self = ErrorCode(-3038i32);
+        pub const E_NO_TRANSFORMED: Self = ErrorCode(-3039i32);
+        pub const E_LOAD_META_FAILED: Self = ErrorCode(-3040i32);
+        pub const E_FAILED_TO_CHECKPOINT: Self = ErrorCode(-3041i32);
+        pub const E_CHECKPOINT_BLOCKED: Self = ErrorCode(-3042i32);
+        pub const E_FILTER_OUT: Self = ErrorCode(-3043i32);
+        pub const E_INVALID_DATA: Self = ErrorCode(-3044i32);
+        pub const E_MUTATE_EDGE_CONFLICT: Self = ErrorCode(-3045i32);
+        pub const E_MUTATE_TAG_CONFLICT: Self = ErrorCode(-3046i32);
+        pub const E_OUTDATED_LOCK: Self = ErrorCode(-3047i32);
+        pub const E_INVALID_TASK_PARA: Self = ErrorCode(-3051i32);
+        pub const E_USER_CANCEL: Self = ErrorCode(-3052i32);
+        pub const E_TASK_EXECUTION_FAILED: Self = ErrorCode(-3053i32);
+        pub const E_UNKNOWN: Self = ErrorCode(-8000i32);
+    }
+
+    impl ::fbthrift::ThriftEnum for ErrorCode {
+        fn enumerate() -> &'static [(ErrorCode, &'static str)] {
+            &[
+                (ErrorCode::SUCCEEDED, "SUCCEEDED"),
+                (ErrorCode::E_DISCONNECTED, "E_DISCONNECTED"),
+                (ErrorCode::E_FAIL_TO_CONNECT, "E_FAIL_TO_CONNECT"),
+                (ErrorCode::E_RPC_FAILURE, "E_RPC_FAILURE"),
+                (ErrorCode::E_LEADER_CHANGED, "E_LEADER_CHANGED"),
+                (ErrorCode::E_SPACE_NOT_FOUND, "E_SPACE_NOT_FOUND"),
+                (ErrorCode::E_TAG_NOT_FOUND, "E_TAG_NOT_FOUND"),
+                (ErrorCode::E_EDGE_NOT_FOUND, "E_EDGE_NOT_FOUND"),
+                (ErrorCode::E_INDEX_NOT_FOUND, "E_INDEX_NOT_FOUND"),
+                (ErrorCode::E_EDGE_PROP_NOT_FOUND, "E_EDGE_PROP_NOT_FOUND"),
+                (ErrorCode::E_TAG_PROP_NOT_FOUND, "E_TAG_PROP_NOT_FOUND"),
+                (ErrorCode::E_ROLE_NOT_FOUND, "E_ROLE_NOT_FOUND"),
+                (ErrorCode::E_CONFIG_NOT_FOUND, "E_CONFIG_NOT_FOUND"),
+                (ErrorCode::E_GROUP_NOT_FOUND, "E_GROUP_NOT_FOUND"),
+                (ErrorCode::E_ZONE_NOT_FOUND, "E_ZONE_NOT_FOUND"),
+                (ErrorCode::E_LISTENER_NOT_FOUND, "E_LISTENER_NOT_FOUND"),
+                (ErrorCode::E_PART_NOT_FOUND, "E_PART_NOT_FOUND"),
+                (ErrorCode::E_KEY_NOT_FOUND, "E_KEY_NOT_FOUND"),
+                (ErrorCode::E_USER_NOT_FOUND, "E_USER_NOT_FOUND"),
+                (ErrorCode::E_BACKUP_FAILED, "E_BACKUP_FAILED"),
+                (ErrorCode::E_BACKUP_EMPTY_TABLE, "E_BACKUP_EMPTY_TABLE"),
+                (ErrorCode::E_BACKUP_TABLE_FAILED, "E_BACKUP_TABLE_FAILED"),
+                (ErrorCode::E_PARTIAL_RESULT, "E_PARTIAL_RESULT"),
+                (ErrorCode::E_REBUILD_INDEX_FAILED, "E_REBUILD_INDEX_FAILED"),
+                (ErrorCode::E_INVALID_PASSWORD, "E_INVALID_PASSWORD"),
+                (ErrorCode::E_FAILED_GET_ABS_PATH, "E_FAILED_GET_ABS_PATH"),
+                (ErrorCode::E_BAD_USERNAME_PASSWORD, "E_BAD_USERNAME_PASSWORD"),
+                (ErrorCode::E_SESSION_INVALID, "E_SESSION_INVALID"),
+                (ErrorCode::E_SESSION_TIMEOUT, "E_SESSION_TIMEOUT"),
+                (ErrorCode::E_SYNTAX_ERROR, "E_SYNTAX_ERROR"),
+                (ErrorCode::E_EXECUTION_ERROR, "E_EXECUTION_ERROR"),
+                (ErrorCode::E_STATEMENT_EMPTY, "E_STATEMENT_EMPTY"),
+                (ErrorCode::E_BAD_PERMISSION, "E_BAD_PERMISSION"),
+                (ErrorCode::E_SEMANTIC_ERROR, "E_SEMANTIC_ERROR"),
+                (ErrorCode::E_TOO_MANY_CONNECTIONS, "E_TOO_MANY_CONNECTIONS"),
+                (ErrorCode::E_PARTIAL_SUCCEEDED, "E_PARTIAL_SUCCEEDED"),
+                (ErrorCode::E_NO_HOSTS, "E_NO_HOSTS"),
+                (ErrorCode::E_EXISTED, "E_EXISTED"),
+                (ErrorCode::E_INVALID_HOST, "E_INVALID_HOST"),
+                (ErrorCode::E_UNSUPPORTED, "E_UNSUPPORTED"),
+                (ErrorCode::E_NOT_DROP, "E_NOT_DROP"),
+                (ErrorCode::E_BALANCER_RUNNING, "E_BALANCER_RUNNING"),
+                (ErrorCode::E_CONFIG_IMMUTABLE, "E_CONFIG_IMMUTABLE"),
+                (ErrorCode::E_CONFLICT, "E_CONFLICT"),
+                (ErrorCode::E_INVALID_PARM, "E_INVALID_PARM"),
+                (ErrorCode::E_WRONGCLUSTER, "E_WRONGCLUSTER"),
+                (ErrorCode::E_STORE_FAILURE, "E_STORE_FAILURE"),
+                (ErrorCode::E_STORE_SEGMENT_ILLEGAL, "E_STORE_SEGMENT_ILLEGAL"),
+                (ErrorCode::E_BAD_BALANCE_PLAN, "E_BAD_BALANCE_PLAN"),
+                (ErrorCode::E_BALANCED, "E_BALANCED"),
+                (ErrorCode::E_NO_RUNNING_BALANCE_PLAN, "E_NO_RUNNING_BALANCE_PLAN"),
+                (ErrorCode::E_NO_VALID_HOST, "E_NO_VALID_HOST"),
+                (ErrorCode::E_CORRUPTTED_BALANCE_PLAN, "E_CORRUPTTED_BALANCE_PLAN"),
+                (ErrorCode::E_NO_INVALID_BALANCE_PLAN, "E_NO_INVALID_BALANCE_PLAN"),
+                (ErrorCode::E_IMPROPER_ROLE, "E_IMPROPER_ROLE"),
+                (ErrorCode::E_INVALID_PARTITION_NUM, "E_INVALID_PARTITION_NUM"),
+                (ErrorCode::E_INVALID_REPLICA_FACTOR, "E_INVALID_REPLICA_FACTOR"),
+                (ErrorCode::E_INVALID_CHARSET, "E_INVALID_CHARSET"),
+                (ErrorCode::E_INVALID_COLLATE, "E_INVALID_COLLATE"),
+                (ErrorCode::E_CHARSET_COLLATE_NOT_MATCH, "E_CHARSET_COLLATE_NOT_MATCH"),
+                (ErrorCode::E_SNAPSHOT_FAILURE, "E_SNAPSHOT_FAILURE"),
+                (ErrorCode::E_BLOCK_WRITE_FAILURE, "E_BLOCK_WRITE_FAILURE"),
+                (ErrorCode::E_REBUILD_INDEX_FAILURE, "E_REBUILD_INDEX_FAILURE"),
+                (ErrorCode::E_INDEX_WITH_TTL, "E_INDEX_WITH_TTL"),
+                (ErrorCode::E_ADD_JOB_FAILURE, "E_ADD_JOB_FAILURE"),
+                (ErrorCode::E_STOP_JOB_FAILURE, "E_STOP_JOB_FAILURE"),
+                (ErrorCode::E_SAVE_JOB_FAILURE, "E_SAVE_JOB_FAILURE"),
+                (ErrorCode::E_BALANCER_FAILURE, "E_BALANCER_FAILURE"),
+                (ErrorCode::E_JOB_NOT_FINISHED, "E_JOB_NOT_FINISHED"),
+                (ErrorCode::E_TASK_REPORT_OUT_DATE, "E_TASK_REPORT_OUT_DATE"),
+                (ErrorCode::E_INVALID_JOB, "E_INVALID_JOB"),
+                (ErrorCode::E_BACKUP_BUILDING_INDEX, "E_BACKUP_BUILDING_INDEX"),
+                (ErrorCode::E_BACKUP_SPACE_NOT_FOUND, "E_BACKUP_SPACE_NOT_FOUND"),
+                (ErrorCode::E_RESTORE_FAILURE, "E_RESTORE_FAILURE"),
+                (ErrorCode::E_SESSION_NOT_FOUND, "E_SESSION_NOT_FOUND"),
+                (ErrorCode::E_LIST_CLUSTER_FAILURE, "E_LIST_CLUSTER_FAILURE"),
+                (ErrorCode::E_LIST_CLUSTER_GET_ABS_PATH_FAILURE, "E_LIST_CLUSTER_GET_ABS_PATH_FAILURE"),
+                (ErrorCode::E_GET_META_DIR_FAILURE, "E_GET_META_DIR_FAILURE"),
+                (ErrorCode::E_QUERY_NOT_FOUND, "E_QUERY_NOT_FOUND"),
+                (ErrorCode::E_CONSENSUS_ERROR, "E_CONSENSUS_ERROR"),
+                (ErrorCode::E_KEY_HAS_EXISTS, "E_KEY_HAS_EXISTS"),
+                (ErrorCode::E_DATA_TYPE_MISMATCH, "E_DATA_TYPE_MISMATCH"),
+                (ErrorCode::E_INVALID_FIELD_VALUE, "E_INVALID_FIELD_VALUE"),
+                (ErrorCode::E_INVALID_OPERATION, "E_INVALID_OPERATION"),
+                (ErrorCode::E_NOT_NULLABLE, "E_NOT_NULLABLE"),
+                (ErrorCode::E_FIELD_UNSET, "E_FIELD_UNSET"),
+                (ErrorCode::E_OUT_OF_RANGE, "E_OUT_OF_RANGE"),
+                (ErrorCode::E_ATOMIC_OP_FAILED, "E_ATOMIC_OP_FAILED"),
+                (ErrorCode::E_DATA_CONFLICT_ERROR, "E_DATA_CONFLICT_ERROR"),
+                (ErrorCode::E_WRITE_STALLED, "E_WRITE_STALLED"),
+                (ErrorCode::E_IMPROPER_DATA_TYPE, "E_IMPROPER_DATA_TYPE"),
+                (ErrorCode::E_INVALID_SPACEVIDLEN, "E_INVALID_SPACEVIDLEN"),
+                (ErrorCode::E_INVALID_FILTER, "E_INVALID_FILTER"),
+                (ErrorCode::E_INVALID_UPDATER, "E_INVALID_UPDATER"),
+                (ErrorCode::E_INVALID_STORE, "E_INVALID_STORE"),
+                (ErrorCode::E_INVALID_PEER, "E_INVALID_PEER"),
+                (ErrorCode::E_RETRY_EXHAUSTED, "E_RETRY_EXHAUSTED"),
+                (ErrorCode::E_TRANSFER_LEADER_FAILED, "E_TRANSFER_LEADER_FAILED"),
+                (ErrorCode::E_INVALID_STAT_TYPE, "E_INVALID_STAT_TYPE"),
+                (ErrorCode::E_INVALID_VID, "E_INVALID_VID"),
+                (ErrorCode::E_NO_TRANSFORMED, "E_NO_TRANSFORMED"),
+                (ErrorCode::E_LOAD_META_FAILED, "E_LOAD_META_FAILED"),
+                (ErrorCode::E_FAILED_TO_CHECKPOINT, "E_FAILED_TO_CHECKPOINT"),
+                (ErrorCode::E_CHECKPOINT_BLOCKED, "E_CHECKPOINT_BLOCKED"),
+                (ErrorCode::E_FILTER_OUT, "E_FILTER_OUT"),
+                (ErrorCode::E_INVALID_DATA, "E_INVALID_DATA"),
+                (ErrorCode::E_MUTATE_EDGE_CONFLICT, "E_MUTATE_EDGE_CONFLICT"),
+                (ErrorCode::E_MUTATE_TAG_CONFLICT, "E_MUTATE_TAG_CONFLICT"),
+                (ErrorCode::E_OUTDATED_LOCK, "E_OUTDATED_LOCK"),
+                (ErrorCode::E_INVALID_TASK_PARA, "E_INVALID_TASK_PARA"),
+                (ErrorCode::E_USER_CANCEL, "E_USER_CANCEL"),
+                (ErrorCode::E_TASK_EXECUTION_FAILED, "E_TASK_EXECUTION_FAILED"),
+                (ErrorCode::E_UNKNOWN, "E_UNKNOWN"),
+            ]
+        }
+
+        fn variants() -> &'static [&'static str] {
+            &[
+                "SUCCEEDED",
+                "E_DISCONNECTED",
+                "E_FAIL_TO_CONNECT",
+                "E_RPC_FAILURE",
+                "E_LEADER_CHANGED",
+                "E_SPACE_NOT_FOUND",
+                "E_TAG_NOT_FOUND",
+                "E_EDGE_NOT_FOUND",
+                "E_INDEX_NOT_FOUND",
+                "E_EDGE_PROP_NOT_FOUND",
+                "E_TAG_PROP_NOT_FOUND",
+                "E_ROLE_NOT_FOUND",
+                "E_CONFIG_NOT_FOUND",
+                "E_GROUP_NOT_FOUND",
+                "E_ZONE_NOT_FOUND",
+                "E_LISTENER_NOT_FOUND",
+                "E_PART_NOT_FOUND",
+                "E_KEY_NOT_FOUND",
+                "E_USER_NOT_FOUND",
+                "E_BACKUP_FAILED",
+                "E_BACKUP_EMPTY_TABLE",
+                "E_BACKUP_TABLE_FAILED",
+                "E_PARTIAL_RESULT",
+                "E_REBUILD_INDEX_FAILED",
+                "E_INVALID_PASSWORD",
+                "E_FAILED_GET_ABS_PATH",
+                "E_BAD_USERNAME_PASSWORD",
+                "E_SESSION_INVALID",
+                "E_SESSION_TIMEOUT",
+                "E_SYNTAX_ERROR",
+                "E_EXECUTION_ERROR",
+                "E_STATEMENT_EMPTY",
+                "E_BAD_PERMISSION",
+                "E_SEMANTIC_ERROR",
+                "E_TOO_MANY_CONNECTIONS",
+                "E_PARTIAL_SUCCEEDED",
+                "E_NO_HOSTS",
+                "E_EXISTED",
+                "E_INVALID_HOST",
+                "E_UNSUPPORTED",
+                "E_NOT_DROP",
+                "E_BALANCER_RUNNING",
+                "E_CONFIG_IMMUTABLE",
+                "E_CONFLICT",
+                "E_INVALID_PARM",
+                "E_WRONGCLUSTER",
+                "E_STORE_FAILURE",
+                "E_STORE_SEGMENT_ILLEGAL",
+                "E_BAD_BALANCE_PLAN",
+                "E_BALANCED",
+                "E_NO_RUNNING_BALANCE_PLAN",
+                "E_NO_VALID_HOST",
+                "E_CORRUPTTED_BALANCE_PLAN",
+                "E_NO_INVALID_BALANCE_PLAN",
+                "E_IMPROPER_ROLE",
+                "E_INVALID_PARTITION_NUM",
+                "E_INVALID_REPLICA_FACTOR",
+                "E_INVALID_CHARSET",
+                "E_INVALID_COLLATE",
+                "E_CHARSET_COLLATE_NOT_MATCH",
+                "E_SNAPSHOT_FAILURE",
+                "E_BLOCK_WRITE_FAILURE",
+                "E_REBUILD_INDEX_FAILURE",
+                "E_INDEX_WITH_TTL",
+                "E_ADD_JOB_FAILURE",
+                "E_STOP_JOB_FAILURE",
+                "E_SAVE_JOB_FAILURE",
+                "E_BALANCER_FAILURE",
+                "E_JOB_NOT_FINISHED",
+                "E_TASK_REPORT_OUT_DATE",
+                "E_INVALID_JOB",
+                "E_BACKUP_BUILDING_INDEX",
+                "E_BACKUP_SPACE_NOT_FOUND",
+                "E_RESTORE_FAILURE",
+                "E_SESSION_NOT_FOUND",
+                "E_LIST_CLUSTER_FAILURE",
+                "E_LIST_CLUSTER_GET_ABS_PATH_FAILURE",
+                "E_GET_META_DIR_FAILURE",
+                "E_QUERY_NOT_FOUND",
+                "E_CONSENSUS_ERROR",
+                "E_KEY_HAS_EXISTS",
+                "E_DATA_TYPE_MISMATCH",
+                "E_INVALID_FIELD_VALUE",
+                "E_INVALID_OPERATION",
+                "E_NOT_NULLABLE",
+                "E_FIELD_UNSET",
+                "E_OUT_OF_RANGE",
+                "E_ATOMIC_OP_FAILED",
+                "E_DATA_CONFLICT_ERROR",
+                "E_WRITE_STALLED",
+                "E_IMPROPER_DATA_TYPE",
+                "E_INVALID_SPACEVIDLEN",
+                "E_INVALID_FILTER",
+                "E_INVALID_UPDATER",
+                "E_INVALID_STORE",
+                "E_INVALID_PEER",
+                "E_RETRY_EXHAUSTED",
+                "E_TRANSFER_LEADER_FAILED",
+                "E_INVALID_STAT_TYPE",
+                "E_INVALID_VID",
+                "E_NO_TRANSFORMED",
+                "E_LOAD_META_FAILED",
+                "E_FAILED_TO_CHECKPOINT",
+                "E_CHECKPOINT_BLOCKED",
+                "E_FILTER_OUT",
+                "E_INVALID_DATA",
+                "E_MUTATE_EDGE_CONFLICT",
+                "E_MUTATE_TAG_CONFLICT",
+                "E_OUTDATED_LOCK",
+                "E_INVALID_TASK_PARA",
+                "E_USER_CANCEL",
+                "E_TASK_EXECUTION_FAILED",
+                "E_UNKNOWN",
+            ]
+        }
+
+        fn variant_values() -> &'static [ErrorCode] {
+            &[
+                ErrorCode::SUCCEEDED,
+                ErrorCode::E_DISCONNECTED,
+                ErrorCode::E_FAIL_TO_CONNECT,
+                ErrorCode::E_RPC_FAILURE,
+                ErrorCode::E_LEADER_CHANGED,
+                ErrorCode::E_SPACE_NOT_FOUND,
+                ErrorCode::E_TAG_NOT_FOUND,
+                ErrorCode::E_EDGE_NOT_FOUND,
+                ErrorCode::E_INDEX_NOT_FOUND,
+                ErrorCode::E_EDGE_PROP_NOT_FOUND,
+                ErrorCode::E_TAG_PROP_NOT_FOUND,
+                ErrorCode::E_ROLE_NOT_FOUND,
+                ErrorCode::E_CONFIG_NOT_FOUND,
+                ErrorCode::E_GROUP_NOT_FOUND,
+                ErrorCode::E_ZONE_NOT_FOUND,
+                ErrorCode::E_LISTENER_NOT_FOUND,
+                ErrorCode::E_PART_NOT_FOUND,
+                ErrorCode::E_KEY_NOT_FOUND,
+                ErrorCode::E_USER_NOT_FOUND,
+                ErrorCode::E_BACKUP_FAILED,
+                ErrorCode::E_BACKUP_EMPTY_TABLE,
+                ErrorCode::E_BACKUP_TABLE_FAILED,
+                ErrorCode::E_PARTIAL_RESULT,
+                ErrorCode::E_REBUILD_INDEX_FAILED,
+                ErrorCode::E_INVALID_PASSWORD,
+                ErrorCode::E_FAILED_GET_ABS_PATH,
+                ErrorCode::E_BAD_USERNAME_PASSWORD,
+                ErrorCode::E_SESSION_INVALID,
+                ErrorCode::E_SESSION_TIMEOUT,
+                ErrorCode::E_SYNTAX_ERROR,
+                ErrorCode::E_EXECUTION_ERROR,
+                ErrorCode::E_STATEMENT_EMPTY,
+                ErrorCode::E_BAD_PERMISSION,
+                ErrorCode::E_SEMANTIC_ERROR,
+                ErrorCode::E_TOO_MANY_CONNECTIONS,
+                ErrorCode::E_PARTIAL_SUCCEEDED,
+                ErrorCode::E_NO_HOSTS,
+                ErrorCode::E_EXISTED,
+                ErrorCode::E_INVALID_HOST,
+                ErrorCode::E_UNSUPPORTED,
+                ErrorCode::E_NOT_DROP,
+                ErrorCode::E_BALANCER_RUNNING,
+                ErrorCode::E_CONFIG_IMMUTABLE,
+                ErrorCode::E_CONFLICT,
+                ErrorCode::E_INVALID_PARM,
+                ErrorCode::E_WRONGCLUSTER,
+                ErrorCode::E_STORE_FAILURE,
+                ErrorCode::E_STORE_SEGMENT_ILLEGAL,
+                ErrorCode::E_BAD_BALANCE_PLAN,
+                ErrorCode::E_BALANCED,
+                ErrorCode::E_NO_RUNNING_BALANCE_PLAN,
+                ErrorCode::E_NO_VALID_HOST,
+                ErrorCode::E_CORRUPTTED_BALANCE_PLAN,
+                ErrorCode::E_NO_INVALID_BALANCE_PLAN,
+                ErrorCode::E_IMPROPER_ROLE,
+                ErrorCode::E_INVALID_PARTITION_NUM,
+                ErrorCode::E_INVALID_REPLICA_FACTOR,
+                ErrorCode::E_INVALID_CHARSET,
+                ErrorCode::E_INVALID_COLLATE,
+                ErrorCode::E_CHARSET_COLLATE_NOT_MATCH,
+                ErrorCode::E_SNAPSHOT_FAILURE,
+                ErrorCode::E_BLOCK_WRITE_FAILURE,
+                ErrorCode::E_REBUILD_INDEX_FAILURE,
+                ErrorCode::E_INDEX_WITH_TTL,
+                ErrorCode::E_ADD_JOB_FAILURE,
+                ErrorCode::E_STOP_JOB_FAILURE,
+                ErrorCode::E_SAVE_JOB_FAILURE,
+                ErrorCode::E_BALANCER_FAILURE,
+                ErrorCode::E_JOB_NOT_FINISHED,
+                ErrorCode::E_TASK_REPORT_OUT_DATE,
+                ErrorCode::E_INVALID_JOB,
+                ErrorCode::E_BACKUP_BUILDING_INDEX,
+                ErrorCode::E_BACKUP_SPACE_NOT_FOUND,
+                ErrorCode::E_RESTORE_FAILURE,
+                ErrorCode::E_SESSION_NOT_FOUND,
+                ErrorCode::E_LIST_CLUSTER_FAILURE,
+                ErrorCode::E_LIST_CLUSTER_GET_ABS_PATH_FAILURE,
+                ErrorCode::E_GET_META_DIR_FAILURE,
+                ErrorCode::E_QUERY_NOT_FOUND,
+                ErrorCode::E_CONSENSUS_ERROR,
+                ErrorCode::E_KEY_HAS_EXISTS,
+                ErrorCode::E_DATA_TYPE_MISMATCH,
+                ErrorCode::E_INVALID_FIELD_VALUE,
+                ErrorCode::E_INVALID_OPERATION,
+                ErrorCode::E_NOT_NULLABLE,
+                ErrorCode::E_FIELD_UNSET,
+                ErrorCode::E_OUT_OF_RANGE,
+                ErrorCode::E_ATOMIC_OP_FAILED,
+                ErrorCode::E_DATA_CONFLICT_ERROR,
+                ErrorCode::E_WRITE_STALLED,
+                ErrorCode::E_IMPROPER_DATA_TYPE,
+                ErrorCode::E_INVALID_SPACEVIDLEN,
+                ErrorCode::E_INVALID_FILTER,
+                ErrorCode::E_INVALID_UPDATER,
+                ErrorCode::E_INVALID_STORE,
+                ErrorCode::E_INVALID_PEER,
+                ErrorCode::E_RETRY_EXHAUSTED,
+                ErrorCode::E_TRANSFER_LEADER_FAILED,
+                ErrorCode::E_INVALID_STAT_TYPE,
+                ErrorCode::E_INVALID_VID,
+                ErrorCode::E_NO_TRANSFORMED,
+                ErrorCode::E_LOAD_META_FAILED,
+                ErrorCode::E_FAILED_TO_CHECKPOINT,
+                ErrorCode::E_CHECKPOINT_BLOCKED,
+                ErrorCode::E_FILTER_OUT,
+                ErrorCode::E_INVALID_DATA,
+                ErrorCode::E_MUTATE_EDGE_CONFLICT,
+                ErrorCode::E_MUTATE_TAG_CONFLICT,
+                ErrorCode::E_OUTDATED_LOCK,
+                ErrorCode::E_INVALID_TASK_PARA,
+                ErrorCode::E_USER_CANCEL,
+                ErrorCode::E_TASK_EXECUTION_FAILED,
+                ErrorCode::E_UNKNOWN,
+            ]
+        }
+    }
+
+    impl ::std::default::Default for ErrorCode {
+        fn default() -> Self {
+            ErrorCode(::fbthrift::__UNKNOWN_ID)
+        }
+    }
+
+    impl<'a> ::std::convert::From<&'a ErrorCode> for ::std::primitive::i32 {
+        #[inline]
+        fn from(x: &'a ErrorCode) -> Self {
+            x.0
+        }
+    }
+
+    impl ::std::convert::From<ErrorCode> for ::std::primitive::i32 {
+        #[inline]
+        fn from(x: ErrorCode) -> Self {
+            x.0
+        }
+    }
+
+    impl ::std::convert::From<::std::primitive::i32> for ErrorCode {
+        #[inline]
+        fn from(x: ::std::primitive::i32) -> Self {
+            Self(x)
+        }
+    }
+
+    impl ::std::fmt::Display for ErrorCode {
+        fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+            static VARIANTS_BY_NUMBER: &[(&::std::primitive::str, ::std::primitive::i32)] = &[
+                ("E_UNKNOWN", -8000),
+                ("E_TASK_EXECUTION_FAILED", -3053),
+                ("E_USER_CANCEL", -3052),
+                ("E_INVALID_TASK_PARA", -3051),
+                ("E_OUTDATED_LOCK", -3047),
+                ("E_MUTATE_TAG_CONFLICT", -3046),
+                ("E_MUTATE_EDGE_CONFLICT", -3045),
+                ("E_INVALID_DATA", -3044),
+                ("E_FILTER_OUT", -3043),
+                ("E_CHECKPOINT_BLOCKED", -3042),
+                ("E_FAILED_TO_CHECKPOINT", -3041),
+                ("E_LOAD_META_FAILED", -3040),
+                ("E_NO_TRANSFORMED", -3039),
+                ("E_INVALID_VID", -3038),
+                ("E_INVALID_STAT_TYPE", -3037),
+                ("E_TRANSFER_LEADER_FAILED", -3036),
+                ("E_RETRY_EXHAUSTED", -3035),
+                ("E_INVALID_PEER", -3034),
+                ("E_INVALID_STORE", -3033),
+                ("E_INVALID_UPDATER", -3032),
+                ("E_INVALID_FILTER", -3031),
+                ("E_INVALID_SPACEVIDLEN", -3022),
+                ("E_IMPROPER_DATA_TYPE", -3021),
+                ("E_WRITE_STALLED", -3011),
+                ("E_DATA_CONFLICT_ERROR", -3010),
+                ("E_ATOMIC_OP_FAILED", -3009),
+                ("E_OUT_OF_RANGE", -3008),
+                ("E_FIELD_UNSET", -3007),
+                ("E_NOT_NULLABLE", -3006),
+                ("E_INVALID_OPERATION", -3005),
+                ("E_INVALID_FIELD_VALUE", -3004),
+                ("E_DATA_TYPE_MISMATCH", -3003),
+                ("E_KEY_HAS_EXISTS", -3002),
+                ("E_CONSENSUS_ERROR", -3001),
+                ("E_QUERY_NOT_FOUND", -2073),
+                ("E_GET_META_DIR_FAILURE", -2072),
+                ("E_LIST_CLUSTER_GET_ABS_PATH_FAILURE", -2071),
+                ("E_LIST_CLUSTER_FAILURE", -2070),
+                ("E_SESSION_NOT_FOUND", -2069),
+                ("E_RESTORE_FAILURE", -2068),
+                ("E_BACKUP_SPACE_NOT_FOUND", -2067),
+                ("E_BACKUP_BUILDING_INDEX", -2066),
+                ("E_INVALID_JOB", -2065),
+                ("E_TASK_REPORT_OUT_DATE", -2049),
+                ("E_JOB_NOT_FINISHED", -2048),
+                ("E_BALANCER_FAILURE", -2047),
+                ("E_SAVE_JOB_FAILURE", -2046),
+                ("E_STOP_JOB_FAILURE", -2045),
+                ("E_ADD_JOB_FAILURE", -2044),
+                ("E_INDEX_WITH_TTL", -2043),
+                ("E_REBUILD_INDEX_FAILURE", -2042),
+                ("E_BLOCK_WRITE_FAILURE", -2041),
+                ("E_SNAPSHOT_FAILURE", -2040),
+                ("E_CHARSET_COLLATE_NOT_MATCH", -2035),
+                ("E_INVALID_COLLATE", -2034),
+                ("E_INVALID_CHARSET", -2033),
+                ("E_INVALID_REPLICA_FACTOR", -2032),
+                ("E_INVALID_PARTITION_NUM", -2031),
+                ("E_IMPROPER_ROLE", -2030),
+                ("E_NO_INVALID_BALANCE_PLAN", -2028),
+                ("E_CORRUPTTED_BALANCE_PLAN", -2027),
+                ("E_NO_VALID_HOST", -2026),
+                ("E_NO_RUNNING_BALANCE_PLAN", -2025),
+                ("E_BALANCED", -2024),
+                ("E_BAD_BALANCE_PLAN", -2023),
+                ("E_STORE_SEGMENT_ILLEGAL", -2022),
+                ("E_STORE_FAILURE", -2021),
+                ("E_WRONGCLUSTER", -2010),
+                ("E_INVALID_PARM", -2009),
+                ("E_CONFLICT", -2008),
+                ("E_CONFIG_IMMUTABLE", -2007),
+                ("E_BALANCER_RUNNING", -2006),
+                ("E_NOT_DROP", -2005),
+                ("E_UNSUPPORTED", -2004),
+                ("E_INVALID_HOST", -2003),
+                ("E_EXISTED", -2002),
+                ("E_NO_HOSTS", -2001),
+                ("E_PARTIAL_SUCCEEDED", -1011),
+                ("E_TOO_MANY_CONNECTIONS", -1010),
+                ("E_SEMANTIC_ERROR", -1009),
+                ("E_BAD_PERMISSION", -1008),
+                ("E_STATEMENT_EMPTY", -1006),
+                ("E_EXECUTION_ERROR", -1005),
+                ("E_SYNTAX_ERROR", -1004),
+                ("E_SESSION_TIMEOUT", -1003),
+                ("E_SESSION_INVALID", -1002),
+                ("E_BAD_USERNAME_PASSWORD", -1001),
+                ("E_FAILED_GET_ABS_PATH", -30),
+                ("E_INVALID_PASSWORD", -29),
+                ("E_REBUILD_INDEX_FAILED", -28),
+                ("E_PARTIAL_RESULT", -27),
+                ("E_BACKUP_TABLE_FAILED", -26),
+                ("E_BACKUP_EMPTY_TABLE", -25),
+                ("E_BACKUP_FAILED", -24),
+                ("E_USER_NOT_FOUND", -18),
+                ("E_KEY_NOT_FOUND", -17),
+                ("E_PART_NOT_FOUND", -16),
+                ("E_LISTENER_NOT_FOUND", -15),
+                ("E_ZONE_NOT_FOUND", -14),
+                ("E_GROUP_NOT_FOUND", -13),
+                ("E_CONFIG_NOT_FOUND", -12),
+                ("E_ROLE_NOT_FOUND", -11),
+                ("E_TAG_PROP_NOT_FOUND", -10),
+                ("E_EDGE_PROP_NOT_FOUND", -9),
+                ("E_INDEX_NOT_FOUND", -8),
+                ("E_EDGE_NOT_FOUND", -7),
+                ("E_TAG_NOT_FOUND", -6),
+                ("E_SPACE_NOT_FOUND", -5),
+                ("E_LEADER_CHANGED", -4),
+                ("E_RPC_FAILURE", -3),
+                ("E_FAIL_TO_CONNECT", -2),
+                ("E_DISCONNECTED", -1),
+                ("SUCCEEDED", 0),
+            ];
+            ::fbthrift::help::enum_display(VARIANTS_BY_NUMBER, fmt, self.0)
+        }
+    }
+
+    impl ::std::fmt::Debug for ErrorCode {
+        fn fmt(&self, fmt: &mut ::std::fmt::Formatter) -> ::std::fmt::Result {
+            write!(fmt, "ErrorCode::{}", self)
+        }
+    }
+
+    impl ::std::str::FromStr for ErrorCode {
+        type Err = ::anyhow::Error;
+
+        fn from_str(string: &::std::primitive::str) -> ::std::result::Result<Self, Self::Err> {
+            static VARIANTS_BY_NAME: &[(&::std::primitive::str, ::std::primitive::i32)] = &[
+                ("E_ADD_JOB_FAILURE", -2044),
+                ("E_ATOMIC_OP_FAILED", -3009),
+                ("E_BACKUP_BUILDING_INDEX", -2066),
+                ("E_BACKUP_EMPTY_TABLE", -25),
+                ("E_BACKUP_FAILED", -24),
+                ("E_BACKUP_SPACE_NOT_FOUND", -2067),
+                ("E_BACKUP_TABLE_FAILED", -26),
+                ("E_BAD_BALANCE_PLAN", -2023),
+                ("E_BAD_PERMISSION", -1008),
+                ("E_BAD_USERNAME_PASSWORD", -1001),
+                ("E_BALANCED", -2024),
+                ("E_BALANCER_FAILURE", -2047),
+                ("E_BALANCER_RUNNING", -2006),
+                ("E_BLOCK_WRITE_FAILURE", -2041),
+                ("E_CHARSET_COLLATE_NOT_MATCH", -2035),
+                ("E_CHECKPOINT_BLOCKED", -3042),
+                ("E_CONFIG_IMMUTABLE", -2007),
+                ("E_CONFIG_NOT_FOUND", -12),
+                ("E_CONFLICT", -2008),
+                ("E_CONSENSUS_ERROR", -3001),
+                ("E_CORRUPTTED_BALANCE_PLAN", -2027),
+                ("E_DATA_CONFLICT_ERROR", -3010),
+                ("E_DATA_TYPE_MISMATCH", -3003),
+                ("E_DISCONNECTED", -1),
+                ("E_EDGE_NOT_FOUND", -7),
+                ("E_EDGE_PROP_NOT_FOUND", -9),
+                ("E_EXECUTION_ERROR", -1005),
+                ("E_EXISTED", -2002),
+                ("E_FAILED_GET_ABS_PATH", -30),
+                ("E_FAILED_TO_CHECKPOINT", -3041),
+                ("E_FAIL_TO_CONNECT", -2),
+                ("E_FIELD_UNSET", -3007),
+                ("E_FILTER_OUT", -3043),
+                ("E_GET_META_DIR_FAILURE", -2072),
+                ("E_GROUP_NOT_FOUND", -13),
+                ("E_IMPROPER_DATA_TYPE", -3021),
+                ("E_IMPROPER_ROLE", -2030),
+                ("E_INDEX_NOT_FOUND", -8),
+                ("E_INDEX_WITH_TTL", -2043),
+                ("E_INVALID_CHARSET", -2033),
+                ("E_INVALID_COLLATE", -2034),
+                ("E_INVALID_DATA", -3044),
+                ("E_INVALID_FIELD_VALUE", -3004),
+                ("E_INVALID_FILTER", -3031),
+                ("E_INVALID_HOST", -2003),
+                ("E_INVALID_JOB", -2065),
+                ("E_INVALID_OPERATION", -3005),
+                ("E_INVALID_PARM", -2009),
+                ("E_INVALID_PARTITION_NUM", -2031),
+                ("E_INVALID_PASSWORD", -29),
+                ("E_INVALID_PEER", -3034),
+                ("E_INVALID_REPLICA_FACTOR", -2032),
+                ("E_INVALID_SPACEVIDLEN", -3022),
+                ("E_INVALID_STAT_TYPE", -3037),
+                ("E_INVALID_STORE", -3033),
+                ("E_INVALID_TASK_PARA", -3051),
+                ("E_INVALID_UPDATER", -3032),
+                ("E_INVALID_VID", -3038),
+                ("E_JOB_NOT_FINISHED", -2048),
+                ("E_KEY_HAS_EXISTS", -3002),
+                ("E_KEY_NOT_FOUND", -17),
+                ("E_LEADER_CHANGED", -4),
+                ("E_LISTENER_NOT_FOUND", -15),
+                ("E_LIST_CLUSTER_FAILURE", -2070),
+                ("E_LIST_CLUSTER_GET_ABS_PATH_FAILURE", -2071),
+                ("E_LOAD_META_FAILED", -3040),
+                ("E_MUTATE_EDGE_CONFLICT", -3045),
+                ("E_MUTATE_TAG_CONFLICT", -3046),
+                ("E_NOT_DROP", -2005),
+                ("E_NOT_NULLABLE", -3006),
+                ("E_NO_HOSTS", -2001),
+                ("E_NO_INVALID_BALANCE_PLAN", -2028),
+                ("E_NO_RUNNING_BALANCE_PLAN", -2025),
+                ("E_NO_TRANSFORMED", -3039),
+                ("E_NO_VALID_HOST", -2026),
+                ("E_OUTDATED_LOCK", -3047),
+                ("E_OUT_OF_RANGE", -3008),
+                ("E_PARTIAL_RESULT", -27),
+                ("E_PARTIAL_SUCCEEDED", -1011),
+                ("E_PART_NOT_FOUND", -16),
+                ("E_QUERY_NOT_FOUND", -2073),
+                ("E_REBUILD_INDEX_FAILED", -28),
+                ("E_REBUILD_INDEX_FAILURE", -2042),
+                ("E_RESTORE_FAILURE", -2068),
+                ("E_RETRY_EXHAUSTED", -3035),
+                ("E_ROLE_NOT_FOUND", -11),
+                ("E_RPC_FAILURE", -3),
+                ("E_SAVE_JOB_FAILURE", -2046),
+                ("E_SEMANTIC_ERROR", -1009),
+                ("E_SESSION_INVALID", -1002),
+                ("E_SESSION_NOT_FOUND", -2069),
+                ("E_SESSION_TIMEOUT", -1003),
+                ("E_SNAPSHOT_FAILURE", -2040),
+                ("E_SPACE_NOT_FOUND", -5),
+                ("E_STATEMENT_EMPTY", -1006),
+                ("E_STOP_JOB_FAILURE", -2045),
+                ("E_STORE_FAILURE", -2021),
+                ("E_STORE_SEGMENT_ILLEGAL", -2022),
+                ("E_SYNTAX_ERROR", -1004),
+                ("E_TAG_NOT_FOUND", -6),
+                ("E_TAG_PROP_NOT_FOUND", -10),
+                ("E_TASK_EXECUTION_FAILED", -3053),
+                ("E_TASK_REPORT_OUT_DATE", -2049),
+                ("E_TOO_MANY_CONNECTIONS", -1010),
+                ("E_TRANSFER_LEADER_FAILED", -3036),
+                ("E_UNKNOWN", -8000),
+                ("E_UNSUPPORTED", -2004),
+                ("E_USER_CANCEL", -3052),
+                ("E_USER_NOT_FOUND", -18),
+                ("E_WRITE_STALLED", -3011),
+                ("E_WRONGCLUSTER", -2010),
+                ("E_ZONE_NOT_FOUND", -14),
+                ("SUCCEEDED", 0),
+            ];
+            ::fbthrift::help::enum_from_str(VARIANTS_BY_NAME, string, "ErrorCode").map(ErrorCode)
+        }
+    }
+
+    impl ::fbthrift::GetTType for ErrorCode {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::I32;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for ErrorCode
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        #[inline]
+        fn write(&self, p: &mut P) {
+            p.write_i32(self.into())
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for ErrorCode
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        #[inline]
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            ::std::result::Result::Ok(ErrorCode::from(p.read_i32()?))
+        }
+    }
+
 
 
 
@@ -1644,6 +2441,134 @@ pub mod types {
     }
 
 
+    impl ::std::default::Default for self::DirInfo {
+        fn default() -> Self {
+            Self {
+                root: ::std::default::Default::default(),
+                data: ::std::default::Default::default(),
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::DirInfo {}
+    unsafe impl ::std::marker::Sync for self::DirInfo {}
+
+    impl ::fbthrift::GetTType for self::DirInfo {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::DirInfo
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("DirInfo");
+            p.write_field_begin("root", ::fbthrift::TType::String, 1);
+            ::fbthrift::Serialize::write(&self.root, p);
+            p.write_field_end();
+            p.write_field_begin("data", ::fbthrift::TType::List, 2);
+            ::fbthrift::Serialize::write(&self.data, p);
+            p.write_field_end();
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::DirInfo
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("data", ::fbthrift::TType::List, 2),
+                ::fbthrift::Field::new("root", ::fbthrift::TType::String, 1),
+            ];
+            let mut field_root = ::std::option::Option::None;
+            let mut field_data = ::std::option::Option::None;
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::String, 1) => field_root = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::List, 2) => field_data = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+                root: field_root.unwrap_or_default(),
+                data: field_data.unwrap_or_default(),
+            })
+        }
+    }
+
+
+    impl ::std::default::Default for self::NodeInfo {
+        fn default() -> Self {
+            Self {
+                host: ::std::default::Default::default(),
+                dir: ::std::default::Default::default(),
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::NodeInfo {}
+    unsafe impl ::std::marker::Sync for self::NodeInfo {}
+
+    impl ::fbthrift::GetTType for self::NodeInfo {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::NodeInfo
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("NodeInfo");
+            p.write_field_begin("host", ::fbthrift::TType::Struct, 1);
+            ::fbthrift::Serialize::write(&self.host, p);
+            p.write_field_end();
+            p.write_field_begin("dir", ::fbthrift::TType::Struct, 2);
+            ::fbthrift::Serialize::write(&self.dir, p);
+            p.write_field_end();
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::NodeInfo
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("dir", ::fbthrift::TType::Struct, 2),
+                ::fbthrift::Field::new("host", ::fbthrift::TType::Struct, 1),
+            ];
+            let mut field_host = ::std::option::Option::None;
+            let mut field_dir = ::std::option::Option::None;
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::Struct, 1) => field_host = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::Struct, 2) => field_dir = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+                host: field_host.unwrap_or_default(),
+                dir: field_dir.unwrap_or_default(),
+            })
+        }
+    }
+
+
     impl ::std::default::Default for self::PartitionBackupInfo {
         fn default() -> Self {
             Self {
@@ -1695,6 +2620,70 @@ pub mod types {
             p.read_struct_end()?;
             ::std::result::Result::Ok(Self {
                 info: field_info.unwrap_or_default(),
+            })
+        }
+    }
+
+
+    impl ::std::default::Default for self::CheckpointInfo {
+        fn default() -> Self {
+            Self {
+                partition_info: ::std::default::Default::default(),
+                path: ::std::default::Default::default(),
+            }
+        }
+    }
+
+    unsafe impl ::std::marker::Send for self::CheckpointInfo {}
+    unsafe impl ::std::marker::Sync for self::CheckpointInfo {}
+
+    impl ::fbthrift::GetTType for self::CheckpointInfo {
+        const TTYPE: ::fbthrift::TType = ::fbthrift::TType::Struct;
+    }
+
+    impl<P> ::fbthrift::Serialize<P> for self::CheckpointInfo
+    where
+        P: ::fbthrift::ProtocolWriter,
+    {
+        fn write(&self, p: &mut P) {
+            p.write_struct_begin("CheckpointInfo");
+            p.write_field_begin("partition_info", ::fbthrift::TType::Struct, 1);
+            ::fbthrift::Serialize::write(&self.partition_info, p);
+            p.write_field_end();
+            p.write_field_begin("path", ::fbthrift::TType::String, 2);
+            ::fbthrift::Serialize::write(&self.path, p);
+            p.write_field_end();
+            p.write_field_stop();
+            p.write_struct_end();
+        }
+    }
+
+    impl<P> ::fbthrift::Deserialize<P> for self::CheckpointInfo
+    where
+        P: ::fbthrift::ProtocolReader,
+    {
+        fn read(p: &mut P) -> ::anyhow::Result<Self> {
+            static FIELDS: &[::fbthrift::Field] = &[
+                ::fbthrift::Field::new("partition_info", ::fbthrift::TType::Struct, 1),
+                ::fbthrift::Field::new("path", ::fbthrift::TType::String, 2),
+            ];
+            let mut field_partition_info = ::std::option::Option::None;
+            let mut field_path = ::std::option::Option::None;
+            let _ = p.read_struct_begin(|_| ())?;
+            loop {
+                let (_, fty, fid) = p.read_field_begin(|_| (), FIELDS)?;
+                match (fty, fid as ::std::primitive::i32) {
+                    (::fbthrift::TType::Stop, _) => break,
+                    (::fbthrift::TType::Struct, 1) => field_partition_info = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (::fbthrift::TType::String, 2) => field_path = ::std::option::Option::Some(::fbthrift::Deserialize::read(p)?),
+                    (fty, _) => p.skip(fty)?,
+                }
+                p.read_field_end()?;
+            }
+            p.read_struct_end()?;
+            ::std::result::Result::Ok(Self {
+                partition_info: field_partition_info.unwrap_or_default(),
+                path: field_path.unwrap_or_default(),
             })
         }
     }
