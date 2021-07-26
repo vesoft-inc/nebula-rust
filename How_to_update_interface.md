@@ -19,3 +19,9 @@ wget https://raw.githubusercontent.com/vesoft-inc/nebula-common/master/src/commo
 /home/user/third-party/bin/thrift1 --strict --allow-neg-enum-vals --gen "mstch_rust" -o . meta.thrift
 /home/user/third-party/bin/thrift1 --strict --allow-neg-enum-vals --gen "mstch_rust" -o . storage.thrift
 ```
+
+## Secondly manually modify the recursive type error
+
+1. Change the fields `Vertex`, `Edge`, `Path`, `NList`, `NMap`, `NSet` and `DataSet` of `Value` to boxed. See the detail issue https://github.com/facebook/fbthrift/issues/438 .
+
+2. Implement Ord for `Value` type. It's required by the `BTreeSet`.
