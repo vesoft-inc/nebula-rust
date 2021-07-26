@@ -14,9 +14,7 @@ use fbthrift::{
     ApplicationException, Deserialize, MessageType, ProtocolReader, ProtocolWriter, Serialize,
 };
 use fbthrift_transport::fbthrift_transport_response_handler::ResponseHandler;
-use graph::services::graph_service::{
-    AuthenticateExn, ExecuteExn, ExecuteJsonExn, SignoutExn,
-};
+use graph::services::graph_service::{AuthenticateExn, ExecuteExn, ExecuteJsonExn, SignoutExn};
 
 #[derive(Clone)]
 pub struct GraphTransportResponseHandler;

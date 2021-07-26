@@ -7,13 +7,16 @@ use std::io::Result;
 
 use fbthrift::BinaryProtocol;
 use fbthrift_transport::{tokio_io::transport::AsyncTransport, AsyncTransportConfiguration};
-use tokio::net::TcpStream;
 use graph::client;
+use tokio::net::TcpStream;
 
 use crate::graph_client::transport_response_handler;
 
 pub struct Connection {
-    client: client::GraphServiceImpl<BinaryProtocol, AsyncTransport<TcpStream, transport_response_handler::GraphTransportResponseHandler>>,
+    client: client::GraphServiceImpl<
+        BinaryProtocol,
+        AsyncTransport<TcpStream, transport_response_handler::GraphTransportResponseHandler>,
+    >,
 }
 
 impl Connection {
@@ -21,15 +24,29 @@ impl Connection {
     pub async fn new(host: &str, port: i32) -> Result<Connection> {
         let addr = format!("{}:{}", host, port);
         let stream = TcpStream::connect(addr).await?;
-        let transport = AsyncTransport::new(stream, AsyncTransportConfiguration::new(
-            transport_response_handler::GraphTransportResponseHandler
-        ));
-        Ok(Connection { client: client::GraphServiceImpl::new(transport) })
+        let transport = AsyncTransport::new(
+            stream,
+            AsyncTransportConfiguration::new(
+                transport_response_handler::GraphTransportResponseHandler,
+            ),
+        );
+        Ok(Connection {
+            client: client::GraphServiceImpl::new(transport),
+        })
     }
 
     /// Authenticate by username and password
-    pub async fn authenticate(&self, username : &str, password : &str) -> std::result::Result<graph::types::AuthResponse, common::types::ErrorCode> {
-        let result = client::GraphService::authenticate(&self.client, &username.to_string().into_bytes(), &password.to_string().into_bytes()).await;
+    pub async fn authenticate(
+        &self,
+        username: &str,
+        password: &str,
+    ) -> std::result::Result<graph::types::AuthResponse, common::types::ErrorCode> {
+        let result = client::GraphService::authenticate(
+            &self.client,
+            &username.to_string().into_bytes(),
+            &password.to_string().into_bytes(),
+        )
+        .await;
         if let Err(_) = result {
             return Err(common::types::ErrorCode::E_RPC_FAILURE);
         }
@@ -37,7 +54,10 @@ impl Connection {
     }
 
     /// Sign out the authentication by session id which got by authenticating previous
-    pub async fn signout(&self, session_id : i64) -> std::result::Result<(), common::types::ErrorCode> {
+    pub async fn signout(
+        &self,
+        session_id: i64,
+    ) -> std::result::Result<(), common::types::ErrorCode> {
         let result = client::GraphService::signout(&self.client, session_id).await;
         if let Err(_) = result {
             return Err(common::types::ErrorCode::E_RPC_FAILURE);
@@ -46,8 +66,17 @@ impl Connection {
     }
 
     /// Execute the query with current session id which got by authenticating previous
-    pub async fn execute(&self, session_id : i64, query: &str) -> std::result::Result<graph::types::ExecutionResponse, common::types::ErrorCode> {
-        let result = client::GraphService::execute(&self.client, session_id, &query.to_string().into_bytes()).await;
+    pub async fn execute(
+        &self,
+        session_id: i64,
+        query: &str,
+    ) -> std::result::Result<graph::types::ExecutionResponse, common::types::ErrorCode> {
+        let result = client::GraphService::execute(
+            &self.client,
+            session_id,
+            &query.to_string().into_bytes(),
+        )
+        .await;
         if let Err(_) = result {
             return Err(common::types::ErrorCode::E_RPC_FAILURE);
         }
