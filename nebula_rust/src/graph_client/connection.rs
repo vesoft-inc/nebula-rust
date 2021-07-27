@@ -8,6 +8,7 @@ use std::io::Result;
 use fbthrift::BinaryProtocol;
 use fbthrift_transport::{tokio_io::transport::AsyncTransport, AsyncTransportConfiguration};
 use graph::client;
+use graph::client::GraphService;
 use tokio::net::TcpStream;
 
 use crate::graph_client::transport_response_handler;
@@ -41,12 +42,13 @@ impl Connection {
         username: &str,
         password: &str,
     ) -> std::result::Result<graph::types::AuthResponse, common::types::ErrorCode> {
-        let result = client::GraphService::authenticate(
-            &self.client,
-            &username.to_string().into_bytes(),
-            &password.to_string().into_bytes(),
-        )
-        .await;
+        let result = self
+            .client
+            .authenticate(
+                &username.to_string().into_bytes(),
+                &password.to_string().into_bytes(),
+            )
+            .await;
         if let Err(_) = result {
             return Err(common::types::ErrorCode::E_RPC_FAILURE);
         }
@@ -58,7 +60,7 @@ impl Connection {
         &self,
         session_id: i64,
     ) -> std::result::Result<(), common::types::ErrorCode> {
-        let result = client::GraphService::signout(&self.client, session_id).await;
+        let result = self.client.signout(session_id).await;
         if let Err(_) = result {
             return Err(common::types::ErrorCode::E_RPC_FAILURE);
         }
@@ -71,12 +73,10 @@ impl Connection {
         session_id: i64,
         query: &str,
     ) -> std::result::Result<graph::types::ExecutionResponse, common::types::ErrorCode> {
-        let result = client::GraphService::execute(
-            &self.client,
-            session_id,
-            &query.to_string().into_bytes(),
-        )
-        .await;
+        let result = self
+            .client
+            .execute(session_id, &query.to_string().into_bytes())
+            .await;
         if let Err(_) = result {
             return Err(common::types::ErrorCode::E_RPC_FAILURE);
         }
