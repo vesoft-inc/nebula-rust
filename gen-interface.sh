@@ -26,9 +26,9 @@ for mod in common meta storage graph; do
 done
 
 for mod in common meta storage graph; do
-    $NEBULA_THIRDPARYTY_HOME/2.0/bin/thrift1 --strict --allow-neg-enum-vals --gen "mstch_rust" -o ./src/interface/$mod/ $mod.thrift
-    mv ./src/interface/$mod/gen-rust/lib.rs ./src/interface/$mod
-    rmdir ./src/interface/$mod/gen-rust
+    $NEBULA_THIRDPARYTY_HOME/2.0/bin/thrift1 --strict --allow-neg-enum-vals --gen "mstch_rust" -o ./interface/$mod/ $mod.thrift
+    mv ./interface/$mod/gen-rust/lib.rs ./interface/$mod/src
+    rmdir ./interface/$mod/gen-rust
 done
 
 rm common.thrift graph.thrift meta.thrift storage.thrift

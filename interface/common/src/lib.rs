@@ -60,65 +60,65 @@ pub mod types {
         pub microsec: ::std::primitive::i32,
     }
 
-    #[derive(Clone, Debug, PartialEq)]
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
     pub enum Value {
         nVal(crate::types::NullType),
         bVal(::std::primitive::bool),
         iVal(::std::primitive::i64),
-        fVal(::std::primitive::f64),
+        fVal(crate::double::Double),
         sVal(::std::vec::Vec<::std::primitive::u8>),
         dVal(crate::types::Date),
         tVal(crate::types::Time),
         dtVal(crate::types::DateTime),
-        vVal(crate::types::Vertex),
-        eVal(crate::types::Edge),
-        pVal(crate::types::Path),
-        lVal(crate::types::NList),
-        mVal(crate::types::NMap),
-        uVal(crate::types::NSet),
-        gVal(crate::types::DataSet),
+        vVal(std::boxed::Box<crate::types::Vertex>),
+        eVal(std::boxed::Box<crate::types::Edge>),
+        pVal(std::boxed::Box<crate::types::Path>),
+        lVal(std::boxed::Box<crate::types::NList>),
+        mVal(std::boxed::Box<crate::types::NMap>),
+        uVal(std::boxed::Box<crate::types::NSet>),
+        gVal(std::boxed::Box<crate::types::DataSet>),
         UnknownField(::std::primitive::i32),
     }
 
-    #[derive(Clone, Debug, PartialEq)]
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
     pub struct NList {
         pub values: ::std::vec::Vec<crate::types::Value>,
     }
 
-    #[derive(Clone, Debug, PartialEq)]
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
     pub struct NMap {
         pub kvs: ::std::collections::BTreeMap<::std::vec::Vec<::std::primitive::u8>, crate::types::Value>,
     }
 
-    #[derive(Clone, Debug, PartialEq)]
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
     pub struct NSet {
         pub values: ::std::collections::BTreeSet<crate::types::Value>,
     }
 
-    #[derive(Clone, Debug, PartialEq)]
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
     pub struct Row {
         pub values: ::std::vec::Vec<crate::types::Value>,
     }
 
-    #[derive(Clone, Debug, PartialEq)]
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
     pub struct DataSet {
         pub column_names: ::std::vec::Vec<::std::vec::Vec<::std::primitive::u8>>,
         pub rows: ::std::vec::Vec<crate::types::Row>,
     }
 
-    #[derive(Clone, Debug, PartialEq)]
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
     pub struct Tag {
         pub name: ::std::vec::Vec<::std::primitive::u8>,
         pub props: ::std::collections::BTreeMap<::std::vec::Vec<::std::primitive::u8>, crate::types::Value>,
     }
 
-    #[derive(Clone, Debug, PartialEq)]
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
     pub struct Vertex {
         pub vid: crate::types::Value,
         pub tags: ::std::vec::Vec<crate::types::Tag>,
     }
 
-    #[derive(Clone, Debug, PartialEq)]
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
     pub struct Edge {
         pub src: crate::types::Value,
         pub dst: crate::types::Value,
@@ -128,7 +128,7 @@ pub mod types {
         pub props: ::std::collections::BTreeMap<::std::vec::Vec<::std::primitive::u8>, crate::types::Value>,
     }
 
-    #[derive(Clone, Debug, PartialEq)]
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
     pub struct Step {
         pub dst: crate::types::Vertex,
         pub type_: crate::types::EdgeType,
@@ -137,7 +137,7 @@ pub mod types {
         pub props: ::std::collections::BTreeMap<::std::vec::Vec<::std::primitive::u8>, crate::types::Value>,
     }
 
-    #[derive(Clone, Debug, PartialEq)]
+    #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord)]
     pub struct Path {
         pub src: crate::types::Vertex,
         pub steps: ::std::vec::Vec<crate::types::Step>,
@@ -2692,3 +2692,5 @@ pub mod types {
 
 pub mod errors {
 }
+
+pub mod double;
