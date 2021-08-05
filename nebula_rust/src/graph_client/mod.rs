@@ -5,4 +5,7 @@
  */
 
 pub mod connection;
+pub mod connection_pool;
+pub mod pool_config;
+pub mod session;
 mod transport_response_handler;
