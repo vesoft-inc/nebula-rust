@@ -4,9 +4,7 @@
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
  */
 
-use common::types::DataSet;
-
-pub trait DataSetValue {
+pub trait DataSet {
     /// Construct data set with name of columns
     fn new(col_names: &[String]) -> Self;
 
@@ -20,11 +18,11 @@ pub trait DataSetValue {
     fn len(&self) -> usize;
 }
 
-impl DataSetValue for DataSet {
+impl DataSet for common::types::DataSet {
     fn new(col_names: &[String]) -> Self {
         let cols = col_names.to_vec();
         let cols_bytes = cols.into_iter().map(|s| s.as_bytes().to_vec()).collect();
-        DataSet {
+        common::types::DataSet {
             column_names: cols_bytes,
             rows: vec![],
         }
@@ -35,7 +33,7 @@ impl DataSetValue for DataSet {
             .into_iter()
             .map(|s| s.as_bytes().to_vec())
             .collect();
-        DataSet {
+        common::types::DataSet {
             column_names: cols_bytes,
             rows: vec![],
         }

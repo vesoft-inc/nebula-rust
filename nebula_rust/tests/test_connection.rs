@@ -9,8 +9,8 @@ extern crate nebula_rust;
 #[cfg(test)]
 mod test_connection {
     use nebula_rust::graph_client;
-    use nebula_rust::value::data_set::DataSetValue;
-    use nebula_rust::value::row::RowValue;
+    use nebula_rust::value::data_set::DataSet;
+    use nebula_rust::value::row::Row;
 
     #[tokio::test]
     async fn basic_op() {

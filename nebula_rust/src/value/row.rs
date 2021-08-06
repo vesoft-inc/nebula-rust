@@ -4,9 +4,7 @@
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
  */
 
-use common::types::Row;
-
-pub trait RowValue {
+pub trait Row {
     /// Construct row by columns name
     fn new(row: &[common::types::Value]) -> Self;
 
@@ -17,17 +15,17 @@ pub trait RowValue {
     fn len(&self) -> usize;
 }
 
-impl RowValue for Row {
+impl Row for common::types::Row {
     #[inline]
     fn new(row: &[common::types::Value]) -> Self {
-        Row {
+        common::types::Row {
             values: row.to_vec(),
         }
     }
 
     #[inline]
     fn from_vec(row: std::vec::Vec<common::types::Value>) -> Self {
-        Row { values: row }
+        common::types::Row { values: row }
     }
 
     #[inline]
