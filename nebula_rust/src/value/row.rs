@@ -7,16 +7,27 @@
 use common::types::Row;
 
 pub trait RowValue {
+    /// Construct row by columns name
     fn new(row: &[common::types::Value]) -> Self;
 
+    /// Construct row by vec of column name
+    fn from_vec(row: std::vec::Vec<common::types::Value>) -> Self;
+
+    /// Get row length
     fn len(&self) -> usize;
 }
 
 impl RowValue for Row {
+    #[inline]
     fn new(row: &[common::types::Value]) -> Self {
         Row {
             values: row.to_vec(),
         }
+    }
+
+    #[inline]
+    fn from_vec(row: std::vec::Vec<common::types::Value>) -> Self {
+        Row { values: row }
     }
 
     #[inline]

@@ -4,8 +4,6 @@
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
  */
 
-
 /// Some extension of the thrift value
-
 pub mod data_set;
 pub mod row;

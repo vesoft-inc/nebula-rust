@@ -10,8 +10,14 @@ pub trait DataSetValue {
     /// Construct data set with name of columns
     fn new(col_names: &[String]) -> Self;
 
+    /// Construct data set from vec of columns name
+    fn from_columns_name(col_names: std::vec::Vec<String>) -> Self;
+
     /// push one row into back of data set
     fn push(&mut self, row: common::types::Row);
+
+    /// Get rows size
+    fn len(&self) -> usize;
 }
 
 impl DataSetValue for DataSet {
@@ -24,7 +30,24 @@ impl DataSetValue for DataSet {
         }
     }
 
+    fn from_columns_name(col_names: std::vec::Vec<String>) -> Self {
+        let cols_bytes = col_names
+            .into_iter()
+            .map(|s| s.as_bytes().to_vec())
+            .collect();
+        DataSet {
+            column_names: cols_bytes,
+            rows: vec![],
+        }
+    }
+
+    #[inline]
     fn push(&mut self, row: common::types::Row) {
         self.rows.push(row);
+    }
+
+    #[inline]
+    fn len(&self) -> usize {
+        self.rows.len()
     }
 }
