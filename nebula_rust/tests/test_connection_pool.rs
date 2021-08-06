@@ -15,14 +15,15 @@ mod test_connection {
     #[tokio::test(flavor = "multi_thread", worker_threads = 4)]
     async fn mt_safe() {
         let mut conf = graph_client::pool_config::PoolConfig::new();
-        conf.min_connection_pool_size(10)
+        conf.min_connection_pool_size(5)
             .max_connection_pool_size(10)
             .address("localhost:9669".to_string());
         let pool = graph_client::connection_pool::ConnectionPool::new(&conf).await;
 
         {
+            // Consume all connections
             let mut futs = vec![];
-            for _ in 0..10 {
+            for _ in 0..conf.max_connection_pool_size {
                 futs.push(pool.get_session("root", "nebula", true));
             }
             let sessions = futures::future::join_all(futs).await;
@@ -34,6 +35,12 @@ mod test_connection {
                 dt.push(common::types::Row::new(&[common::types::Value::iVal(1)]));
                 assert!(dt == resp.data.unwrap());
             }
+
+            assert!(pool.len() == 0);
+
+            // out of pool size limit
+            let result = pool.get_session("root", "nebula", true).await;
+            assert!(!result.is_ok());
         }
         assert!(pool.len() == 10);
     }
