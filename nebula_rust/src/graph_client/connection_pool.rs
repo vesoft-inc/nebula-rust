@@ -79,15 +79,25 @@ impl ConnectionPool {
     }
 
     // Add new connection to pool
+    // inc is the count of new connection created, which shouldn't be zero
+    // the incremental count maybe can't fit when occurs error in connection creating
     async fn new_connection(&mut self, inc: u32) {
         assert!(inc != 0);
         // TODO concurrent these
-        for _ in 0..inc {
+        let mut count = 0;
+        let mut loop_count = 0;
+        let loop_limit = inc as usize * self.config.addresses.len();
+        while count < inc {
             let cursor = { self.cursor() };
             match Connection::new_from_address(&self.config.addresses[cursor]).await {
-                Ok(conn) => self.conns.lock().unwrap().borrow_mut().push_back(conn),
+                Ok(conn) => { self.conns.lock().unwrap().borrow_mut().push_back(conn); count += 1; },
                 Err(_) => (),
             };
+            loop_count += 1;
+            if loop_count > loop_limit {
+                // Can't get so many connections, avoid dead loop
+                break;
+            }
         }
     }
 
