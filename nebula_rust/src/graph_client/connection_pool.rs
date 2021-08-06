@@ -11,6 +11,7 @@ use crate::graph_client::session::Session;
 /// The pool of connection to server, it's MT-safe to access.
 pub struct ConnectionPool {
     // The connections
+    // The interior mutable to enable could get multiple sessions in one scope
     conns: std::sync::Mutex<std::cell::RefCell<std::collections::LinkedList<Connection>>>,
     // It should be immutable
     config: PoolConfig,
