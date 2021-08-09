@@ -47,3 +47,7 @@ jobs:
         run: |
           cargo test
         timeout-minutes: 4
+      - name: example
+        run: |
+          cargo run --example basic_op
+        timeout-minutes: 4

@@ -27,3 +27,6 @@ futures = { version = "0.3.16" }
 [build-dependencies]
 
 [dev-dependencies]
+
+[[example]]
+name = "basic_op"
