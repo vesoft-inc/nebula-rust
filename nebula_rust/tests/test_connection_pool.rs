@@ -22,10 +22,10 @@ mod test_connection {
 
         {
             // Consume all connections
-            let mut futs = vec![];
-            for _ in 0..conf.max_connection_pool_size {
-                futs.push(pool.get_session("root", "nebula", true));
-            }
+            let futs = (0..conf.max_connection_pool_size)
+                .into_iter()
+                .map(|_| pool.get_session("root", "nebula", true))
+                .collect::<Vec<_>>();
             let sessions = futures::future::join_all(futs).await;
             for session in &sessions {
                 let resp = session.as_ref().unwrap().execute("YIELD 1").await.unwrap();
