@@ -16,6 +16,9 @@ pub trait DataSet {
 
     /// Get rows size
     fn len(&self) -> usize;
+
+    /// Get count of columns
+    fn cols_len(&self) -> usize;
 }
 
 impl DataSet for common::types::DataSet {
@@ -47,5 +50,10 @@ impl DataSet for common::types::DataSet {
     #[inline]
     fn len(&self) -> usize {
         self.rows.len()
+    }
+
+    #[inline]
+    fn cols_len(&self) -> usize {
+        self.column_names.len()
     }
 }
