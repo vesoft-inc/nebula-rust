@@ -4,11 +4,16 @@ set -e
 
 NEBULA_THIRDPARYTY_HOME=
 
+NEBULA_REPO_VERSION=master
+
 # Parsing options from arguments
-while getopts "t:" opt; do
+while getopts "t:v:" opt; do
     case $opt in
         t)
             NEBULA_THIRDPARYTY_HOME=${OPTARG}
+            ;;
+        v)
+            NEBULA_REPO_VERSION=${OPTARG}
             ;;
         \?)
             echo "Invalid option: -${OPTARG}" >&2
@@ -21,8 +26,10 @@ while getopts "t:" opt; do
     esac
 done
 
+echo 'Download from version '${NEBULA_REPO_VERSION}
+
 for mod in common meta storage graph; do
-    wget https://raw.githubusercontent.com/vesoft-inc/nebula-common/master/src/common/interface/$mod.thrift
+    wget https://raw.githubusercontent.com/vesoft-inc/nebula-common/${NEBULA_REPO_VERSION}/src/common/interface/$mod.thrift
 done
 
 for mod in common meta storage graph; do
