@@ -23,8 +23,7 @@ pub trait DataSet {
 
 impl DataSet for common::types::DataSet {
     fn new(col_names: &[String]) -> Self {
-        let cols = col_names.to_vec();
-        let cols_bytes = cols.into_iter().map(|s| s.as_bytes().to_vec()).collect();
+        let cols_bytes = col_names.into_iter().map(|s| s.as_bytes().to_vec()).collect();
         common::types::DataSet {
             column_names: cols_bytes,
             rows: vec![],
