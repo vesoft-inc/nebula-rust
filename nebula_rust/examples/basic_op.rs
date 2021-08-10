@@ -19,5 +19,13 @@ async fn main() {
     let resp = session.execute("YIELD 1").await.unwrap();
     assert!(resp.error_code == common::types::ErrorCode::SUCCEEDED);
 
-    println!("{:?}", resp.data.unwrap());
+    println!("{:?}", resp.data.as_ref().unwrap());
+    println!(
+        "The result of query `YIELD 1' is {}.",
+        if let common::types::Value::iVal(v) = resp.data.unwrap().rows[0].values[0] {
+            v
+        } else {
+            panic!()
+        }
+    );
 }
