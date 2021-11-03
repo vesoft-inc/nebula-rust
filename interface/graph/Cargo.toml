@@ -1,0 +1,28 @@
+# Copyright (c) 2021 vesoft inc. All rights reserved.
+#
+# This source code is licensed under Apache 2.0 License,
+# attached with Common Clause Condition 1.0, found in the LICENSES directory.
+#
+
+[package]
+name = "nebula_rust_interface_graph"
+description = "The rust thrift interface to connect to NebulaGraph 2.0"
+version = "2.0.0-alpha"
+repository = "https://github.com/vesoft-inc/nebula-rust"
+homepage = "https://github.com/vesoft-inc/nebula-rust"
+documentation = "https://docs.rs/nebula-rust"
+readme = "README.md"
+license = "Apache 2.0 + Common Clause 1.0"
+edition = "2018"
+
+[dependencies]
+fbthrift = { version = "0.0.2" }
+async-trait = { version = "0.1.50" }
+futures = {  version = "0.3.15" }
+const-cstr = { version = "0.3.0" }
+anyhow = { version = "1.0.42" }
+common = { path = "../common", package = "nebula_rust_interface_common" }
+
+[build-dependencies]
+
+[dev-dependencies]

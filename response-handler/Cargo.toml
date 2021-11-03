@@ -1,0 +1,14 @@
+[package]
+name = "nebula-fbthrift-transport-response-handler"
+version = "0.0.2"
+edition = "2018"
+description = "fbthrift transport response handler."
+license = "Apache-2.0 OR MIT"
+repository = "https://github.com/vesoft-inc/nebula-rust"
+homepage = "https://github.com/vesoft-inc/nebula-rust"
+documentation = "https://docs.rs/nebula-fbthrift-transport-response-handler"
+keywords = []
+categories = []
+readme = "README.md"
+
+[dependencies]
