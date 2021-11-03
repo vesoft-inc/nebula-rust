@@ -1,7 +1,6 @@
 # Copyright (c) 2021 vesoft inc. All rights reserved.
 #
-# This source code is licensed under Apache 2.0 License,
-# attached with Common Clause Condition 1.0, found in the LICENSES directory.
+# This source code is licensed under Apache 2.0 License.
 #
 
 [package]
@@ -12,7 +11,6 @@ repository = "https://github.com/vesoft-inc/nebula-rust"
 homepage = "https://github.com/vesoft-inc/nebula-rust"
 documentation = "https://docs.rs/nebula-rust"
 readme = "README.md"
-license = "Apache 2.0 + Common Clause 1.0"
 edition = "2018"
 
 [dependencies]
