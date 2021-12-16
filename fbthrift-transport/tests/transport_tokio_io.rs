@@ -23,8 +23,8 @@ mod transport_tokio_io_tests {
         task::JoinHandle,
     };
 
-    use nebula_fbthrift_transport::AsyncTransport;
     use fbthrift_transport_response_handler::ResponseHandler;
+    use nebula_fbthrift_transport::AsyncTransport;
 
     #[derive(Clone)]
     pub struct FooResponseHandler;
