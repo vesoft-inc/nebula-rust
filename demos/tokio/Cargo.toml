@@ -1,0 +1,54 @@
+[package]
+name = "nebula-demo-tokio"
+version = "0.1.0"
+authors = ["vkill <vkill.net@gmail.com>"]
+edition = "2021"
+
+[[bin]]
+name = "nebula_demo_tokio_v1_bb8_graph_pool"
+path = "src/v1_bb8_graph_pool.rs"
+
+[[bin]]
+name = "nebula_demo_tokio_v1_graph_client"
+path = "src/v1_graph_client.rs"
+
+[[bin]]
+name = "nebula_demo_tokio_v2_bb8_graph_pool"
+path = "src/v2_bb8_graph_pool.rs"
+
+[[bin]]
+name = "nebula_demo_tokio_v2_graph_client"
+path = "src/v2_graph_client.rs"
+
+[[bin]]
+name = "nebula_demo_tokio_v3_bb8_graph_pool"
+path = "src/v3_bb8_graph_pool.rs"
+
+[[bin]]
+name = "nebula_demo_tokio_v3_graph_client"
+path = "src/v3_graph_client.rs"
+
+[[bin]]
+name = "nebula_demo_tokio_v3_storage_client"
+path = "src/v3_storage_client.rs"
+
+[[bin]]
+name = "nebula_demo_scan"
+path = "src/v3_scan_vertex_edge.rs"
+
+
+
+[dependencies]
+# non-pool
+fbthrift-transport = { version = "0.9", features = ["impl_tokio"] }
+nebula-client = { version = "0.7", features = ["graph","storage","meta"], path = "../../nebula-client" }
+
+# bb8
+bb8 = { version = "0.8" }
+bb8-nebula = { version = "0.9", features = ["graph"], path = "../../bb8-nebula" }
+
+# common
+tokio = { version = "1", features = ["macros", "rt-multi-thread" ] }
+
+# storage_type 加了default-features = false 会默认没启动
+nebula-fbthrift-storage-v3 = { version = "^0.3", path = "../../nebula-fbthrift/nebula-fbthrift-storage-v3" }

@@ -1,0 +1,29 @@
+[package]
+name = "serde-nebula-fbthrift-graph"
+version = "0.3.3"
+authors = ["vkill <vkill.net@gmail.com>"]
+edition = "2021"
+description = "nebula-fbthrift-graph serde deserializer"
+license = "Apache-2.0 OR MIT"
+repository = "https://github.com/bk-rs/nebula-rs"
+homepage = "https://github.com/bk-rs/nebula-rs"
+documentation = "https://docs.rs/serde-nebula-fbthrift-graph"
+keywords = []
+categories = []
+readme = "README.md"
+
+[features]
+default = ["chrono"]
+
+[dependencies]
+serde = { version = "1", default-features = false, features = ["derive"] }
+chrono = { version = "0.4", default-features = false, optional = true }
+
+nebula-fbthrift-graph-v3 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift/nebula-fbthrift-graph-v3" }
+nebula-fbthrift-graph-v2 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift/nebula-fbthrift-graph-v2" }
+nebula-fbthrift-graph-v1 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift/nebula-fbthrift-graph-v1" }
+
+[dev-dependencies]
+chrono = { version = "0.4", features = ["serde"] }
+serde_repr = { version = "0.1" }
+float-cmp = { version = "0.9" }

@@ -1,0 +1,58 @@
+[package]
+name = "nebula-client"
+version = "0.7.3"
+authors = ["vkill <vkill.net@gmail.com>"]
+edition = "2021"
+description = "Nebula Graph/Meta/Storage client"
+license = "Apache-2.0 OR MIT"
+repository = "https://github.com/bk-rs/nebula-rs"
+homepage = "https://github.com/bk-rs/nebula-rs"
+documentation = "https://docs.rs/nebula-client"
+keywords = []
+categories = []
+readme = "README.md"
+
+
+
+[package.metadata.docs.rs]
+features = [ "graph", "meta", "storage" ]
+
+[features]
+default = ["graph","storage", "meta"]
+graph = [
+    "nebula-fbthrift-graph-v1",
+    "nebula-fbthrift-graph-v2",
+    "nebula-fbthrift-graph-v3",
+    "serde", "serde-nebula-fbthrift-graph"
+]
+meta = ["nebula-fbthrift-meta-v1","nebula-fbthrift-meta-v3","tokio","async-compat"]
+storage = ["nebula-fbthrift-storage-v1","nebula-fbthrift-storage-v3","deserialize-nebula-fbthrift-storage"]
+
+[dependencies]
+fbthrift = { package = "fbthrift-git", version = "=0.0.7", default-features = false }
+fbthrift-transport = { version = "0.9", features = ["impl_tokio"] }
+tokio = { version = "1", default-features = false, optional = true, features = ["macros", "rt-multi-thread" ] }
+async-compat = {version = "0.2.1",optional = true}
+
+
+bytes = { version = "1", default-features = false }
+async-trait = { version = "0.1", default-features = false }
+
+fbthrift-transport-response-handler = { version = "0.7" }
+
+nebula-fbthrift-graph-v3 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-graph-v3" }
+nebula-fbthrift-graph-v2 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-graph-v2" }
+nebula-fbthrift-graph-v1 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-graph-v1" }
+
+nebula-fbthrift-meta-v1 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-meta-v1" }
+nebula-fbthrift-meta-v3 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-meta-v3" }
+
+nebula-fbthrift-storage-v1 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-storage-v1" }
+nebula-fbthrift-storage-v3 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-storage-v3" }
+
+serde = { version = "1", default-features = false, features = ["derive"], optional = true }
+serde-nebula-fbthrift-graph = { version = "^0.3.2", default-features = false, features = ["chrono"], optional = true, path = "../serde-nebula-fbthrift-graph" }
+deserialize-nebula-fbthrift-storage = { version = "^0.3.2", default-features = false, features = ["chrono"], optional = true, path = "../deserialize-nebula-fbthrift-storage" }
+
+[package.metadata.cargo-all-features]
+skip_optional_dependencies = true
