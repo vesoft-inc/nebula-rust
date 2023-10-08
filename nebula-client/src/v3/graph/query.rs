@@ -7,7 +7,7 @@ use nebula_fbthrift_graph_v3::{
 };
 
 use serde::de::DeserializeOwned;
-use deserialize_nebula_fbthrift_storage::v3::de::{
+use deserialize_nebula_fbthrift::v3::de::{
     data::DataDeserializeError, deserialize_execution_response,
 };
 

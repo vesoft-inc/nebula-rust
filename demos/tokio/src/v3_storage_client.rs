@@ -6,7 +6,7 @@ use std::env;
 use std::collections::BTreeMap;
 
 use fbthrift_transport::{AsyncTransport, AsyncTransportConfiguration};
-use nebula_client::v3::storage::{StorageClient, StorageTransportResponseHandler};
+use nebula_client::v3::storage::{StorageClient, StorageTransportResponseHandler,StorageQuery as _};
 use nebula_client::v3::meta::{MetaClient, MetaTransportResponseHandler};
 use nebula_fbthrift_storage_v3::types::{ScanCursor,ScanEdgeRequest,ScanVertexRequest,VertexProp,EdgeProp};
 
@@ -78,7 +78,7 @@ async fn run() -> Result<(), Box<dyn std::error::Error>> {
     
 
     // 创建storage_client
-    let sclient = StorageClient::new(stransport);
+    let mut sclient = StorageClient::new(stransport);
 
 
     //创建scan_vertex_request
@@ -100,7 +100,7 @@ async fn run() -> Result<(), Box<dyn std::error::Error>> {
         ..Default::default()
       
     };
-    part4.insert(1, cursor);
+    part4.insert(8, cursor);
 
     let column: Vec<VertexProp> = vec![
         VertexProp {
@@ -147,7 +147,9 @@ async fn run() -> Result<(), Box<dyn std::error::Error>> {
         ..Default::default()
       
     };
-    part3.insert(1, cursor);
+    part3.insert(2, cursor);
+
+
 
     let edge_prop = EdgeProp {
         r#type: 4, // 用适当的值替换 EdgeType 类型
@@ -183,6 +185,12 @@ async fn run() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("{res1:?}");
     println!("{res2:?}");
+    
+    let res3 = sclient.show_vertexs(&scan_vertex_request).await?;
+    let res4 = sclient.show_edges(&scan_edge_request).await?;
+
+    println!("{res3:?}");
+    println!("{res4:?}");
 
 
     Ok(())

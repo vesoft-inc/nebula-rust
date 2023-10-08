@@ -1,3 +1,4 @@
+use async_trait::async_trait;
 use bytes::Bytes;
 use fbthrift::{BinaryProtocol, Transport};
 use nebula_fbthrift_storage_v3::{
@@ -5,7 +6,8 @@ use nebula_fbthrift_storage_v3::{
     errors::graph_storage_service::{ScanEdgeError, ScanVertexError},
     types::{ScanEdgeRequest, ScanResponse, ScanVertexRequest},
 };
-
+use serde::de::DeserializeOwned;
+use super::scan_struct::{StorageQuery, StorageQueryError, StorageQueryOutput};
 //
 //
 //
@@ -75,5 +77,40 @@ where
         let res = self.connection.service.scanEdge(req).await?;
 
         Ok(res)
+    }
+}
+
+#[async_trait]
+impl<T> StorageQuery for StorageClient<T>
+where
+    T: Transport + Send + Sync,
+    Bytes: ::fbthrift::Framing<DecBuf = ::fbthrift::FramingDecoded<T>>,
+    ::fbthrift::ProtocolEncoded<BinaryProtocol>:
+        ::fbthrift::BufMutExt<Final = ::fbthrift::FramingEncodedFinal<T>>,
+{
+    async fn query_vertex<D: DeserializeOwned>(
+        &mut self,
+        req: &ScanVertexRequest,
+    ) -> Result<StorageQueryOutput<D>, StorageQueryError> {
+        let res = self
+            .scan_vertex(req)
+            .await
+            .map_err(StorageQueryError::ScanVertexError)?;
+
+
+        StorageQueryOutput::new(res)
+    }
+
+    async fn query_edge<D: DeserializeOwned>(
+        &mut self,
+        req: &ScanEdgeRequest,
+    ) -> Result<StorageQueryOutput<D>, StorageQueryError> {
+        let res = self
+            .scan_edge(req)
+            .await
+            .map_err(StorageQueryError::ScanEdgeError)?;
+
+
+        StorageQueryOutput::new(res)
     }
 }

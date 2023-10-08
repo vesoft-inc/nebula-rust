@@ -8,7 +8,7 @@ use nebula_fbthrift_storage_v3::{
     errors::graph_storage_service::{ScanEdgeError, ScanVertexError},
     types::{ScanCursor,ScanEdgeRequest,ScanVertexRequest,VertexProp,EdgeProp},
 };
-use deserialize_nebula_fbthrift_storage::v3::de::{deserialize_scan_response,datadeal::ProcessError};
+use deserialize_nebula_fbthrift::v3::de::{deserialize_scan_response,datadeal::ProcessError};
 use nebula_fbthrift_meta_v3::{
     errors::meta_service::{GetSpaceError, ListPartsError, ListTagsError,ListEdgesError,GetPartsAllocError},
     types::{TagItem,EdgeItem,ListPartsResp},
@@ -20,9 +20,13 @@ const DEFAULT_START_TIME: i64 = 0;
 const DEFAULT_END_TIME: i64 = i64::MAX;
 const DEFAULT_LIMIT: i64 = 1000;
 
-pub async fn scan_vertex(maddr:String,vspace_name:String,tag_name:String) -> Result<Vec<Vec<String>>, ScanError> {
+
+pub async fn scan_vertex(maddr: String,vspace_name: String,tag_name: String) -> Result<Vec<Vec<String>>, ScanError> {
 
 
+    let meta_address: Vec<&str> = maddr.split(',').collect();
+
+    let maddr = meta_address[0].to_string();
 
     let mtransport = AsyncTransport::with_tokio_tcp_connect(
         maddr,
@@ -47,6 +51,7 @@ pub async fn scan_vertex(maddr:String,vspace_name:String,tag_name:String) -> Res
         parts_id.push(*part_id);
     }
     let part_id_res = mclient.list_parts(space_id,parts_id.clone()).await.map_err( ScanError::ListPartsError)?;
+    
     let result_map = get_leader_map(&part_id_res, &parts_id).await;
     
 
@@ -55,18 +60,14 @@ pub async fn scan_vertex(maddr:String,vspace_name:String,tag_name:String) -> Res
 
     match ress {
         Some(prop) => {
-            // 尝试将 prop 转换为 VertexProp
             if let Prop::VertexProp(vertex_prop) = prop {
-                // 如果转换成功，将 vertex_prop 插入到 new_column 中
                 new_column.push(vertex_prop.clone()); // 或者使用引用，取决于你的需求
             } else {
                 eprintln!("Error: VertexProp is None");
-                // 或者执行其他操作
             }
         }
         None => {
             eprintln!("Error: VertexProp is None");
-            // 或者执行其他操作
         }
     }
 
@@ -83,7 +84,8 @@ pub async fn scan_vertex(maddr:String,vspace_name:String,tag_name:String) -> Res
         .await.map_err(|e| ScanError::Custom(format!("Storage Transport Error: {}", e)))?;
     
         // 创建storage_client
-        let sclient = StorageClient::new(stransport);
+        #[allow(unused_mut)]
+        let mut sclient = StorageClient::new(stransport);
         
         //创建scan_vertex_request
         let cursor = ScanCursor {
@@ -113,6 +115,13 @@ pub async fn scan_vertex(maddr:String,vspace_name:String,tag_name:String) -> Res
     
     
         let res1 = sclient.scan_vertex(&scan_vertex_request).await.map_err( ScanError::ScanVertexError)?;
+
+        #[cfg(feature = "show_struct_result")]
+        {
+            let res2 = sclient.show_vertexs(&scan_vertex_request).await;
+            println!("{res2:?}");
+        }
+        
      
         let part_vertex_result : Vec<String> = deserialize_scan_response(&res1,true).map_err( ScanError::DeserializeVertexError)?;
     
@@ -129,7 +138,9 @@ pub async fn scan_vertex(maddr:String,vspace_name:String,tag_name:String) -> Res
 
 pub async fn scan_edge(maddr:String,espace_name:String,edge_name:String) -> Result<Vec<Vec<String>>, ScanError> {
 
-    
+    let meta_address: Vec<&str> = maddr.split(',').collect();
+
+    let maddr = meta_address[0].to_string();
     
     let mtransport = AsyncTransport::with_tokio_tcp_connect(
         maddr,
@@ -161,18 +172,14 @@ pub async fn scan_edge(maddr:String,espace_name:String,edge_name:String) -> Resu
 
     match ress {
         Some(prop) => {
-            // 尝试将 prop 转换为 VertexProp
             if let Prop::EdgeProp(edge_prop) = prop {
-                // 如果转换成功，将 vertex_prop 插入到 new_column 中
-                new_column.push(edge_prop.clone()); // 或者使用引用，取决于你的需求
+                new_column.push(edge_prop.clone()); 
             } else {
                 eprintln!("Error: VertexProp is None");
-                // 或者执行其他操作
             }
         }
         None => {
             eprintln!("Error: VertexProp is None");
-            // 或者执行其他操作
         }
     }
 
@@ -189,7 +196,8 @@ pub async fn scan_edge(maddr:String,espace_name:String,edge_name:String) -> Resu
         .await.map_err(|e| ScanError::Custom(format!("Storage Transport Error: {}", e)))?;
     
         // 创建storage_client
-        let sclient = StorageClient::new(stransport);
+        #[allow(unused_mut)]
+        let mut sclient = StorageClient::new(stransport);
         
         //创建scan_vertex_request
         let cursor = ScanCursor {
@@ -216,13 +224,19 @@ pub async fn scan_edge(maddr:String,espace_name:String,edge_name:String) -> Resu
             ..Default::default()
         };
     
-
+        
     
-        let res2 = sclient.scan_edge(&scan_edge_request).await.map_err( ScanError::ScanEdgeError)?;
+        let res = sclient.scan_edge(&scan_edge_request).await.map_err( ScanError::ScanEdgeError)?;
+
+        #[cfg(feature = "show_struct_result")]
+        {
+            let res2 = sclient.show_edges(&scan_edge_request).await;
+            println!("{res2:?}");
+        }
 
         
     
-        let part_edge_result : Vec<String> = deserialize_scan_response(&res2,false).map_err( ScanError::DeserializeEdgeError)?;
+        let part_edge_result : Vec<String> = deserialize_scan_response(&res,false).map_err( ScanError::DeserializeEdgeError)?;
     
         data_set.push(part_edge_result);
     }

@@ -1,5 +1,5 @@
 /*
-cargo run -p nebula-demo-tokio --bin nebula_demo_scan 192.168.10.21 9559 basketballplayer player basketballplayer serve
+cargo run -p nebula-demo-tokio --bin nebula_demo_scan 192.168.10.21:9559,192.168.10.22:9559,192.168.10.23:9559 basketballplayer player basketballplayer serve
 */
 
 use std::env;
@@ -16,31 +16,25 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 async fn run() -> Result<(), Box<dyn std::error::Error>> {
 
 
-    let domain = env::args()
+    let maddr = env::args()
         .nth(1)
-        .unwrap_or_else(|| env::var("DOMAIN").unwrap_or_else(|_| "127.0.0.1".to_owned()));
-    let mport: u16 = env::args()
-        .nth(2)
-        .unwrap_or_else(|| env::var("MPORT").unwrap_or_else(|_| "9559".to_owned()))
-        .parse()
-        .unwrap();
+        .unwrap_or_else(|| env::var("DOMAIN").unwrap_or_else(|_| "127.0.0.1:9559".to_owned()));
     let vspace_name = env::args()
-        .nth(3)
+        .nth(2)
         .unwrap_or_else(|| env::var("VSPACE").unwrap_or_else(|_| "NONE".to_owned()));
     let tag_name = env::args()
-        .nth(4)
+        .nth(3)
         .unwrap_or_else(|| env::var("TAG").unwrap_or_else(|_| "NONE".to_owned()));
     let espace_name = env::args()
-        .nth(5)
+        .nth(4)
         .unwrap_or_else(|| env::var("ESAPCE").unwrap_or_else(|_| "NONE".to_owned()));
     let edge_name = env::args()
-        .nth(6)
+        .nth(5)
         .unwrap_or_else(|| env::var("EDGE").unwrap_or_else(|_| "NONE".to_owned()));
 
-    println!("v3_meta_client {domain} {mport}",);
+    println!("v3_meta_client {maddr}",);
 
         
-    let maddr = format!("{domain}:{mport}");
 
     // 检查 vspace_name 和 tag_name 是否为空，如果为空就不调用 ScanVertex 函数
     if vspace_name != "NONE" || tag_name != "NONE" {

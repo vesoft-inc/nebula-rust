@@ -15,7 +15,7 @@ readme = "README.md"
 
 
 [package.metadata.docs.rs]
-features = [ "graph", "meta", "storage" ]
+features = [ "graph", "meta", "storage"]
 
 [features]
 default = ["graph","storage", "meta"]
@@ -26,7 +26,8 @@ graph = [
     "serde", "serde-nebula-fbthrift-graph"
 ]
 meta = ["nebula-fbthrift-meta-v1","nebula-fbthrift-meta-v3","tokio","async-compat"]
-storage = ["nebula-fbthrift-storage-v1","nebula-fbthrift-storage-v3","deserialize-nebula-fbthrift-storage"]
+storage = ["nebula-fbthrift-storage-v1","nebula-fbthrift-storage-v3","deserialize-nebula-fbthrift"]
+show_struct_result = []
 
 [dependencies]
 fbthrift = { package = "fbthrift-git", version = "=0.0.7", default-features = false }
@@ -52,7 +53,7 @@ nebula-fbthrift-storage-v3 = { version = "^0.3", default-features = false, optio
 
 serde = { version = "1", default-features = false, features = ["derive"], optional = true }
 serde-nebula-fbthrift-graph = { version = "^0.3.2", default-features = false, features = ["chrono"], optional = true, path = "../serde-nebula-fbthrift-graph" }
-deserialize-nebula-fbthrift-storage = { version = "^0.3.2", default-features = false, features = ["chrono"], optional = true, path = "../deserialize-nebula-fbthrift-storage" }
+deserialize-nebula-fbthrift = { version = "^0.3.2", default-features = false, features = ["chrono"], optional = true, path = "../deserialize-nebula-fbthrift" }
 
 [package.metadata.cargo-all-features]
 skip_optional_dependencies = true

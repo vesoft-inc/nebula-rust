@@ -1,5 +1,5 @@
 [package]
-name = "deserialize-nebula-fbthrift-storage"
+name = "deserialize-nebula-fbthrift"
 version = "0.3.3"
 authors = ["vkill <vkill.net@gmail.com>"]
 edition = "2021"
