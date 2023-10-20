@@ -13,8 +13,8 @@ categories = []
 readme = "README.md"
 
 [dependencies]
-nebula-fbthrift-meta-v3 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift-meta-v3" }
+nebula-fbthrift-meta-v3 = { version = "^0.3"}
 
-nebula-fbthrift-meta-v2 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift-meta-v2" }
+nebula-fbthrift-meta-v2 = { version = "^0.3", default-features = false}
 
-nebula-fbthrift-meta-v1 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift-meta-v1" }
+nebula-fbthrift-meta-v1 = { version = "^0.3", default-features = false}

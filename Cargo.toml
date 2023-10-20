@@ -11,7 +11,5 @@ members = [
     # 
     "nebula-fbthrift/*",
     # 
-    "serde-nebula-fbthrift-graph",
-    # 
     "deserialize-nebula-fbthrift",
 ]

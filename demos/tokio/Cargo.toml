@@ -51,4 +51,4 @@ bb8-nebula = { version = "0.9", features = ["graph"], path = "../../bb8-nebula" 
 tokio = { version = "1", features = ["macros", "rt-multi-thread" ] }
 
 # storage_type 加了default-features = false 会默认没启动
-nebula-fbthrift-storage-v3 = { version = "^0.3", path = "../../nebula-fbthrift/nebula-fbthrift-storage-v3" }
+nebula-fbthrift-storage-v3 = { version = "^0.3", path = "../../nebula-fbthrift/nebula-fbthrift-storage-v3"}

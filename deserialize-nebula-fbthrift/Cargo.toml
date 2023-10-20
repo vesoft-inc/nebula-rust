@@ -20,8 +20,8 @@ serde = { version = "1", default-features = false, features = ["derive"] }
 chrono = { version = "0.4", default-features = false, optional = true }
 
 nebula-fbthrift-graph-v3 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift/nebula-fbthrift-graph-v3" }
-nebula-fbthrift-graph-v2 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift/nebula-fbthrift-graph-v2" }
-nebula-fbthrift-graph-v1 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift/nebula-fbthrift-graph-v1" }
+nebula-fbthrift-graph-v2 = { version = "^0.3", default-features = false}
+nebula-fbthrift-graph-v1 = { version = "^0.3", default-features = false}
 nebula-fbthrift-storage-v3 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift/nebula-fbthrift-storage-v3" }
 
 [dev-dependencies]

@@ -42,17 +42,17 @@ async-trait = { version = "0.1", default-features = false }
 fbthrift-transport-response-handler = { version = "0.7" }
 
 nebula-fbthrift-graph-v3 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-graph-v3" }
-nebula-fbthrift-graph-v2 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-graph-v2" }
-nebula-fbthrift-graph-v1 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-graph-v1" }
+nebula-fbthrift-graph-v2 = { version = "^0.3", default-features = false, optional = true }
+nebula-fbthrift-graph-v1 = { version = "^0.3", default-features = false, optional = true }
 
-nebula-fbthrift-meta-v1 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-meta-v1" }
-nebula-fbthrift-meta-v3 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-meta-v3" }
+nebula-fbthrift-meta-v1 = { version = "^0.3", default-features = false, optional = true}
+nebula-fbthrift-meta-v3 = { version = "^0.3", default-features = false, optional = true}
 
 nebula-fbthrift-storage-v1 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-storage-v1" }
-nebula-fbthrift-storage-v3 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-storage-v3" }
+nebula-fbthrift-storage-v3 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-storage-v3"}
 
 serde = { version = "1", default-features = false, features = ["derive"], optional = true }
-serde-nebula-fbthrift-graph = { version = "^0.3.2", default-features = false, features = ["chrono"], optional = true, path = "../serde-nebula-fbthrift-graph" }
+serde-nebula-fbthrift-graph = { version = "^0.3.2", default-features = false, features = ["chrono"], optional = true }
 deserialize-nebula-fbthrift = { version = "^0.3.2", default-features = false, features = ["chrono"], optional = true, path = "../deserialize-nebula-fbthrift" }
 
 [package.metadata.cargo-all-features]

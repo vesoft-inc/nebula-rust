@@ -21,4 +21,4 @@ async-trait = { version = "0.1", default-features = false }
 const-cstr = { version = "0.3", default-features = false }
 tracing = { version = "0.1", default-features = false, features = ["attributes"] }
 
-common = { package = "nebula-fbthrift-common-v3", version = "=0.3.0", default-features = false, path = "../nebula-fbthrift-common-v3" }
+common = { package = "nebula-fbthrift-common-v3", version = "=0.3.0", default-features = false }
