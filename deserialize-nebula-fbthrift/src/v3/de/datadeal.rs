@@ -1,4 +1,4 @@
-use nebula_fbthrift_graph_v3::dependencies::common::types::Value;
+use nebula_fbthrift_graph::v3::dependencies::common::types::Value;
 
 
 

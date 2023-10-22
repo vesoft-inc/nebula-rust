@@ -1,6 +1,6 @@
 use bytes::Bytes;
 use fbthrift::{BinaryProtocol, Transport};
-use nebula_fbthrift_meta_v3::{
+use nebula_fbthrift_meta::v3::{
     client::{MetaService, MetaServiceImpl},
     errors::meta_service::{GetSpaceError, ListPartsError, ListSpacesError, ListTagsError,ListEdgesError,GetPartsAllocError},
     types::{

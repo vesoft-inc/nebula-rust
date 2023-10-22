@@ -5,8 +5,6 @@ members = [
     # 
     "demos/tokio",
     # 
-    "mobc-nebula",
-    # 
     "nebula-client",
     # 
     "nebula-fbthrift/*",

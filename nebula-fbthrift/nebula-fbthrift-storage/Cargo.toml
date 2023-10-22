@@ -14,7 +14,3 @@ readme = "README.md"
 
 [dependencies]
 nebula-fbthrift-storage-v3 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift-storage-v3" }
-
-nebula-fbthrift-storage-v2 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift-storage-v2" }
-
-nebula-fbthrift-storage-v1 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift-storage-v1" }

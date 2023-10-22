@@ -1,7 +1,7 @@
 use async_trait::async_trait;
 use bytes::Bytes;
 use fbthrift::{BinaryProtocol, Transport};
-use nebula_fbthrift_storage_v3::{
+use nebula_fbthrift_storage::v3::{
     client::{GraphStorageService, GraphStorageServiceImpl},
     errors::graph_storage_service::{ScanEdgeError, ScanVertexError},
     types::{ScanEdgeRequest, ScanResponse, ScanVertexRequest},

@@ -7,7 +7,7 @@ slice::Iter: slice 是 core 模块下的子模块，包含了与切片（slice�
 use core::{iter::Peekable, ops::Div as _, slice::Iter};
 use std::io::{Error as IoError, ErrorKind as IoErrorKind};
 
-use nebula_fbthrift_graph_v3::dependencies::common::types::Value;
+use nebula_fbthrift_graph::v3::dependencies::common::types::Value;
 use serde::de::{
     self,
     value::{BorrowedBytesDeserializer, SeqDeserializer},

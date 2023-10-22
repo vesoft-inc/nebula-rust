@@ -14,7 +14,3 @@ readme = "README.md"
 
 [dependencies]
 nebula-fbthrift-raftex-v3 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift-raftex-v3" }
-
-nebula-fbthrift-raftex-v2 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift-raftex-v2"}
-
-nebula-fbthrift-raftex-v1 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift-raftex-v1"}

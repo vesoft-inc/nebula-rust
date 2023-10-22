@@ -4,12 +4,12 @@ use std::collections::BTreeMap;
 use crate::v3::meta::{MetaClient, MetaTransportResponseHandler};
 use super::{StorageClient,StorageTransportResponseHandler};
 use fbthrift_transport::{AsyncTransport, AsyncTransportConfiguration};
-use nebula_fbthrift_storage_v3::{
+use nebula_fbthrift_storage::v3::{
     errors::graph_storage_service::{ScanEdgeError, ScanVertexError},
     types::{ScanCursor,ScanEdgeRequest,ScanVertexRequest,VertexProp,EdgeProp},
 };
 use deserialize_nebula_fbthrift::v3::de::{deserialize_scan_response,datadeal::ProcessError};
-use nebula_fbthrift_meta_v3::{
+use nebula_fbthrift_meta::v3::{
     errors::meta_service::{GetSpaceError, ListPartsError, ListTagsError,ListEdgesError,GetPartsAllocError},
     types::{TagItem,EdgeItem,ListPartsResp},
 };

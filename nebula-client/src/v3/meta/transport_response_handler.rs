@@ -5,7 +5,7 @@ use fbthrift::{
     ProtocolReader,
 };
 use fbthrift_transport_response_handler::ResponseHandler;
-use nebula_fbthrift_meta_v3::services::meta_service::{
+use nebula_fbthrift_meta::v3::services::meta_service::{
     GetSpaceExn, ListEdgesExn, ListPartsExn, ListSpacesExn, ListTagsExn,GetPartsAllocExn,
 };
 

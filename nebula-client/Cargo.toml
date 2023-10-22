@@ -20,13 +20,11 @@ features = [ "graph", "meta", "storage"]
 [features]
 default = ["graph","storage", "meta"]
 graph = [
-    "nebula-fbthrift-graph-v1",
-    "nebula-fbthrift-graph-v2",
-    "nebula-fbthrift-graph-v3",
+    "nebula-fbthrift-graph",
     "serde", "serde-nebula-fbthrift-graph"
 ]
-meta = ["nebula-fbthrift-meta-v1","nebula-fbthrift-meta-v3","tokio","async-compat"]
-storage = ["nebula-fbthrift-storage-v1","nebula-fbthrift-storage-v3","deserialize-nebula-fbthrift"]
+meta = ["nebula-fbthrift-meta","tokio","async-compat"]
+storage = ["nebula-fbthrift-storage","deserialize-nebula-fbthrift"]
 show_struct_result = []
 
 [dependencies]
@@ -41,15 +39,11 @@ async-trait = { version = "0.1", default-features = false }
 
 fbthrift-transport-response-handler = { version = "0.7" }
 
-nebula-fbthrift-graph-v3 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-graph-v3" }
-nebula-fbthrift-graph-v2 = { version = "^0.3", default-features = false, optional = true }
-nebula-fbthrift-graph-v1 = { version = "^0.3", default-features = false, optional = true }
+nebula-fbthrift-graph = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-graph" }
 
-nebula-fbthrift-meta-v1 = { version = "^0.3", default-features = false, optional = true}
-nebula-fbthrift-meta-v3 = { version = "^0.3", default-features = false, optional = true}
+nebula-fbthrift-meta = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-meta"}
 
-nebula-fbthrift-storage-v1 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-storage-v1" }
-nebula-fbthrift-storage-v3 = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-storage-v3"}
+nebula-fbthrift-storage = { version = "^0.3", default-features = false, optional = true, path = "../nebula-fbthrift/nebula-fbthrift-storage"}
 
 serde = { version = "1", default-features = false, features = ["derive"], optional = true }
 serde-nebula-fbthrift-graph = { version = "^0.3.2", default-features = false, features = ["chrono"], optional = true }

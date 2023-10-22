@@ -2,8 +2,8 @@ pub mod data;
 pub mod datadeal;
 
 
-use nebula_fbthrift_graph_v3::ExecutionResponse;
-use nebula_fbthrift_storage_v3::ScanResponse;
+use nebula_fbthrift_graph::v3::ExecutionResponse;
+use nebula_fbthrift_storage::v3::ScanResponse;
 use serde::Deserialize;
 
 use crate::v3::de::data::{DataDeserializeError, DataDeserializer};

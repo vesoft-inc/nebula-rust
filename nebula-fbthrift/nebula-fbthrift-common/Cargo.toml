@@ -13,8 +13,4 @@ categories = []
 readme = "README.md"
 
 [dependencies]
-nebula-fbthrift-common-v3 = { version = "^0.3", default-features = false }
-
-nebula-fbthrift-common-v2 = { version = "^0.3", default-features = false }
-
-nebula-fbthrift-common-v1 = { version = "^0.3", default-features = false}
+nebula-fbthrift-common-v3 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift-common-v3"}

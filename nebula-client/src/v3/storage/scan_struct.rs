@@ -3,7 +3,7 @@ use core::time::Duration;
 use async_trait::async_trait;
 
 
-use nebula_fbthrift_storage_v3::{
+use nebula_fbthrift_storage::v3::{
     errors::graph_storage_service::{ScanEdgeError, ScanVertexError},
     types::{ScanEdgeRequest,ScanVertexRequest,ScanResponse},
 };

@@ -6,7 +6,7 @@ use fbthrift::{
     ApplicationException, Deserialize, MessageType, ProtocolReader, ProtocolWriter, Serialize,
 };
 use fbthrift_transport_response_handler::ResponseHandler;
-use nebula_fbthrift_graph_v3::services::graph_service::{
+use nebula_fbthrift_graph::v3::services::graph_service::{
     AuthenticateExn, ExecuteExn, ExecuteJsonExn, SignoutExn,
 };
 

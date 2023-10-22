@@ -1,7 +1,7 @@
 use core::time::Duration;
 
 use async_trait::async_trait;
-use nebula_fbthrift_graph_v3::{
+use nebula_fbthrift_graph::v3::{
     dependencies::common::types::ErrorCode, errors::graph_service::ExecuteError,
     types::ExecutionResponse,
 };

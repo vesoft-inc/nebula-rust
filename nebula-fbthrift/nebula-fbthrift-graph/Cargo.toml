@@ -14,7 +14,3 @@ readme = "README.md"
 
 [dependencies]
 nebula-fbthrift-graph-v3 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift-graph-v3" }
-
-nebula-fbthrift-graph-v2 = { version = "^0.3", default-features = false }
-
-nebula-fbthrift-graph-v1 = { version = "^0.3", default-features = false}

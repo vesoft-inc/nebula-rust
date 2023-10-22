@@ -3,7 +3,7 @@ use std::io::{Error as IoError, ErrorKind as IoErrorKind};
 use async_trait::async_trait;
 use bytes::Bytes;
 use fbthrift::{ApplicationException, ApplicationExceptionErrorCode, BinaryProtocol, Transport};
-use nebula_fbthrift_graph_v3::{
+use nebula_fbthrift_graph::v3::{
     client::{GraphService, GraphServiceImpl},
     dependencies::common::types::ErrorCode,
     errors::graph_service::{AuthenticateError, ExecuteError, ExecuteJsonError, SignoutError},
