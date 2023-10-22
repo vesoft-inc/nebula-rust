@@ -1,0 +1,16 @@
+[package]
+name = "nebula-fbthrift-raftex"
+version = "0.3.0"
+authors = ["vkill <vkill.net@gmail.com>"]
+edition = "2021"
+description = "Nebula Graph raftex interface"
+license = "Apache-2.0 OR MIT"
+repository = "https://github.com/bk-rs/nebula-rs"
+homepage = "https://github.com/bk-rs/nebula-rs"
+documentation = "https://docs.rs/nebula-fbthrift-raftex"
+keywords = []
+categories = []
+readme = "README.md"
+
+[dependencies]
+nebula-fbthrift-raftex-v3 = { version = "^0.3", default-features = false, path = "../nebula-fbthrift-raftex-v3" }
